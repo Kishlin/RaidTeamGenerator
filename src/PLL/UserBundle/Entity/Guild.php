@@ -27,10 +27,16 @@ class Guild extends BaseUser
      */
     private $builds;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Player", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $players;
+
     public function __construct()
     {
         parent::__construct();
         $this->builds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -66,5 +72,40 @@ class Guild extends BaseUser
     public function getBuilds()
     {
         return $this->builds;
+    }
+
+    /**
+     * Add player
+     *
+     * @param \PLL\CoreBundle\Entity\Player $player
+     *
+     * @return Guild
+     */
+    public function addPlayer(\PLL\CoreBundle\Entity\Player $player)
+    {
+        $this->players[] = $player;
+        $player->setGuild($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param \PLL\CoreBundle\Entity\Player $player
+     */
+    public function removePlayer(\PLL\CoreBundle\Entity\Player $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }

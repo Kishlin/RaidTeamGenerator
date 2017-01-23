@@ -5,12 +5,12 @@ namespace PLL\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Build
+ * Player
  *
- * @ORM\Table(name="raid_build")
- * @ORM\Entity(repositoryClass="PLL\CoreBundle\Repository\BuildRepository")
+ * @ORM\Table(name="raid_player")
+ * @ORM\Entity(repositoryClass="PLL\CoreBundle\Repository\PlayerRepository")
  */
-class Build
+class Player
 {
     /**
      * @var int
@@ -29,37 +29,16 @@ class Build
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="img", type="string", length=255)
-     */
-    private $img;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="imgsub", type="string", length=255, nullable=true)
-     */
-    private $imgsub;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="PLL\UserBundle\Entity\Guild", inversedBy="builds")
+     * @ORM\ManyToOne(targetEntity="PLL\UserBundle\Entity\Guild", inversedBy="players")
      * @ORM\JoinColumn(nullable=false)
      */
     private $guild;
 
     /**
-     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Preference", mappedBy="build", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Preference", mappedBy="player", cascade={"persist", "remove"})
      */
     private $preferences;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -76,7 +55,7 @@ class Build
      *
      * @param string $name
      *
-     * @return Build
+     * @return Player
      */
     public function setName($name)
     {
@@ -96,51 +75,11 @@ class Build
     }
 
     /**
-     * Set img
-     *
-     * @param string $img
-     *
-     * @return Build
+     * Constructor
      */
-    public function setImg($img)
+    public function __construct()
     {
-        $this->img = $img;
-
-        return $this;
-    }
-
-    /**
-     * Get img
-     *
-     * @return string
-     */
-    public function getImg()
-    {
-        return $this->img;
-    }
-
-    /**
-     * Set imgsub
-     *
-     * @param string $imgsub
-     *
-     * @return Build
-     */
-    public function setImgsub($imgsub)
-    {
-        $this->imgsub = $imgsub;
-
-        return $this;
-    }
-
-    /**
-     * Get imgsub
-     *
-     * @return string
-     */
-    public function getImgsub()
-    {
-        return $this->imgsub;
+        $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -148,7 +87,7 @@ class Build
      *
      * @param \PLL\UserBundle\Entity\Guild $guild
      *
-     * @return Build
+     * @return Player
      */
     public function setGuild(\PLL\UserBundle\Entity\Guild $guild)
     {
@@ -172,12 +111,12 @@ class Build
      *
      * @param \PLL\CoreBundle\Entity\Preference $preference
      *
-     * @return Build
+     * @return Player
      */
     public function addPreference(\PLL\CoreBundle\Entity\Preference $preference)
     {
         $this->preferences[] = $preference;
-        $preference->setBuild($this);
+        $preference->setPlayer($this);
 
         return $this;
     }

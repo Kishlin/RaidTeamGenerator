@@ -48,6 +48,11 @@ class Build
      */
     private $guild;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Preference", mappedBy="build", cascade={"persist", "remove"})
+     */
+    private $preferences;
+
 
     /**
      * Get id
@@ -130,5 +135,28 @@ class Build
     {
         return $this->imgsub;
     }
-}
 
+    /**
+     * Set guild
+     *
+     * @param \PLL\UserBundle\Entity\Guild $guild
+     *
+     * @return Build
+     */
+    public function setGuild(\PLL\UserBundle\Entity\Guild $guild)
+    {
+        $this->guild = $guild;
+
+        return $this;
+    }
+
+    /**
+     * Get guild
+     *
+     * @return \PLL\UserBundle\Entity\Guild
+     */
+    public function getGuild()
+    {
+        return $this->guild;
+    }
+}

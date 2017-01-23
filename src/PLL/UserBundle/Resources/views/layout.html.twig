@@ -1,0 +1,28 @@
+
+{% extends "PLLCoreBundle::index.html.twig" %}
+
+{% block body %}
+
+<div class="w3-white w3-padding-xxlarge">
+	<div class="project-page">
+
+		<div class="w3-panel w3-border w3-center w3-round w3-card-4 w3-theme w3-text-white">
+		  	<h1 class="w3-text-shadow w3-wide"><b>{% block user_header %}{{ 'user.title.main'|trans }}{% endblock %}</b></h1>
+		</div>
+
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="w3-padding w3-panel w3-theme w3-card-8 flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+{% block fos_user_content %}
+{% endblock fos_user_content %}
+	</div>
+</div>
+
+{% endblock %}

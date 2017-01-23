@@ -15,7 +15,9 @@
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 
-# Parameters
+# Parameters and security
+/app/config/config.yml
+/app/config/security.yml
 /app/config/parameters.yml
 /app/config/parameters.ini
 
@@ -46,3 +48,15 @@
 
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
+
+# Node Modules
+/node_modules/
+
+# Sass Cache
+/.sass-cache/
+
+# iHover sources
+/src/css/ihover/*
+
+# prod css file
+/web/css/main.css

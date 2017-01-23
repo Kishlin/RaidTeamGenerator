@@ -1,0 +1,4 @@
+services:
+#    pll_core.example:
+#        class: PLL\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

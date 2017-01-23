@@ -14,5 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    
+    public function homeAction()
+    {
+    	return $this->render('PLLCoreBundle::landing.html.twig');
+    }
 }

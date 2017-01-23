@@ -5,117 +5,12 @@ pll_core_landing:
         route: pll_core_home
         permanent: true
 
-pll_core_home_default:
-    path:     /home
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_home
-        permanent: true
-
 pll_core_home:
-    path:     /{_locale}/home
-    defaults: { _controller: PLLCoreBundle:Default:home, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_wip_default:
-    path:     /work-in-progress
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_wip
-        permanent: true
-
-pll_core_wip:
-    path:     /{_locale}/work-in-progress
-    defaults: { _controller: PLLCoreBundle:Default:wip, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_portfolio_default:
-    path:     /portfolio
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_portfolio
-        permanent: true
-
-pll_core_portfolio:
-    path:     /{_locale}/portfolio
-    defaults: { _controller: PLLCoreBundle:Default:portfolio, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_resume_default:
-    path:     /resume
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_resume
-        permanent: true
-
-pll_core_resume:
-    path:     /{_locale}/resume
-    defaults: { _controller: PLLCoreBundle:Default:resume, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_contact_default:
-    path:     /contact
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_contact
-        permanent: true
-
-pll_core_contact:
-    path:     /{_locale}/contact
-    defaults: { _controller: PLLCoreBundle:Default:contact, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_project_default:
-    path:     /project/{project_slug}
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_project
-        permanent: true
-
-pll_core_project:
-    path:     /{_locale}/project/{project_slug}
-    defaults: { _controller: PLLCoreBundle:Default:project, _locale: fr }
-    requirements:
-        _locale: fr|en
-
-pll_core_category_default:
-    path:     /category/{category_slug}
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_category
-        permanent: true
-
-pll_core_category:
-    path:     /{_locale}/category/{category_slug}
-    defaults: { _controller: PLLCoreBundle:Default:category, _locale: fr }
+    path:     /{_locale}/
+    defaults: { _controller: PLLCoreBundle:Default:home, _locale: en }
     requirements:
         _locale: fr|en
 
 pll_core_admin_home:
     path:     /admin
     defaults: { _controller: PLLCoreBundle:Admin:home }
-
-pll_core_admin_experiences:
-    path:     /admin/experiences
-    defaults: { _controller: PLLCoreBundle:Admin:experiences }
-
-pll_core_admin_academics:
-    path:     /admin/academics
-    defaults: { _controller: PLLCoreBundle:Admin:academics }
-
-pll_core_admin_interests:
-    path:     /admin/interests
-    defaults: { _controller: PLLCoreBundle:Admin:interests }
-
-pll_core_admin_projects:
-    path:     /admin/projects
-    defaults: { _controller: PLLCoreBundle:Admin:projects }
-
-pll_core_admin_skills:
-    path:     /admin/skills
-    defaults: { _controller: PLLCoreBundle:Admin:skills }

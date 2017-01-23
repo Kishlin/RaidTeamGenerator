@@ -1,0 +1,24 @@
+$mainsize: 30px;
+$subsize: 15px;
+
+.build-image {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: $mainsize;
+	height: $mainsize;
+	.main {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: $mainsize;
+		height: $mainsize;
+	}
+	.sub {
+		position: absolute;
+		top: $mainsize - $subsize;
+		left: $mainsize - $subsize;
+		width: $subsize;
+		height: $subsize;
+	}
+}

@@ -1,4 +1,7 @@
 services:
-#    pll_core.example:
-#        class: PLL\CoreBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    pll_core.buildfactory:
+        class: PLL\CoreBundle\Factory\BuildFactory
+    pll_core.defaultbuilds:
+        class: PLL\CoreBundle\Service\DefaultBuilds
+        arguments:
+          - "@pll_core.buildfactory"

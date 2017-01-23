@@ -1,0 +1,16 @@
+{% extends 'PLLCoreBundle:Guild:build.html.twig' %}
+
+{% block buildbody %}
+<div class="w3-section">
+	{{ form(form) }}
+</div>
+
+<div class="w3-section">
+	<h2>{{ 'build.title.preview'|trans }}</h2>
+
+	<div class="build-image">
+		<img id="build_img" src="" class="main">
+		<img id="build_imgsub" src="" class="sub">
+	</div>
+</div>
+{% endblock %}

@@ -22,6 +22,11 @@ class Guild extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Build", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $builds;
+
     public function __construct()
     {
         parent::__construct();

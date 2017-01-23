@@ -22,8 +22,49 @@ class Guild extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Build", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $builds;
+
     public function __construct()
     {
         parent::__construct();
+        $this->builds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add build
+     *
+     * @param \PLL\CoreBundle\Entity\Build $build
+     *
+     * @return Guild
+     */
+    public function addBuild(\PLL\CoreBundle\Entity\Build $build)
+    {
+        $this->builds[] = $build;
+        $build->setGuild($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove build
+     *
+     * @param \PLL\CoreBundle\Entity\Build $build
+     */
+    public function removeBuild(\PLL\CoreBundle\Entity\Build $build)
+    {
+        $this->builds->removeElement($build);
+    }
+
+    /**
+     * Get builds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBuilds()
+    {
+        return $this->builds;
     }
 }

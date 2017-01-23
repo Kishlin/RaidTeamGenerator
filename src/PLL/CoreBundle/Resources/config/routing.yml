@@ -15,6 +15,44 @@ pll_core_home:
     requirements:
         _locale: fr|en
 
+pll_core_players:
+    path:     /{_locale}/players
+    defaults: { _controller: PLLCoreBundle:Guild:players, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_builds:
+    path:     /{_locale}/builds
+    defaults: { _controller: PLLCoreBundle:Build:build, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_builds_new:
+    path:     /{_locale}/builds/new
+    defaults: { _controller: PLLCoreBundle:Build:newbuild, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_builds_add_default:
+    path:     /{_locale}/builds/add-default
+    defaults: { _controller: PLLCoreBundle:Build:adddefault, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_builds_edit:
+    path:     /{_locale}/builds/edit/{id}
+    defaults: { _controller: PLLCoreBundle:Build:editbuild, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
+
+pll_core_builds_delete:
+    path:     /{_locale}/builds/delete/{id}
+    defaults: { _controller: PLLCoreBundle:Build:deletebuild, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
+
 pll_core_admin_home:
     path:     /admin
     defaults: { _controller: PLLCoreBundle:Admin:home }

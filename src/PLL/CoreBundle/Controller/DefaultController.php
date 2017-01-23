@@ -14,8 +14,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function homeAction()
+	public function welcomeAction()
     {
-    	return $this->render('PLLCoreBundle::landing.html.twig');
+    	$securityContext = $this->container->get('security.authorization_checker');
+		if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+    		return $this->redirectToRoute('pll_core_home');
+		} else {
+			return $this->redirectToRoute('pll_core_landing');
+		}
     }
+
+    public function landingAction()
+	{
+    	return $this->render('PLLCoreBundle::landing.html.twig');
+	}
+	
 }

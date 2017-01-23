@@ -12,14 +12,14 @@ group:
 
 security:
     login:
-        username: Username
+        username: Guild Name
         password: Password
         remember_me: 'Remember me'
         submit: 'Log in'
 
 profile:
     show:
-        username: Username
+        username: Guild Name
         email: Email
     edit:
         submit: Update
@@ -34,7 +34,7 @@ change_password:
 registration:
     check_email: 'An email has been sent to %email%. It contains an activation link you must click to activate your account.'
     confirmed: 'Congrats %username%, your account is now activated.'
-    back: 'Back to the originating page.'
+    back: 'Go to your guild''s homepage.'
     submit: Register
     flash:
         user_created: 'The user has been created successfully.'
@@ -57,7 +57,7 @@ resetting:
 
         If you don't get an email check your spam folder or try again.
     request:
-        username: 'Username or email address'
+        username: 'Guild Name or email address'
         submit: 'Reset password'
     reset:
         submit: 'Change password'
@@ -83,7 +83,7 @@ layout:
 
 form:
     group_name: 'Group name'
-    username: Username
+    username: Guild Name
     email: Email
     current_password: 'Current password'
     password: Password

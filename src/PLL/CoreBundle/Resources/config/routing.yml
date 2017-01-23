@@ -1,13 +1,17 @@
-pll_core_landing:
+pll_core_welcome:
     path:     /
     defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: pll_core_home
-        permanent: true
+    defaults: { _controller: PLLCoreBundle:Default:welcome, _locale: en }
+
+pll_core_landing:
+    path:     /{_locale}/
+    defaults: { _controller: PLLCoreBundle:Default:landing, _locale: en }
+    requirements:
+        _locale: fr|en
 
 pll_core_home:
-    path:     /{_locale}/
-    defaults: { _controller: PLLCoreBundle:Default:home, _locale: en }
+    path:     /{_locale}/home
+    defaults: { _controller: PLLCoreBundle:Guild:home, _locale: en }
     requirements:
         _locale: fr|en
 

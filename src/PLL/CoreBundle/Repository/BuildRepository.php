@@ -10,4 +10,19 @@ namespace PLL\CoreBundle\Repository;
  */
 class BuildRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getBuildsWithPreferences($guild_id) 
+	{
+		$query = $this
+			->createQueryBuilder("b")
+			->where("b.guild = ?1")
+			->leftJoin("b.preferences", "p")
+			->addSelect("p")
+			->setParameter(1, $guild_id)
+		;
+
+		return $query
+			->getQuery()
+			->getResult()
+		;
+	}
 }

@@ -1,0 +1,19 @@
+{% extends 'PLLCoreBundle:Guild:player.html.twig' %}
+
+{% block playerbody %}
+
+<p>{{ 'player.delete.alert'|trans({'%player%': player.name}) }}</p>
+
+
+<form action="{{ path('pll_core_players_delete', {'_locale': app.request.locale, 'id': player.id}) }}" method="post">
+    <a href="{{ path('pll_core_players', {'_locale': app.request.locale}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      {{ 'player.button.delete.cancel'|trans }}
+    </a>
+
+    <input type="submit" value="{{ 'player.button.delete.confirm'|trans }}" class="btn btn-danger" />
+    
+    {{ form_rest(form) }}
+</form>
+
+{% endblock %}

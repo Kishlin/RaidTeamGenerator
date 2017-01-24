@@ -1,0 +1,27 @@
+{% extends 'PLLCoreBundle:Guild:player.html.twig' %}
+
+{% block playerbody %}
+<div class="w3-section">
+	{{ form_start(form) }}
+
+	{{ form_row(form.name) }}
+
+	<div class="form-group">
+	<label>{{ 'player.label.preferences'|trans }}</label>
+	{% for build in builds %}
+	    <div>
+			<div class="build-image w3-margin-bottom">
+				<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
+				<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
+			</div>
+			<input class="form-control" type="number" min="0" max="10" name="{{ 'pref-build-' ~ build.id }}" value="{{ build.getPreferenceForPlayer(player).level }}">
+	    </div>
+	{% endfor %}
+	</div>
+
+    {{ form_row(form.save, { 'label': 'player.add.submit'|trans }) }}
+
+	{{ form_end(form) }}
+</div>
+
+{% endblock %}

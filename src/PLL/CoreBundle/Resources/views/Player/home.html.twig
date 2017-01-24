@@ -1,0 +1,47 @@
+{% extends 'PLLCoreBundle:Guild:player.html.twig' %}
+
+{% block playerbody %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage }}</div>
+{% endfor %}
+
+<div class="w3-section">
+	<a class="btn btn-primary" href="{{ path('pll_core_players_new') }}">player.button.new</a>
+</div>
+
+<div class="w3-section w3-responsive">
+{% if not players is empty %}
+	<table class="players-table w3-table-all w3-card-4 table-bordered">
+		<tr class="w3-blue">
+			<th>{{ 'player.tableheader.name'|trans }}</th>
+{% for build in builds %}
+    		<th>
+    			<div class="build-image w3-margin-bottom" data-toggle="build-tooltip" title="{{ build.name }}">
+					<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
+					<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
+				</div>
+    		</th>
+{% endfor %}
+			<th>{{ 'player.tableheader.actions'|trans }}</th>
+		</tr>
+{% for player in players %}
+		<tr>
+			<td>{{ player.name }}</td>
+{% for build in builds %}
+			<td>{{ build.getPreferenceForPlayer(player).level }}</td>
+{% endfor %}
+			<td><a href="{{ path("pll_core_players_edit", {'_locale': app.request.locale, 'id': player.id}) }}">{{ 'player.button.edit'|trans }}</a> - <a href="{{ path("pll_core_players_delete", {'_locale': app.request.locale, 'id': player.id}) }}">{{ 'player.button.delete'|trans }}</a></td>
+		</tr>
+{% endfor %}
+	</table>
+{% else %}
+  	<div class="w3-panel w3-padding w3-blue">{{ 'player.message.none' }}</div>
+{% endif %}
+</div>
+
+<div class="w3-section">
+	<a class="btn btn-primary" href="{{ path('pll_core_players_new') }}">player.button.new</a>
+</div>
+
+{% endblock %}

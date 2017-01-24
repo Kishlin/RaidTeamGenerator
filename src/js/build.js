@@ -3,3 +3,6 @@ $( ".page-build select" ).change(function(){
 	img.attr("src", "/bundles/pllcore/images/"+this.id+"/"+this.value+".png");
 }).change();
 
+$(document).ready(function(){
+    $('[data-toggle="build-tooltip"]').tooltip();   
+});

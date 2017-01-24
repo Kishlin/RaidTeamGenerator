@@ -17,9 +17,29 @@ pll_core_home:
 
 pll_core_players:
     path:     /{_locale}/players
-    defaults: { _controller: PLLCoreBundle:Guild:players, _locale: en }
+    defaults: { _controller: PLLCoreBundle:Player:players, _locale: en }
     requirements:
         _locale: fr|en
+
+pll_core_players_new:
+    path:     /{_locale}/players/new
+    defaults: { _controller: PLLCoreBundle:Player:newplayer, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_players_edit:
+    path:     /{_locale}/players/edit/{id}
+    defaults: { _controller: PLLCoreBundle:Player:editplayer, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
+
+pll_core_players_delete:
+    path:     /{_locale}/players/delete/{id}
+    defaults: { _controller: PLLCoreBundle:Player:deleteplayer, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
 
 pll_core_builds:
     path:     /{_locale}/builds

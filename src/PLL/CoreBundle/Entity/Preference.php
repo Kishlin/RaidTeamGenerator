@@ -85,6 +85,7 @@ class Preference
     public function setPlayer(\PLL\CoreBundle\Entity\Player $player)
     {
         $this->player = $player;
+        $player->addPreference($this);
 
         return $this;
     }
@@ -109,6 +110,7 @@ class Preference
     public function setBuild(\PLL\CoreBundle\Entity\Build $build)
     {
         $this->build = $build;
+        $build->addPreference($this);
 
         return $this;
     }

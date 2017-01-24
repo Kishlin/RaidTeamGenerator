@@ -116,7 +116,6 @@ class Player
     public function addPreference(\PLL\CoreBundle\Entity\Preference $preference)
     {
         $this->preferences[] = $preference;
-        $preference->setPlayer($this);
 
         return $this;
     }
@@ -139,5 +138,43 @@ class Player
     public function getPreferences()
     {
         return $this->preferences;
+    }
+
+    /**
+     * Get preference for a specific build 
+     * 
+     * @param  \PLL\CoreBundle\Entity\Build $build 
+     * 
+     * @return \PLL\CoreBundle\Entity\Preference                           
+     */
+    public function getPreferenceForBuild(\PLL\CoreBundle\Entity\Build $build)
+    {
+        foreach($this->preferences as $preference) {
+            if($preference->getBuild() === $build) {
+                return $preference;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Sets preference for a specific build 
+     * 
+     * @param  \PLL\CoreBundle\Entity\Build $build 
+     * @param  integer                      $level
+     * 
+     * @return \PLL\CoreBundle\Entity\Preference                           
+     */
+    public function setPreferenceForBuild(\PLL\CoreBundle\Entity\Build $build, $level)
+    {
+        foreach($this->preferences as $preference) {
+            if($preference->getBuild() === $build) {
+                $preference->setLevel($level);
+                return $this;
+            }
+        }
+
+        return $this;
     }
 }

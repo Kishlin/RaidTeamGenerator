@@ -2,6 +2,7 @@
 
 namespace PLL\CoreBundle\Controller;
 
+use PLL\CoreBundle\Entity\Preference;
 use PLL\CoreBundle\Entity\Build;
 use PLL\UserBundle\Entity\Guild;
 
@@ -29,6 +30,13 @@ class BuildController extends Controller
     	$form = $this->get('form.factory')->create(BuildType::class, $build);
 
     	if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            foreach ($this->getUser()->getPlayers() as $player) {
+                $preference = new Preference();
+                $preference->setLevel(0);
+                $preference->setPlayer($player);
+                $preference->setBuild($build);
+            }
+
     		$this->getUser()->addBuild($build);
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($build);
@@ -108,6 +116,13 @@ class BuildController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             foreach ($defaultbuilds as $build) {
+                foreach ($this->getUser()->getPlayers() as $player) {
+                    $preference = new Preference();
+                    $preference->setLevel(0);
+                    $preference->setPlayer($player);
+                    $preference->setBuild($build);
+                }
+            
                 $this->getUser()->addBuild($build);
                 $em->persist($build);
             }

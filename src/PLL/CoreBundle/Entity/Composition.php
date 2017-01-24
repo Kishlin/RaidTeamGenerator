@@ -42,7 +42,7 @@ class Composition
     private $guild;
 
     /**
-     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", mappedBy="composition")
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", mappedBy="composition", cascade={"persist", "remove"})
      */
     private $groups;
 
@@ -139,13 +139,14 @@ class Composition
     /**
      * Add group
      *
-     * @param \PLL\UserBundle\Entity\CompositionGroup $group
+     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
      *
      * @return Composition
      */
-    public function addGroup(\PLL\UserBundle\Entity\CompositionGroup $group)
+    public function addGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
     {
         $this->groups[] = $group;
+        $group->setComposition($this);
 
         return $this;
     }
@@ -153,9 +154,9 @@ class Composition
     /**
      * Remove group
      *
-     * @param \PLL\UserBundle\Entity\CompositionGroup $group
+     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
      */
-    public function removeGroup(\PLL\UserBundle\Entity\CompositionGroup $group)
+    public function removeGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
     {
         $this->groups->removeElement($group);
     }

@@ -1,0 +1,135 @@
+{% extends 'PLLCoreBundle:Guild:composition.html.twig' %}
+
+{% block compositionbody %}
+<div class="w3-section">
+	{{ form_start(form) }}
+
+	{{ form_row(form.name) }}
+
+	{{ form_row(form.boss) }}
+
+	<div style="display: none;" id="build-display-prototype">
+		<div style="display: inline-block;">
+			<div class="build-image" data-toggle="build-tooltip" title="__tooltip__">
+				<img id="build_img" src="/bundles/pllcore/images/build_img/__img__.png" class="main">
+				<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/__sub__.png" class="sub">
+			</div>
+		</div>
+	</div>
+
+	<div style="display: none;" id="group-form-prototype">
+		<div class="container-group" id="container-group-__id__">
+		    <label class="control-label required">{{ 'composition.group'|trans }} __label__</label>
+		    <div class="row">
+			    <div class="col-md-7 group-bouttons">
+				    <div class="row">
+{% for build in builds %}
+						<button class="col-xs-3 col-sm-2 group-prof-button text-center w3-white w3-border-0 w3-ripple" group="__id__" build="{{ build.id }}" img="{{ build.img }}" sub="{{ build.imgsub }}" title="{{ build.name }}" type="button">
+				    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ build.name }}">
+								<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
+								<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
+							</div>
+						</button>
+{% endfor %}
+						<button class="col-xs-3 col-sm-2 group-prof-remove text-center w3-white w3-border-0 w3-ripple" group="__id__" type="button">
+				    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ 'composition.button.cleargroup'|trans }}">
+								<img id="build_img" src="/bundles/pllcore/images/build_img/Remove.png" class="main">
+							</div>
+						</button>
+				    </div>
+				</div> 
+				<div class="col-md-5 composition-group-label">
+					<div style="height: 45px;" class="w3-section form-control input-md group-prof-display" id="display-__id__"></div>
+				</div>
+			    <input id="group-__id__" name="group-__id__" type="hidden" value="" >
+		    </div>
+    	</div>
+    </div>
+	
+	<div class="composition-form-groups" id="composition-groups"></div>
+	
+	<a href="#" id="add_group" class="btn btn-default w3-section">{{ 'composition.group.add'|trans }}</a>
+
+	<input id="group-index-input" type="hidden" name="group-index" value="">
+
+    {{ form_row(form.save, { 'label': 'composition.add.submit'|trans }) }}
+
+	{{ form_end(form) }}
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $container = $('div#composition-groups');
+		var index = $container.find('.container-group').length;
+		var inputindex = $('#group-index-input');
+		inputindex.val(index);
+		$('#add_group').click(function(e) {
+			addGroup($container);
+	        e.preventDefault();
+	        return false;
+	 	});
+
+		if (index == 0) {
+			addGroup($container);
+		} else {
+			$container.children('div.container-group').each(function() {
+				addDeleteLink($(this));
+			});
+		}
+
+		function addGroup($container) {
+			var template = $('div#group-form-prototype').html()
+			.replace(/__label__/g, (index+1))
+			.replace(/__id__/g,    index)
+			;
+			var $prototype = $(template);
+			$prototype.find('.group-prof-button').click(handleBuildClicked);
+			$prototype.find('.group-prof-remove').click(handleClearGroup);
+			addDeleteLink($prototype);
+			$container.append($prototype);
+			inputindex.val(index);
+			index++;
+		}
+
+		function addDeleteLink($prototype) {
+			var $deleteLink = $('<a href="#" class="w3-section btn btn-danger">{{ "composition.group.remove"|trans }}</a>');
+			$prototype.append($deleteLink);
+			$deleteLink.click(function(e) {
+				$prototype.remove();
+		        e.preventDefault();
+		        return false;
+		    });
+		}
+
+		function handleBuildClicked() {
+			var tooltip = $(this).attr('title');
+			var group = $(this).attr('group');
+			var build = $(this).attr('build');
+			var img = $(this).attr('img');
+			var sub = $(this).attr('sub');
+			var icon = $('div#build-display-prototype').html()
+				.replace(/__tooltip__/g, tooltip)
+				.replace(/__img__/g,     img)
+				.replace(/__sub__/g,     sub)
+			;
+			var $label = $(icon);
+			$('div.group-prof-display#display-'+group).append($label);
+
+			$('input#group-'+group).val(function( index, value ) {
+				if( value == '' ) {
+					return build;
+				} else {
+					return value + ',' + build;
+				}
+			});
+		}
+
+		function handleClearGroup() {
+			var group = $(this).attr('group');
+			$('div.group-prof-display#display-'+group).html("");
+			$('input#group-'+group).val("");
+		}
+	});
+</script>
+
+{% endblock %}

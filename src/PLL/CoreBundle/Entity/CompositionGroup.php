@@ -22,13 +22,6 @@ class CompositionGroup
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
-
-    /**
      * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Composition", inversedBy="groups")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -37,7 +30,7 @@ class CompositionGroup
     /**
      * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroupBuild", mappedBy="group", cascade={"persist", "remove"})
      */
-    private $builds;
+    private $groupbuilds;
 
     /**
      * Constructor
@@ -58,37 +51,13 @@ class CompositionGroup
     }
 
     /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return CompositionGroup
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Set composition
      *
-     * @param \PLL\UserBundle\Entity\Composition $composition
+     * @param \PLL\CoreBundle\Entity\Composition $composition
      *
      * @return CompositionGroup
      */
-    public function setComposition(\PLL\UserBundle\Entity\Composition $composition)
+    public function setComposition(\PLL\CoreBundle\Entity\Composition $composition)
     {
         $this->composition = $composition;
 
@@ -98,7 +67,7 @@ class CompositionGroup
     /**
      * Get composition
      *
-     * @return \PLL\UserBundle\Entity\Composition
+     * @return \PLL\CoreBundle\Entity\Composition
      */
     public function getComposition()
     {
@@ -106,36 +75,51 @@ class CompositionGroup
     }
 
     /**
-     * Add build
+     * Add groupbuild
      *
-     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $build
+     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $groupbuild
      *
      * @return CompositionGroup
      */
-    public function addBuild(\PLL\CoreBundle\Entity\CompositionGroupBuild $build)
+    public function addGroupbuild(\PLL\CoreBundle\Entity\CompositionGroupBuild $groupbuild)
     {
-        $this->builds[] = $build;
+        $this->groupbuilds[] = $groupbuild;
+        $groupbuild->setGroup($this);
 
         return $this;
     }
 
     /**
-     * Remove build
+     * Remove groupbuild
      *
-     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $build
+     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $groupbuild
      */
-    public function removeBuild(\PLL\CoreBundle\Entity\CompositionGroupBuild $build)
+    public function removeGroupbuild(\PLL\CoreBundle\Entity\CompositionGroupBuild $groupbuild)
     {
-        $this->builds->removeElement($build);
+        $this->groupbuilds->removeElement($groupbuild);
     }
 
     /**
-     * Get builds
+     * Get groupbuilds
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBuilds()
+    public function getGroupbuilds()
     {
-        return $this->builds;
+        return $this->groupbuilds;
+    }
+
+    /**
+     * Adds a build to the group.
+     * 
+     * @param PLLCoreBundleEntityBuild $groupbuild [description]
+     */
+    public function addBuild(\PLL\CoreBundle\Entity\Build $build) 
+    {
+        $groupbuild = new \PLL\CoreBundle\Entity\CompositionGroupBuild();
+        $build->addGroup($groupbuild);
+        $this->addGroupbuild($groupbuild);
+
+        return $this;
     }
 }

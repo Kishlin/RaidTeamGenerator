@@ -41,6 +41,32 @@ pll_core_players_delete:
         _locale: fr|en
         id: \d+
 
+pll_core_compositions:
+    path:     /{_locale}/compositions
+    defaults: { _controller: PLLCoreBundle:Composition:compositions, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_compositions_new:
+    path:     /{_locale}/compositions/new
+    defaults: { _controller: PLLCoreBundle:Composition:newcomposition, _locale: en }
+    requirements:
+        _locale: fr|en
+
+pll_core_compositions_edit:
+    path:     /{_locale}/compositions/edit/{id}
+    defaults: { _controller: PLLCoreBundle:Composition:editcomposition, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
+
+pll_core_compositions_delete:
+    path:     /{_locale}/compositions/delete/{id}
+    defaults: { _controller: PLLCoreBundle:Composition:deletecomposition, _locale: en }
+    requirements:
+        _locale: fr|en
+        id: \d+
+
 pll_core_builds:
     path:     /{_locale}/builds
     defaults: { _controller: PLLCoreBundle:Build:build, _locale: en }

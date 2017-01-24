@@ -1,0 +1,38 @@
+{% extends 'PLLCoreBundle:Guild:composition.html.twig' %}
+
+{% block compositionbody %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage }}</div>
+{% endfor %}
+
+<div class="w3-section">
+	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">composition.button.new</a>
+</div>
+
+<div class="w3-section w3-responsive">
+{% if not compositions is empty %}
+	<table class="compositions-table w3-table-all w3-card-4 table-bordered">
+		<tr class="w3-blue">
+			<th>{{ 'composition.tableheader.name'|trans }}</th>
+			<th>{{ 'composition.tableheader.boss'|trans }}</th>
+			<th>{{ 'composition.tableheader.actions'|trans }}</th>
+		</tr>
+{% for composition in compositions %}
+		<tr>
+			<td>{{ composition.name }}</td>
+			<td>{{ composition.boss|trans }}</td>
+			<td><a href="{{ path("pll_core_compositions_edit", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.edit'|trans }}</a> - <a href="{{ path("pll_core_compositions_delete", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.delete'|trans }}</a></td>
+		</tr>
+{% endfor %}
+	</table>
+{% else %}
+  	<div class="w3-panel w3-padding w3-blue">{{ 'composition.message.none' }}</div>
+{% endif %}
+</div>
+
+<div class="w3-section">
+	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">composition.button.new</a>
+</div>
+
+{% endblock %}

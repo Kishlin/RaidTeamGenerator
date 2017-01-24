@@ -1,0 +1,19 @@
+{% extends 'PLLCoreBundle:Guild:composition.html.twig' %}
+
+{% block compositionbody %}
+
+<p>{{ 'composition.delete.alert'|trans({'%composition%': composition.name}) }}</p>
+
+
+<form action="{{ path('pll_core_compositions_delete', {'_locale': app.request.locale, 'id': composition.id}) }}" method="post">
+    <a href="{{ path('pll_core_compositions', {'_locale': app.request.locale}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      {{ 'composition.button.delete.cancel'|trans }}
+    </a>
+
+    <input type="submit" value="{{ 'composition.button.delete.confirm'|trans }}" class="btn btn-danger" />
+    
+    {{ form_rest(form) }}
+</form>
+
+{% endblock %}

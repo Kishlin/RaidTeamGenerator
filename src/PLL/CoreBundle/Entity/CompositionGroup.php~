@@ -22,14 +22,7 @@ class CompositionGroup
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="PLL\UserBundle\Entity\Composition", inversedBy="groups")
+     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Composition", inversedBy="groups")
      * @ORM\JoinColumn(nullable=false)
      */
     private $composition;
@@ -37,8 +30,15 @@ class CompositionGroup
     /**
      * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroupBuild", mappedBy="group", cascade={"persist", "remove"})
      */
-    private $builds;
+    private $groupbuilds;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->builds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -51,27 +51,26 @@ class CompositionGroup
     }
 
     /**
-     * Set position
+     * Set composition
      *
-     * @param integer $position
+     * @param \PLL\CoreBundle\Entity\Composition $composition
      *
      * @return CompositionGroup
      */
-    public function setPosition($position)
+    public function setComposition(\PLL\CoreBundle\Entity\Composition $composition)
     {
-        $this->position = $position;
+        $this->composition = $composition;
 
         return $this;
     }
 
     /**
-     * Get position
+     * Get composition
      *
-     * @return int
+     * @return \PLL\CoreBundle\Entity\Composition
      */
-    public function getPosition()
+    public function getComposition()
     {
-        return $this->position;
+        return $this->composition;
     }
 }
-

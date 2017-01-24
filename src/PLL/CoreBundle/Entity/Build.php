@@ -212,7 +212,7 @@ class Build
      * 
      * @param  \PLL\CoreBundle\Entity\Player $player 
      * 
-     * @return \PLL\CoreBundle\Entity\Preference                           
+     * @return integer                          
      */
     public function getPreferenceForPlayer(\PLL\CoreBundle\Entity\Player $player)
     {
@@ -235,6 +235,7 @@ class Build
     public function addGroup(\PLL\CoreBundle\Entity\CompositionGroupBuild $group)
     {
         $this->groups[] = $group;
+        $group->setBuild($this);
 
         return $this;
     }

@@ -22,14 +22,7 @@ class CompositionGroupBuild
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="quantity", type="integer")
-     */
-    private $quantity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", inversedBy="builds")
+     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", inversedBy="groupbuilds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $group;
@@ -52,40 +45,15 @@ class CompositionGroupBuild
     }
 
     /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return CompositionGroupBuild
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return int
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
      * Set group
      *
-     * @param \PLL\UserBundle\Entity\CompositionGroup $group
+     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
      *
      * @return CompositionGroupBuild
      */
-    public function setGroup(\PLL\UserBundle\Entity\CompositionGroup $group)
+    public function setGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
     {
         $this->group = $group;
-        $group->addBuild($this);
 
         return $this;
     }
@@ -93,7 +61,7 @@ class CompositionGroupBuild
     /**
      * Get group
      *
-     * @return \PLL\UserBundle\Entity\CompositionGroup
+     * @return \PLL\CoreBundle\Entity\CompositionGroup
      */
     public function getGroup()
     {
@@ -103,14 +71,13 @@ class CompositionGroupBuild
     /**
      * Set build
      *
-     * @param \PLL\UserBundle\Entity\Build $build
+     * @param \PLL\CoreBundle\Entity\Build $build
      *
      * @return CompositionGroupBuild
      */
-    public function setBuild(\PLL\UserBundle\Entity\Build $build)
+    public function setBuild(\PLL\CoreBundle\Entity\Build $build)
     {
         $this->build = $build;
-        $build->addGroup($this);
 
         return $this;
     }

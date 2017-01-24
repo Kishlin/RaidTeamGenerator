@@ -47,6 +47,13 @@ class Composition
     private $groups;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="size", type="integer")
+     */
+    private $size;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -169,5 +176,29 @@ class Composition
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * Set size
+     *
+     * @param integer $size
+     *
+     * @return Composition
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return integer
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

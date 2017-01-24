@@ -16,12 +16,27 @@
 		<tr class="w3-blue">
 			<th>{{ 'composition.tableheader.name'|trans }}</th>
 			<th>{{ 'composition.tableheader.boss'|trans }}</th>
+			<th>{{ 'composition.tableheader.preview'|trans }}</th>
+			<th>{{ 'composition.tableheader.size'|trans }}</th>
 			<th>{{ 'composition.tableheader.actions'|trans }}</th>
 		</tr>
 {% for composition in compositions %}
 		<tr>
 			<td>{{ composition.name }}</td>
 			<td>{{ composition.boss|trans }}</td>
+			<td>
+{% for group in composition.groups %}
+			<p>
+{% for groupbuild in group.groupbuilds %}
+		    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ groupbuild.build.name }}">
+						<img id="build_img" src="/bundles/pllcore/images/build_img/{{ groupbuild.build.img }}.png" class="main">
+						<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ groupbuild.build.imgsub }}.png" class="sub">
+					</div>
+{% endfor %}
+			</p>
+{% endfor %}
+			</td>
+			<td>{{ composition.size }}</td>
 			<td><a href="{{ path("pll_core_compositions_edit", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.edit'|trans }}</a> - <a href="{{ path("pll_core_compositions_delete", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.delete'|trans }}</a></td>
 		</tr>
 {% endfor %}

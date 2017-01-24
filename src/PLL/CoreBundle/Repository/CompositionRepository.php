@@ -10,4 +10,23 @@ namespace PLL\CoreBundle\Repository;
  */
 class CompositionRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getCompositionsFull($guild_id) 
+	{
+		$query = $this
+			->createQueryBuilder("c")
+			->where("c.guild = ?1")
+			->leftJoin("c.groups", "gp")
+			->addSelect("gp")
+			->leftJoin("gp.groupbuilds", "gb")
+			->addSelect("gb")
+			->leftJoin("gb.build", "b")
+			->addSelect("b")
+			->setParameter(1, $guild_id)
+		;
+
+		return $query
+			->getQuery()
+			->getResult()
+		;
+	}
 }

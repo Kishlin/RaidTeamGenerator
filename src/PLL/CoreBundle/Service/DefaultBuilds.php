@@ -23,7 +23,8 @@ class DefaultBuilds
 
         $builds[] = $this->factory->createBuild("Power Berserker", "Berserker", "None");
         $builds[] = $this->factory->createBuild("Condi Berserker", "Berserker", "Burning");
-        $builds[] = $this->factory->createBuild("Tempest", "Tempest", "None");
+        $builds[] = $this->factory->createBuild("Tempest Staff", "Tempest", "None");
+        $builds[] = $this->factory->createBuild("Tempest Fresh Air Staff", "Tempest", "None");
         $builds[] = $this->factory->createBuild("Dragonhunter", "Dragonhunter", "None");
         $builds[] = $this->factory->createBuild("Daredeveil", "Daredevil", "None");
         $builds[] = $this->factory->createBuild("Chronomancer", "Chronomancer", "None");

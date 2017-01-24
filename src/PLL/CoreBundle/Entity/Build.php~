@@ -53,6 +53,18 @@ class Build
      */
     private $preferences;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroupBuild", mappedBy="build", cascade={"persist", "remove"})
+     */
+    private $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -158,5 +170,57 @@ class Build
     public function getGuild()
     {
         return $this->guild;
+    }
+
+    /**
+     * Add preference
+     *
+     * @param \PLL\CoreBundle\Entity\Preference $preference
+     *
+     * @return Build
+     */
+    public function addPreference(\PLL\CoreBundle\Entity\Preference $preference)
+    {
+        $this->preferences[] = $preference;
+
+        return $this;
+    }
+
+    /**
+     * Remove preference
+     *
+     * @param \PLL\CoreBundle\Entity\Preference $preference
+     */
+    public function removePreference(\PLL\CoreBundle\Entity\Preference $preference)
+    {
+        $this->preferences->removeElement($preference);
+    }
+
+    /**
+     * Get preferences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPreferences()
+    {
+        return $this->preferences;
+    }
+
+    /**
+     * Get preference for a specific player 
+     * 
+     * @param  \PLL\CoreBundle\Entity\Player $player 
+     * 
+     * @return \PLL\CoreBundle\Entity\Preference                           
+     */
+    public function getPreferenceForPlayer(\PLL\CoreBundle\Entity\Player $player)
+    {
+        foreach($this->preferences as $preference) {
+            if($preference->getPlayer() === $player) {
+                return $preference;
+            }
+        }
+
+        return null;
     }
 }

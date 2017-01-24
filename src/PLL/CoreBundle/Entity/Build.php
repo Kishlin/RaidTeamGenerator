@@ -54,11 +54,17 @@ class Build
     private $preferences;
 
     /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroupBuild", mappedBy="build", cascade={"persist", "remove"})
+     */
+    private $groups;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->groups      = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -217,5 +223,39 @@ class Build
         }
 
         return null;
+    }
+
+    /**
+     * Add group
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $group
+     *
+     * @return Build
+     */
+    public function addGroup(\PLL\CoreBundle\Entity\CompositionGroupBuild $group)
+    {
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionGroupBuild $group
+     */
+    public function removeGroup(\PLL\CoreBundle\Entity\CompositionGroupBuild $group)
+    {
+        $this->groups->removeElement($group);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

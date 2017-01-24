@@ -32,11 +32,17 @@ class Guild extends BaseUser
      */
     private $players;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Composition", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $compositions;
+
     public function __construct()
     {
         parent::__construct();
-        $this->builds = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->builds       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->compositions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -107,5 +113,40 @@ class Guild extends BaseUser
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    /**
+     * Add composition
+     *
+     * @param \PLL\CoreBundle\Entity\Composition $composition
+     *
+     * @return Guild
+     */
+    public function addComposition(\PLL\CoreBundle\Entity\Composition $composition)
+    {
+        $this->compositions[] = $composition;
+        $composition->setGuild($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove composition
+     *
+     * @param \PLL\CoreBundle\Entity\Composition $composition
+     */
+    public function removeComposition(\PLL\CoreBundle\Entity\Composition $composition)
+    {
+        $this->compositions->removeElement($composition);
+    }
+
+    /**
+     * Get compositions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompositions()
+    {
+        return $this->compositions;
     }
 }

@@ -1,0 +1,78 @@
+<?php
+
+namespace PLL\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CompositionGroupBuild
+ *
+ * @ORM\Table(name="raid_composition_group_build")
+ * @ORM\Entity(repositoryClass="PLL\CoreBundle\Repository\CompositionGroupBuildRepository")
+ */
+class CompositionGroupBuild
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="quantity", type="integer")
+     */
+    private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PLL\UserBundle\Entity\CompositionGroup", inversedBy="builds")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $group;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PLL\UserBundle\Entity\Build", inversedBy="groups")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $build;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return CompositionGroupBuild
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+}
+

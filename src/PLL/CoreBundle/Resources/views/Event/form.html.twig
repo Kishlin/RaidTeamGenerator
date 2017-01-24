@@ -1,0 +1,15 @@
+{% extends 'PLLCoreBundle:Guild:event.html.twig' %}
+
+{% block eventbody %}
+<div class="w3-section">
+	{{ form(form) }}
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('.date').datepicker({ dateFormat: 'dd-mm-yy' })
+		$('.time').timepicker({ 'timeFormat': 'H:i' });
+	});
+</script>
+
+{% endblock %}

@@ -33,6 +33,11 @@ class Guild extends BaseUser
     private $players;
 
     /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Event", mappedBy="guild", cascade={"persist", "remove"})
+     */
+    private $events;
+
+    /**
      * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\Composition", mappedBy="guild", cascade={"persist", "remove"})
      */
     private $compositions;
@@ -42,6 +47,7 @@ class Guild extends BaseUser
         parent::__construct();
         $this->builds       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->players      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->compositions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -148,5 +154,40 @@ class Guild extends BaseUser
     public function getCompositions()
     {
         return $this->compositions;
+    }
+
+    /**
+     * Add event
+     *
+     * @param \PLL\CoreBundle\Entity\Event $event
+     *
+     * @return Guild
+     */
+    public function addEvent(\PLL\CoreBundle\Entity\Event $event)
+    {
+        $this->events[] = $event;
+        $event->setGuild($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \PLL\CoreBundle\Entity\Event $event
+     */
+    public function removeEvent(\PLL\CoreBundle\Entity\Event $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

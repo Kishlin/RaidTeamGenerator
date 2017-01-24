@@ -56,8 +56,9 @@ class PlayerController extends Controller
     		return $this->redirectToRoute('pll_core_players', array('_locale' => $_locale));
     	}
 
-    	return $this->render('PLLCoreBundle:Player:form.html.twig', array(
+    	return $this->render('PLLCoreBundle:Player:new.html.twig', array(
     		'form'   => $form->createView(),
+            'player' => $player,
             'builds' => $builds
     	));
     }
@@ -90,7 +91,7 @@ class PlayerController extends Controller
     		return $this->redirectToRoute('pll_core_players', array('_locale' => $_locale));
     	}
 
-    	return $this->render('PLLCoreBundle:Player:form.html.twig', array(
+    	return $this->render('PLLCoreBundle:Player:edit.html.twig', array(
             'form'   => $form->createView(),
             'player' => $player,
             'builds' => $builds

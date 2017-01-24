@@ -8,7 +8,7 @@
 {% for build in builds %}
   <li class="w3-padding-8">
   	<div style="display: inline-block">
-	  	<div class="build-image">
+	  	<div class="build-image" data-toggle="build-tooltip" title="{{ build.name }}">
 		  <img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
 		  <img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
 		</div>

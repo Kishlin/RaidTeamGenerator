@@ -16,6 +16,7 @@ class PlayerRepository extends \Doctrine\ORM\EntityRepository
 			->createQueryBuilder("p")
 			->where("p.guild = :gid")
 			->setParameter('gid', $guild_id)
+			->orderBy("p.name", "ASC");
 		;
 	}
 }

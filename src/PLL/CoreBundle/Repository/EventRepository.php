@@ -10,6 +10,16 @@ namespace PLL\CoreBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getEventsForGuild($guild_id)
+	{
+		return $this
+			->createQueryBuilder("e")
+			->where("e.guild = :gid")
+			->setParameter('gid', $guild_id)
+			->addOrderBy("e.date", "DESC")
+		;
+	}
+
 	public function getEventsFull($guild_id)
 	{
 		$query = $this

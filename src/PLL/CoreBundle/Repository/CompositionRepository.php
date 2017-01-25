@@ -22,6 +22,7 @@ class CompositionRepository extends \Doctrine\ORM\EntityRepository
 			->leftJoin("gb.build", "b")
 			->addSelect("b")
 			->setParameter(1, $guild_id)
+			->orderBy("c.name", "ASC");
 		;
 
 		return $query
@@ -36,6 +37,7 @@ class CompositionRepository extends \Doctrine\ORM\EntityRepository
 			->createQueryBuilder("c")
 			->where("c.guild = :gid")
 			->setParameter('gid', $guild_id)
+			->orderBy("c.name", "ASC");
 		;
 	}
 }

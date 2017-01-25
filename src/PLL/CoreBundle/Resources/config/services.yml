@@ -5,3 +5,5 @@ services:
         class: PLL\CoreBundle\Service\DefaultBuilds
         arguments:
           - "@pll_core.buildfactory"
+    pll_core.team.validator:
+        class: PLL\CoreBundle\Team\Validator\TeamValidator

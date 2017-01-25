@@ -9,7 +9,7 @@
       <h3 class="w3-padding-64"><b>{{ app.user.username }}</b></h3>
     </div>
     <a href="{{ path('pll_core_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Home</a> 
-    <a href="#showcase" onclick="w3_close()" class="w3-padding w3-hover-white">Team</a> 
+    <a href="{{ path('pll_core_team_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Team</a> 
     <a href="{{ path('pll_core_events') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Events</a> 
     <a href="{{ path('pll_core_players') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Players</a> 
     <a href="{{ path('pll_core_compositions')  }}" onclick="w3_close()" class="w3-padding w3-hover-white">Compositions</a> 

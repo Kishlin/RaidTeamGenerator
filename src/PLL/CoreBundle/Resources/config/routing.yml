@@ -15,6 +15,12 @@ pll_core_home:
     requirements:
         _locale: en
 
+pll_core_team_home:
+    path:     /{_locale}/team
+    defaults: { _controller: PLLCoreBundle:Team:team, _locale: en }
+    requirements:
+        _locale: en
+
 pll_core_events:
     path:     /{_locale}/events
     defaults: { _controller: PLLCoreBundle:Event:events, _locale: en }

@@ -15,7 +15,7 @@ class TeamController extends Controller
 {
 	public function teamAction(Request $request)
     {
-    	$message = '';
+    	$error = $validator = $builder = null;
 
     	$formplayerscompositions = $this->get('form.factory')->create(TeamPlayersCompositionsType::class, array(), array(
             'guild_id' => $this->getUser()->getId()
@@ -39,13 +39,23 @@ class TeamController extends Controller
 				$validator->setupWithPlayersAndCompositions($players, $compositions);
     		}
 
-    		$message = $validator->validate($this->getUser());
+    		$error = $validator->validate($this->getUser());
     	}
+
+        if ($validator !== null && $error === null) {
+            $builder = $this
+                ->get('pll_core.team.builder')
+                ->setPlayers($validator->getPlayers())
+                ->setCompositions($validator->getCompositions())
+            ;
+
+            $error = $builder->build();
+        }
 
     	return $this->render('PLLCoreBundle:Team:home.html.twig', array(
     		'formplayerscompositions' => $formplayerscompositions->createView(),
     		'formevents'		      => $formevents		     ->createView(),
-    		'message'			 	  => $message,
+    		'error'			 	      => $error,
     	));
     }
 	

@@ -7,3 +7,5 @@ services:
           - "@pll_core.buildfactory"
     pll_core.team.validator:
         class: PLL\CoreBundle\Team\Validator\TeamValidator
+    pll_core.team.builder:
+        class: PLL\CoreBundle\Team\Builder\TeamBuilder

@@ -3,7 +3,7 @@
 namespace PLL\CoreBundle\Team\Utils;
 
 /**
- * Team
+ * Assignment
  */
 class Assignment
 {

@@ -24,6 +24,16 @@ class TeamValidator
 	private $players 	  = array();
 	private $compositions = array();
 
+	public function getPlayers()
+	{
+		return $this->players;
+	}
+
+	public function getCompositions()
+	{
+		return $this->compositions;
+	}
+
 	public function setupWithEvent(Event $event)
 	{
 		$this->event = $event;

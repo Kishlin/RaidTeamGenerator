@@ -15,14 +15,13 @@ class CompositionRepository extends \Doctrine\ORM\EntityRepository
 		$query = $this
 			->createQueryBuilder("c")
 			->where("c.guild = ?1")
-			->leftJoin("c.groups", "gp")
-			->addSelect("gp")
-			->leftJoin("gp.groupbuilds", "gb")
-			->addSelect("gb")
-			->leftJoin("gb.build", "b")
+			->leftJoin("c.compositionbuilds", "cb")
+			->addSelect("cb")
+			->leftJoin("cb.build", "b")
 			->addSelect("b")
 			->setParameter(1, $guild_id)
-			->orderBy("c.name", "ASC");
+			->orderBy("c.name", "ASC")
+			->addOrderBy("b.name", "ASC")
 		;
 
 		return $query

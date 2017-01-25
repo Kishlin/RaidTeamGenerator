@@ -5,8 +5,7 @@ namespace PLL\CoreBundle\Controller;
 use PLL\CoreBundle\Entity\Build;
 use PLL\CoreBundle\Entity\Player;
 use PLL\CoreBundle\Entity\Composition;
-use PLL\CoreBundle\Entity\CompositionGroup;
-use PLL\CoreBundle\Entity\CompositionGroupBuild;
+use PLL\CoreBundle\Entity\CompositionBuild;
 use PLL\UserBundle\Entity\Guild;
 
 use PLL\CoreBundle\Form\Type\CompositionType;
@@ -32,6 +31,7 @@ class CompositionController extends Controller
     {
         $builds = $this->getUser()->getBuilds();
         $composition = new Composition();
+
     	$form = $this->get('form.factory')->create(CompositionType::class, $composition);
 
     	if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -69,9 +69,9 @@ class CompositionController extends Controller
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
     	    $em = $this->getDoctrine()->getManager();
-            foreach ($composition->getGroups() as $group) {
-                $em->remove($group);
-                $composition->removeGroup($group);
+            foreach ($composition->getCompositionbuilds() as $compositionbuild) {
+                $em->remove($compositionbuild);
+                $composition->removeCompositionbuild($compositionbuild);
             }
             $composition = $this->handleForm($request, $composition, $builds);
     		$em->flush();
@@ -119,27 +119,35 @@ class CompositionController extends Controller
 
     private function handleForm(Request $request, Composition $composition, $builds) 
     {
-        $size = 0;
-        $nb_groups = $request->request->get('group-index', 0);
+        $size        = 0;
+        $group_index = 0;
+        $nb_groups   = $request->request->get('group-index', 0);
 
         for ($i=0; $i <= $nb_groups; $i++) { 
             $group_details = $request->request->get('group-'.$i, '');
             if($group_details !== '') {
-                $group = new CompositionGroup();
                 $build_ids = explode(',', $group_details);
                 foreach ($build_ids as $build_id) {
-                    foreach ($builds as $build) {
-                        if($build->getId() == $build_id) {
-                            $size++;
-                            $group->addBuild($build);
-                            break;
+                    $build = $builds->filter(
+                        function($b) use($build_id) {
+                            return $b->getId() === (int)$build_id;
                         }
+                    )->first();
+                    if(sizeof($build) !== 0) {
+                        $size++;
+                        $compositionbuild = new CompositionBuild();
+                        $compositionbuild->setGroupindex($group_index);
+                        $compositionbuild->setBuild($build);
+                        $composition->addCompositionbuild($compositionbuild);
                     }
                 }
-                $composition->addGroup($group);
+                $group_index++;
             }
         }
 
-        return $composition->setSize($size);
+        return $composition
+            ->setSize($size)
+            ->setGroupscount($group_index)
+        ;
     }
 }

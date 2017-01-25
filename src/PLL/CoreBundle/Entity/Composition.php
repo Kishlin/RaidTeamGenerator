@@ -42,9 +42,9 @@ class Composition
     private $guild;
 
     /**
-     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", mappedBy="composition", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionBuild", mappedBy="composition", cascade={"persist", "remove"})
      */
-    private $groups;
+    private $compositionbuilds;
 
     /**
      * @var int
@@ -54,11 +54,18 @@ class Composition
     private $size;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="groupcount", type="integer")
+     */
+    private $groupscount;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->compositionbuilds = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -144,41 +151,6 @@ class Composition
     }
 
     /**
-     * Add group
-     *
-     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
-     *
-     * @return Composition
-     */
-    public function addGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
-    {
-        $this->groups[] = $group;
-        $group->setComposition($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove group
-     *
-     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
-     */
-    public function removeGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
-    {
-        $this->groups->removeElement($group);
-    }
-
-    /**
-     * Get groups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
      * Set size
      *
      * @param integer $size
@@ -200,5 +172,81 @@ class Composition
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * Set groupscount
+     *
+     * @param integer $groupscount
+     *
+     * @return Composition
+     */
+    public function setGroupscount($groupscount)
+    {
+        $this->groupscount = $groupscount;
+
+        return $this;
+    }
+
+    /**
+     * Get groupscount
+     *
+     * @return integer
+     */
+    public function getGroupscount()
+    {
+        return $this->groupscount;
+    }
+
+    /**
+     * Add build
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $compositionbuild
+     *
+     * @return Composition
+     */
+    public function addCompositionbuild(\PLL\CoreBundle\Entity\CompositionBuild $compositionbuild)
+    {
+        $this->compositionbuilds[] = $compositionbuild;
+        $compositionbuild->setComposition($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove build
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $compositionbuild
+     */
+    public function removeCompositionbuild(\PLL\CoreBundle\Entity\CompositionBuild $compositionbuild)
+    {
+        $this->compositionbuilds->removeElement($compositionbuild);
+    }
+
+    /**
+     * Get compositionbuilds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompositionbuilds()
+    {
+        return $this->compositionbuilds;
+    }
+
+    public function getGroup($groupindex)
+    {
+        return $this->compositionbuilds->filter(function($e) use($groupindex) {
+            return $e->getGroupindex() === $groupindex;
+        });
+    }
+
+    public function getBuildsForGroup($groupindex)
+    {
+        $builds = array();
+        $group = $this->getGroup($groupindex);
+        foreach ($group as $compbuild) {
+            $builds[] = $compbuild->getBuild();
+        }
+        return $builds;
     }
 }

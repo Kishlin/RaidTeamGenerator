@@ -25,16 +25,19 @@
 			<td>{{ composition.name }}</td>
 			<td>{{ composition.boss|trans }}</td>
 			<td>
-{% for group in composition.groups %}
-			<p>
-{% for groupbuild in group.groupbuilds %}
-		    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ groupbuild.build.name }}">
-						<img id="build_img" src="/bundles/pllcore/images/build_img/{{ groupbuild.build.img }}.png" class="main">
-						<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ groupbuild.build.imgsub }}.png" class="sub">
+{% if not composition.groupscount == 0 %}
+{% set groupmax = composition.groupscount - 1 %}
+{% for i in 0..groupmax %}
+			<div>
+{% for build in composition.getBuildsForGroup(i) %}
+		    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ build.name }}">
+						<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
+						<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
 					</div>
 {% endfor %}
-			</p>
+			</div>
 {% endfor %}
+{% endif %}
 			</td>
 			<td>{{ composition.size }}</td>
 			<td><a href="{{ path("pll_core_compositions_edit", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.edit'|trans }}</a> - <a href="{{ path("pll_core_compositions_delete", {'_locale': app.request.locale, 'id': composition.id}) }}">{{ 'composition.button.delete'|trans }}</a></td>

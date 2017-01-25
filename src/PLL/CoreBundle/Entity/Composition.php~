@@ -42,9 +42,9 @@ class Composition
     private $guild;
 
     /**
-     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroup", mappedBy="composition", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionBuild", mappedBy="composition", cascade={"persist", "remove"})
      */
-    private $groups;
+    private $builds;
 
     /**
      * @var int
@@ -52,6 +52,13 @@ class Composition
      * @ORM\Column(name="size", type="integer")
      */
     private $size;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="groupcount", type="integer")
+     */
+    private $groupscount;
 
     /**
      * Constructor
@@ -144,37 +151,61 @@ class Composition
     }
 
     /**
-     * Add group
+     * Set size
      *
-     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
+     * @param integer $size
      *
      * @return Composition
      */
-    public function addGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
+    public function setSize($size)
     {
-        $this->groups[] = $group;
-        $group->setComposition($this);
+        $this->size = $size;
 
         return $this;
     }
 
     /**
-     * Remove group
+     * Get size
      *
-     * @param \PLL\CoreBundle\Entity\CompositionGroup $group
+     * @return integer
      */
-    public function removeGroup(\PLL\CoreBundle\Entity\CompositionGroup $group)
+    public function getSize()
     {
-        $this->groups->removeElement($group);
+        return $this->size;
     }
 
     /**
-     * Get groups
+     * Add build
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $build
+     *
+     * @return Composition
+     */
+    public function addBuild(\PLL\CoreBundle\Entity\CompositionBuild $build)
+    {
+        $this->builds[] = $build;
+        $build->setComposition($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove build
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $build
+     */
+    public function removeBuild(\PLL\CoreBundle\Entity\CompositionBuild $build)
+    {
+        $this->builds->removeElement($build);
+    }
+
+    /**
+     * Get builds
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGroups()
+    public function getBuilds()
     {
-        return $this->groups;
+        return $this->builds;
     }
 }

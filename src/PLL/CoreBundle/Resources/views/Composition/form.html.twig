@@ -47,21 +47,23 @@
     </div>
 	
 	<div class="composition-form-groups" id="composition-groups">
-{% for group in composition.groups %}
-		<div class="container-group" id="container-group-{{ loop.index0 }}">
-		    <label class="control-label required">{{ 'composition.group'|trans }} {{ loop.index }}</label>
+{% if not composition.groupscount == 0 %}
+{% set groupmax = composition.groupscount - 1 %}
+{% for i in 0..groupmax %}
+		<div class="container-group" id="container-group-{{ i }}">
+		    <label class="control-label required">{{ 'composition.group'|trans({'%index%': i+1}) }}</label>
 		    <div class="row">
 			    <div class="col-md-7 group-bouttons">
 				    <div class="row">
 {% for build in builds %}
-						<button class="col-xs-3 col-sm-2 group-prof-button text-center w3-white w3-border-0 w3-ripple pre" group="{{ loop.parent.loop.index0 }}" build="{{ build.id }}" img="{{ build.img }}" sub="{{ build.imgsub }}" title="{{ build.name }}" type="button">
+						<button class="col-xs-3 col-sm-2 group-prof-button text-center w3-white w3-border-0 w3-ripple pre" group="{{ i }}" build="{{ build.id }}" img="{{ build.img }}" sub="{{ build.imgsub }}" title="{{ build.name }}" type="button">
 				    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ build.name }}">
 								<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
 								<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
 							</div>
 						</button>
 {% endfor %}
-						<button class="col-xs-3 col-sm-2 group-prof-remove text-center w3-white w3-border-0 w3-ripple pre" group="{{ loop.index0 }}" type="button">
+						<button class="col-xs-3 col-sm-2 group-prof-remove text-center w3-white w3-border-0 w3-ripple pre" group="{{ i }}" type="button">
 				    		<div style="display: inline-block;" class="build-image" data-toggle="build-tooltip" title="{{ 'composition.button.cleargroup'|trans }}">
 								<img id="build_img" src="/bundles/pllcore/images/build_img/Remove.png" class="main">
 							</div>
@@ -69,21 +71,22 @@
 				    </div>
 				</div> 
 				<div class="col-md-5 composition-group-label">
-					<div style="height: 45px;" class="w3-section form-control input-md group-prof-display" id="display-{{ loop.index0 }}">
-{% for groupbuild in group.groupbuilds %}
+					<div style="height: 45px;" class="w3-section form-control input-md group-prof-display" id="display-{{ i }}">
+{% for build in composition.getBuildsForGroup(i) %}
 						<div style="display: inline-block;">
-							<div class="build-image" data-toggle="build-tooltip" title="{{ groupbuild.build.name }}">
-								<img id="build_img" src="/bundles/pllcore/images/build_img/{{ groupbuild.build.img }}.png" class="main">
-								<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ groupbuild.build.imgsub }}.png" class="sub">
+							<div class="build-image" data-toggle="build-tooltip" title="{{ build.name }}">
+								<img id="build_img" src="/bundles/pllcore/images/build_img/{{ build.img }}.png" class="main">
+								<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
 							</div>
 						</div>
 {% endfor %}
 					</div>
 				</div>
-			    <input id="group-{{ loop.index0 }}" name="group-{{ loop.index0 }}" type="hidden" value="{% for groupbuild in group.groupbuilds %}{{ groupbuild.build.id }}{% if not loop.last %},{% endif %}{% endfor %}" >
+			    <input id="group-{{ i }}" name="group-{{ i }}" type="hidden" value="{% for build in composition.getBuildsForGroup(i) %}{{ build.id }}{% if not loop.last %},{% endif %}{% endfor %}" >
 		    </div>
 		</div>
 {% endfor %}
+{% endif %}
 	</div>
 	
 	<a href="#" id="add_group" class="btn btn-default w3-section">{{ 'composition.group.add'|trans }}</a>

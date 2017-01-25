@@ -240,6 +240,16 @@ class Composition
         });
     }
 
+    public function getGroupSize($groupindex)
+    {
+        return $this->compositionbuilds
+            ->filter(function($e) use($groupindex) {
+                return $e->getGroupindex() === $groupindex;
+            })
+            ->count()
+        ;
+    }
+
     public function getBuildsForGroup($groupindex)
     {
         $builds = array();
@@ -249,4 +259,32 @@ class Composition
         }
         return $builds;
     }
+
+    public function getBuild($position)
+    {   
+        if($position > $this->size) {
+            throw new \OutOfBoundsException();
+        }
+
+        int $offset = 0;
+        $group = null;
+        for ($i = 0, $max = $this->getGroupscount(); $i < $max; $i++) {
+            $size = $this->getGroupSize($i);
+            if($size + $offset > $position) {
+                $group = $this->getGroup($i);
+                $position -= $offset;
+                break;
+            } else {
+                $offset += $size;
+            }
+        }
+
+        $build = $group->first();
+        for ($i=0; $i < $position; $i++) { 
+            $build = $group->next();
+        }
+        return $build;
+    }
+
+
 }

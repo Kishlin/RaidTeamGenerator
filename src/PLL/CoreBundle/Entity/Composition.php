@@ -266,7 +266,7 @@ class Composition
             throw new \OutOfBoundsException();
         }
 
-        int $offset = 0;
+        $offset = 0;
         $group = null;
         for ($i = 0, $max = $this->getGroupscount(); $i < $max; $i++) {
             $size = $this->getGroupSize($i);

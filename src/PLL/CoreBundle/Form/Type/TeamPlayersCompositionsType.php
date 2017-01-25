@@ -27,7 +27,7 @@ class TeamPlayersCompositionsType extends AbstractType
                 'multiple'     => true,
                 'required'     => true,
                 'query_builder' => function(CompositionRepository $repository) use($guild_id) {
-                    return $repository->getCompositionsForGuild($guild_id);
+                    return $repository->getCompositionsForGuildQuery($guild_id);
                 }
             ))
             ->add('players',      EntityType::class, array(
@@ -38,7 +38,7 @@ class TeamPlayersCompositionsType extends AbstractType
                 'multiple'      => true,
                 'required'      => true,
                 'query_builder' => function(PlayerRepository $repository) use($guild_id) {
-                    return $repository->getPlayersForGuild($guild_id);
+                    return $repository->getPlayersForGuildQuery($guild_id);
                 }
             ))
             ->add('save', SubmitType::class, array(

@@ -31,7 +31,7 @@ class CompositionRepository extends \Doctrine\ORM\EntityRepository
 		;
 	}
 
-	public function getCompositionsForGuild($guild_id)
+	public function getCompositionsForGuildQuery($guild_id)
 	{
 		return $this
 			->createQueryBuilder("c")

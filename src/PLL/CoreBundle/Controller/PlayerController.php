@@ -18,10 +18,12 @@ class PlayerController extends Controller
 {
     public function playersAction()
     {
-    	$players = $this->getUser()->getPlayers();
-        $repo = $this->getDoctrine()->getRepository('PLLCoreBundle:Build');
-        $builds = $repo->getBuildsWithPreferences($this->getUser()->getId());
-
+        $guild_id = $this->getUser()->getId();
+        $repo_p   = $this  ->getDoctrine()->getRepository('PLLCoreBundle:Player');
+        $players  = $repo_p->getPlayersForGuild($guild_id);
+        $repo_b   = $this  ->getDoctrine()->getRepository('PLLCoreBundle:Build');
+        $builds   = $repo_b->getBuildsWithPreferences($guild_id);
+        
     	return $this->render('PLLCoreBundle:Player:home.html.twig', array(
     		'players' => $players,
             'builds'  => $builds

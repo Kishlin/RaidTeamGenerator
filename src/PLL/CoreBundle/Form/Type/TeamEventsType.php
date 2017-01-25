@@ -26,7 +26,7 @@ class TeamEventsType extends AbstractType
                 'multiple'      => false,
                 'required'      => true,
                 'query_builder' => function(EventRepository $repository) use($guild_id) {
-                    return $repository->getEventsForGuild($guild_id);
+                    return $repository->getEventsForGuildQuery($guild_id);
                 }
             ))
             ->add('save', SubmitType::class, array(

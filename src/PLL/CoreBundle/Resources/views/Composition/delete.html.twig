@@ -2,7 +2,8 @@
 
 {% block compositionbody %}
 
-<p>{{ 'composition.delete.alert'|trans({'%composition%': composition.name}) }}</p>
+<p>{{ 'composition.delete.alert'|trans }}</p>
+<p>{{ composition.name }}</p>
 
 
 <form action="{{ path('pll_core_compositions_delete', {'_locale': app.request.locale, 'id': composition.id}) }}" method="post">

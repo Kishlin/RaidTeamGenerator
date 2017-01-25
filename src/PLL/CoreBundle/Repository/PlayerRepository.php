@@ -10,4 +10,12 @@ namespace PLL\CoreBundle\Repository;
  */
 class PlayerRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getPlayersForGuild($guild_id)
+	{
+		return $this
+			->createQueryBuilder("p")
+			->where("p.guild = :gid")
+			->setParameter('gid', $guild_id)
+		;
+	}
 }

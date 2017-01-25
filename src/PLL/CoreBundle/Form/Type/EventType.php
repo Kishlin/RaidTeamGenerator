@@ -12,10 +12,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use PLL\CoreBundle\Repository\CompositionRepository;
+use PLL\CoreBundle\Repository\PlayerRepository;
+
 class EventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $guild_id = $options['guild_id'];
+
         $builder
             ->add('name',      TextType::class)
             ->add('date',      DateType::class, array(
@@ -32,13 +37,19 @@ class EventType extends AbstractType
                 'class'        => 'PLLCoreBundle:Composition',
                 'choice_label' => 'name',
                 'multiple'     => true,
-                'required'     => false
+                'required'     => false,
+                'query_builder' => function(CompositionRepository $repository) use($guild_id) {
+                    return $repository->getCompositionsForGuild($guild_id);
+                }
             ))
             ->add('players', EntityType::class, array(
-                'class'        => 'PLLCoreBundle:Player',
-                'choice_label' => 'name',
-                'multiple'     => true,
-                'required'     => false
+                'class'         => 'PLLCoreBundle:Player',
+                'choice_label'  => 'name',
+                'multiple'      => true,
+                'required'      => false,
+                'query_builder' => function(PlayerRepository $repository) use($guild_id) {
+                    return $repository->getPlayersForGuild($guild_id);
+                }
             ))
             ->add('save',      SubmitType::class)
         ;
@@ -49,5 +60,6 @@ class EventType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'PLL\CoreBundle\Entity\Event'
         ));
+        $resolver->setRequired('guild_id');
     }
 }

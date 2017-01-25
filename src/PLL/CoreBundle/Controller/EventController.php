@@ -28,7 +28,9 @@ class EventController extends Controller
     {
     	$event = new Event();
         $event->setDate(new \DateTime());
-    	$form = $this->get('form.factory')->create(EventType::class, $event);
+    	$form = $this->get('form.factory')->create(EventType::class, $event, array(
+            'guild_id' => $this->getUser()->getId()
+        ));
 
     	if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
     		$this->getUser()->addEvent($event);
@@ -56,7 +58,9 @@ class EventController extends Controller
             throw new NotFoundHttpException('This event does not exist!');
         }
         
-        $form = $this->get('form.factory')->create(EventType::class, $event);
+        $form = $this->get('form.factory')->create(EventType::class, $event, array(
+            'guild_id' => $this->getUser()->getId()
+        ));
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
     	    $em = $this->getDoctrine()->getManager();

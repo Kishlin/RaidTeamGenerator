@@ -2,7 +2,8 @@
 
 {% block playerbody %}
 
-<p>{{ 'player.delete.alert'|trans({'%player%': player.name}) }}</p>
+<p>{{ 'player.delete.alert'|trans }}</p>
+<p>{{ player.name }}</p>
 
 
 <form action="{{ path('pll_core_players_delete', {'_locale': app.request.locale, 'id': player.id}) }}" method="post">

@@ -29,4 +29,13 @@ class CompositionRepository extends \Doctrine\ORM\EntityRepository
 			->getResult()
 		;
 	}
+
+	public function getCompositionsForGuild($guild_id)
+	{
+		return $this
+			->createQueryBuilder("c")
+			->where("c.guild = :gid")
+			->setParameter('gid', $guild_id)
+		;
+	}
 }

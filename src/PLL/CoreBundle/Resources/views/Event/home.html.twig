@@ -11,7 +11,8 @@
 </div>
 
 <div class="w3-section w3-responsive">
-{% if not events is empty %}
+<h2>{{ 'event.title.upcoming'|trans }}</h2>
+{% if not upcoming is empty %}
 	<table class="w3-table-all w3-card-4">
 		<tr class="w3-blue">
 			<th>{{ 'event.tableheader.name'|trans }}</th>
@@ -20,7 +21,7 @@
 			<th>{{ 'event.tableheader.players'|trans }}</th>
 			<th>{{ 'event.tableheader.actions'|trans }}</th>
 		</tr>
-{% for event in events %}
+{% for event in upcoming %}
 		<tr>
 			<td>{{ event.name }}</td>
 			<td>{{ event.date|date('d-m-Y') }} - {{ event.time }}</td>
@@ -31,7 +32,33 @@
 {% endfor %}
 	</table>
 {% else %}
-  	<div class="w3-panel w3-padding w3-blue">{{ 'event.messages.none' }}</div>
+  	<div class="w3-panel w3-padding w3-blue">{{ 'event.messages.none.upcoming' }}</div>
+{% endif %}
+</div>
+
+<div class="w3-section w3-responsive">
+<h2>{{ 'event.title.passed'|trans }}</h2>
+{% if not passed is empty %}
+	<table class="w3-table-all w3-card-4">
+		<tr class="w3-blue">
+			<th>{{ 'event.tableheader.name'|trans }}</th>
+			<th>{{ 'event.tableheader.date'|trans }}</th>
+			<th>{{ 'event.tableheader.compositions'|trans }}</th>
+			<th>{{ 'event.tableheader.players'|trans }}</th>
+			<th>{{ 'event.tableheader.actions'|trans }}</th>
+		</tr>
+{% for event in passed %}
+		<tr>
+			<td>{{ event.name }}</td>
+			<td>{{ event.date|date('d-m-Y') }} - {{ event.time }}</td>
+			<td>{% for composition in event.compositions %}{{ composition.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+			<td>{% for player in event.players %}{{ player.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+			<td><a href="{{ path("pll_core_events_edit", {'_locale': app.request.locale, 'id': event.id}) }}">{{ 'event.button.edit'|trans }}</a> - <a href="{{ path("pll_core_events_delete", {'_locale': app.request.locale, 'id': event.id}) }}">{{ 'event.button.delete'|trans }}</a></td>
+		</tr>
+{% endfor %}
+	</table>
+{% else %}
+  	<div class="w3-panel w3-padding w3-blue">{{ 'event.messages.none.passed' }}</div>
 {% endif %}
 </div>
 

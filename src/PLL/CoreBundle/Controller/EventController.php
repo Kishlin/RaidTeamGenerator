@@ -17,10 +17,24 @@ class EventController extends Controller
 {
     public function eventsAction()
     {
-    	$events = $this->getUser()->getEvents();
+        $repo = $this->getDoctrine()->getRepository('PLLCoreBundle:Event');
+    	$events = $repo->getEventsFull($this->getUser()->getId());
+        $upcoming = $passed = array();
+
+        $date = new \DateTime();
+        $date->add(\DateInterval::createFromDateString('yesterday'));
+
+        foreach ($events as $event) {
+            if($date < $event->getDate()) {
+                $upcoming[] = $event;
+            } else {
+                $passed[] = $event;
+            }
+        }
 
     	return $this->render('PLLCoreBundle:Event:home.html.twig', array(
-    		'events' => $events,
+    		'upcoming' => $upcoming,
+            'passed'   => $passed,
     	));
     }
 

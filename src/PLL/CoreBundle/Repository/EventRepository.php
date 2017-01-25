@@ -10,7 +10,7 @@ namespace PLL\CoreBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getEventsForGuild($guild_id)
+	public function getEventsForGuildQuery($guild_id)
 	{
 		return $this
 			->createQueryBuilder("e")
@@ -31,6 +31,8 @@ class EventRepository extends \Doctrine\ORM\EntityRepository
 			->where("e.guild = :gid")
 			->setParameter("gid", $guild_id)
 			->addOrderBy("e.date", "DESC")
+			->addOrderBy("c.name", "ASC")
+			->addOrderBy("p.name", "ASC")
 		;
 
 		return $query

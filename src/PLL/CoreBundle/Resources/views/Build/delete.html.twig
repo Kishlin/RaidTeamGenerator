@@ -10,15 +10,22 @@
 	<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ build.imgsub }}.png" class="sub">
 </div>
 
-<form action="{{ path('pll_core_builds_delete', {'_locale': app.request.locale, 'id': build.id}) }}" method="post">
-    <a href="{{ path('pll_core_builds', {'_locale': app.request.locale}) }}" class="btn btn-default">
-      <i class="glyphicon glyphicon-chevron-left"></i>
-      {{ 'build.button.delete.cancel'|trans }}
-    </a>
 
+{% if form is defined %}
+<form action="{{ path('pll_core_builds_delete', {'_locale': app.request.locale, 'id': build.id}) }}" method="post">
+{% else %}
+	<p>{{ 'build.delete.error.used`'|trans }}</p>	
+{% endif %}
+	<a href="{{ path('pll_core_builds', {'_locale': app.request.locale}) }}" class="btn btn-default">
+	  <i class="glyphicon glyphicon-chevron-left"></i>
+	  {{ 'build.button.delete.cancel'|trans }}
+	</a>
+{% if form is defined %}
     <input type="submit" value="{{ 'build.button.delete.confirm'|trans }}" class="btn btn-danger" />
-    
+	    
     {{ form_rest(form) }}
 </form>
+{% endif %}
+
 
 {% endblock %}

@@ -54,11 +54,17 @@ class Build
     private $preferences;
 
     /**
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionBuild", mappedBy="build", cascade={"persist", "remove"})
+     */
+    private $compositionbuilds;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->preferences       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->compositionbuilds = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -217,5 +223,39 @@ class Build
         }
 
         return null;
+    }
+
+    /**
+     * Add compositionbuild
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $compositionbuild
+     *
+     * @return Build
+     */
+    public function addCompositionbuild(\PLL\CoreBundle\Entity\CompositionBuild $compositionbuild)
+    {
+        $this->compositionbuilds[] = $compositionbuild;
+
+        return $this;
+    }
+
+    /**
+     * Remove compositionbuild
+     *
+     * @param \PLL\CoreBundle\Entity\CompositionBuild $compositionbuild
+     */
+    public function removeCompositionbuild(\PLL\CoreBundle\Entity\CompositionBuild $compositionbuild)
+    {
+        $this->compositionbuilds->removeElement($compositionbuild);
+    }
+
+    /**
+     * Get compositionbuilds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompositionbuilds()
+    {
+        return $this->compositionbuilds;
     }
 }

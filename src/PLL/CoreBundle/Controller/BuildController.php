@@ -88,23 +88,26 @@ class BuildController extends Controller
             throw new NotFoundHttpException('This build does not exist!');
         }
 
-        $form = $this->get('form.factory')->create();
+        $params = array('build' => $build);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        	$em = $this->getDoctrine()->getManager();
-	    	$em->remove($build);
-	    	$em->flush();
+        if($build->getCompositionbuilds()->count() === 0) {
+            $form = $this->get('form.factory')->create();
 
-			$translator = $this->get('translator');
-	    	$request->getSession()->getFlashBag()->add('notice', $translator->trans("build.message.deleted"));
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($build);
+                $em->flush();
 
-	        return $this->redirectToRoute('pll_core_builds', array('_locale' => $_locale));
-	    }
+                $translator = $this->get('translator');
+                $request->getSession()->getFlashBag()->add('notice', $translator->trans("build.message.deleted"));
+
+                return $this->redirectToRoute('pll_core_builds', array('_locale' => $_locale));
+            }
+
+            $params['form'] = $form->createView();
+        }
 	    
-	    return $this->render('PLLCoreBundle:Build:delete.html.twig', array(
-			'build' => $build,
-			'form'   => $form->createView(),
-	    ));
+	    return $this->render('PLLCoreBundle:Build:delete.html.twig', $params);
     }
 
     public function adddefaultAction(Request $request, $_locale) 

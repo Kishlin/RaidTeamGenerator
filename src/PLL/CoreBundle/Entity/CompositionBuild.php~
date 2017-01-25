@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CompositionBuild
  *
- * @ORM\Table(name="composition_build")
+ * @ORM\Table(name="raid_composition_build")
  * @ORM\Entity(repositoryClass="PLL\CoreBundle\Repository\CompositionBuildRepository")
  */
 class CompositionBuild
@@ -29,13 +29,13 @@ class CompositionBuild
     private $groupindex;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Composition", inversedBy="builds")
+     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Composition", inversedBy="compositionbuilds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $composition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Build")
+     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Build", inversedBy="compositionbuilds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $build;
@@ -74,5 +74,52 @@ class CompositionBuild
     {
         return $this->groupindex;
     }
-}
 
+    /**
+     * Set composition
+     *
+     * @param \PLL\CoreBundle\Entity\Composition $composition
+     *
+     * @return CompositionBuild
+     */
+    public function setComposition(\PLL\CoreBundle\Entity\Composition $composition)
+    {
+        $this->composition = $composition;
+
+        return $this;
+    }
+
+    /**
+     * Get composition
+     *
+     * @return \PLL\CoreBundle\Entity\Composition
+     */
+    public function getComposition()
+    {
+        return $this->composition;
+    }
+
+    /**
+     * Set build
+     *
+     * @param \PLL\CoreBundle\Entity\Build $build
+     *
+     * @return CompositionBuild
+     */
+    public function setBuild(\PLL\CoreBundle\Entity\Build $build)
+    {
+        $this->build = $build;
+
+        return $this;
+    }
+
+    /**
+     * Get build
+     *
+     * @return \PLL\CoreBundle\Entity\Build
+     */
+    public function getBuild()
+    {
+        return $this->build;
+    }
+}

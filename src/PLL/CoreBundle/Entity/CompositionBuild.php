@@ -35,7 +35,7 @@ class CompositionBuild
     private $composition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Build")
+     * @ORM\ManyToOne(targetEntity="PLL\CoreBundle\Entity\Build", inversedBy="compositionbuilds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $build;
@@ -109,6 +109,7 @@ class CompositionBuild
     public function setBuild(\PLL\CoreBundle\Entity\Build $build)
     {
         $this->build = $build;
+        $build->addCompositionbuild($this);
 
         return $this;
     }

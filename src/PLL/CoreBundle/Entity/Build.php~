@@ -54,9 +54,9 @@ class Build
     private $preferences;
 
     /**
-     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionGroupBuild", mappedBy="build", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="PLL\CoreBundle\Entity\CompositionBuild", mappedBy="build", cascade={"persist", "remove"})
      */
-    private $groups;
+    private $compositionbuilds;
 
     /**
      * Constructor
@@ -211,7 +211,7 @@ class Build
      * 
      * @param  \PLL\CoreBundle\Entity\Player $player 
      * 
-     * @return \PLL\CoreBundle\Entity\Preference                           
+     * @return integer                          
      */
     public function getPreferenceForPlayer(\PLL\CoreBundle\Entity\Player $player)
     {

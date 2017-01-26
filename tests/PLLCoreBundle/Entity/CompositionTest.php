@@ -111,22 +111,22 @@ class CompositionTest extends TestCase
 	 */
 	public function testGetGroup($c_empty, $c_unique, $c_single, $c_full)
 	{
-		$this->assertEquals(0, $c_empty->getGroup(0)->count());
-		$this->assertEquals(0, $c_empty->getGroup(1)->count());
+		$this->assertCount(0, $c_empty->getGroup(0));
+		$this->assertCount(0, $c_empty->getGroup(1));
 
-		$this->assertEquals(1, 		$c_unique->getGroup(0)->count());
-		$this->assertEquals(0, 		$c_unique->getGroup(1)->count());
+		$this->assertCount(1, 		$c_unique->getGroup(0));
+		$this->assertCount(0, 		$c_unique->getGroup(1));
 		$this->assertEquals("G0B0", $c_unique->getGroup(0)->get(0)->getBuild()->getName());
 
-		$this->assertEquals(4, 		$c_single->getGroup(0)->count());
-		$this->assertEquals(0, 		$c_single->getGroup(1)->count());
+		$this->assertCount(4, 		$c_single->getGroup(0));
+		$this->assertCount(0, 		$c_single->getGroup(1));
 		$this->assertEquals("G0B0", $c_single->getGroup(0)->get(0)->getBuild()->getName());
 		$this->assertEquals("G0B1", $c_single->getGroup(0)->get(1)->getBuild()->getName());
 		$this->assertEquals("G0B2", $c_single->getGroup(0)->get(2)->getBuild()->getName());
 		$this->assertEquals("G0B3", $c_single->getGroup(0)->get(3)->getBuild()->getName());
 
-		$this->assertEquals(4, 		$c_full->getGroup(0)->count());
-		$this->assertEquals(4, 		$c_full->getGroup(1)->count());
+		$this->assertCount(4, 		$c_full->getGroup(0));
+		$this->assertCount(4, 		$c_full->getGroup(1));
 		$this->assertEquals("G0B0", $c_full->getGroup(0)->get(0)->getBuild()->getName());
 		$this->assertEquals("G0B1", $c_full->getGroup(0)->get(1)->getBuild()->getName());
 		$this->assertEquals("G0B2", $c_full->getGroup(0)->get(2)->getBuild()->getName());

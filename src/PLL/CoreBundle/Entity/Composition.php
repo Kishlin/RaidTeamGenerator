@@ -235,14 +235,18 @@ class Composition
 
     public function getGroup($groupindex)
     {
-        return $this->compositionbuilds->filter(function($e) use($groupindex) {
-            return $e->getGroupindex() === $groupindex;
-        });
+        return $this
+            ->compositionbuilds
+            ->filter(function($e) use($groupindex) {
+                return $e->getGroupindex() === $groupindex;
+            })
+        ;
     }
 
     public function getGroupSize($groupindex)
     {
-        return $this->compositionbuilds
+        return $this
+            ->compositionbuilds
             ->filter(function($e) use($groupindex) {
                 return $e->getGroupindex() === $groupindex;
             })
@@ -254,36 +258,23 @@ class Composition
     {
         $builds = array();
         $group = $this->getGroup($groupindex);
-        foreach ($group as $compbuild) {
-            $builds[] = $compbuild->getBuild();
+        foreach ($group->getKeys() as $key) {
+            $builds[$key] = $group->get($key)->getBuild();
         }
         return $builds;
     }
 
     public function getBuild($position)
     {   
-        if($position > $this->size) {
+        if($position >= $this->size) {
             throw new \OutOfBoundsException();
         }
 
-        $offset = 0;
-        $group = null;
-        for ($i = 0, $max = $this->getGroupscount(); $i < $max; $i++) {
-            $size = $this->getGroupSize($i);
-            if($size + $offset > $position) {
-                $group = $this->getGroup($i);
-                $position -= $offset;
-                break;
-            } else {
-                $offset += $size;
-            }
-        }
-
-        $build = $group->first();
-        for ($i=0; $i < $position; $i++) { 
-            $build = $group->next();
-        }
-        return $build;
+        return $this
+            ->compositionbuilds
+            ->get($position)
+            ->getBuild()
+        ;
     }
 
 

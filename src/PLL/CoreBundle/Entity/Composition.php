@@ -233,6 +233,18 @@ class Composition
         return $this->compositionbuilds;
     }
 
+    public function getCompositionbuildsWithBuild($build) 
+    {
+        return $this
+            ->compositionbuilds
+            ->filter(
+                function($e) use($build) {
+                    return $e->getBuild() === $build;
+                }
+            )
+        ;
+    }
+
     public function getGroup($groupindex)
     {
         return $this
@@ -257,10 +269,16 @@ class Composition
     public function getBuildsForGroup($groupindex)
     {
         $builds = array();
-        $group = $this->getGroup($groupindex);
-        foreach ($group->getKeys() as $key) {
-            $builds[$key] = $group->get($key)->getBuild();
-        }
+        
+        $this
+            ->getGroup($groupindex)
+            ->forAll(
+                function($k, $e) use(& $builds) {
+                    return $builds[$k] = $e->getBuild();
+                }
+            )
+        ;
+        
         return $builds;
     }
 

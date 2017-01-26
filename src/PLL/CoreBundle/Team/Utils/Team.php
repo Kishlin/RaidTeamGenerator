@@ -46,12 +46,8 @@ class Team
 		}
 
 		$keys = 
-			$this->composition->getCompositionbuilds()
-			->filter( 
-				function($e) use($build) {
-					return $e->getBuild() === $build;
-				}
-			)
+			$this->composition
+			->getCompositionbuildsWithBuild($build)
 			->getKeys()
 		;
 
@@ -98,29 +94,22 @@ class Team
 	public function getSpotsTotal(Build $build)
 	{
 		return
-			$this->composition->getCompositionbuilds()
-			->filter(
-				function($e) use($build) {
-					return $e->getBuild() === $build;
-				}
-			)
+			$this->composition
+			->getCompositionbuildsWithBuild($build)
 			->count()
 		;
 	}
 
 	public function getSpotsLeft(Build $build)
 	{
+		$spots = 0;
+
 		$keys = 
-			$this->composition->getCompositionbuilds()
-			->filter( 
-				function($e) use($build) {
-					return $e->getBuild() === $build;
-				}
-			)
+			$this->composition
+			->getCompositionbuildsWithBuild($build)
 			->getKeys()
 		;
 
-		$spots = 0;
 		foreach ($keys as $key) {
 			if(!$this->assignments[$key]->isAssigned()) {
 				$spots++;

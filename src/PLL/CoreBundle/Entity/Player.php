@@ -177,4 +177,37 @@ class Player
 
         return $this;
     }
+
+    public function getNumberOfPlayableBuilds($min_pref)
+    {
+        return 
+            $this->preferences
+            ->filter(
+                function($e) use($min_pref) {
+                    return $e->getLevel() >= $min_pref;
+                }
+            )
+            ->count()
+        ;
+    }
+
+    public function getPlayable($min_pref)
+    {
+        $builds = array();
+        
+        $this->preferences
+            ->filter(
+                function($e) use($min_pref) {
+                    return $e->getLevel() >= $min_pref;
+                }
+            )
+            ->forAll(
+                function($k, $e) use(& $builds) {
+                    return $builds[$k] = $e->getBuild();
+                }
+            )
+        ;
+
+        return $builds;
+    }
 }

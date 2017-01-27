@@ -17,27 +17,27 @@
 		<thead>
 			<tr class="w3-blue">
 	{% for team in teams %}
-				<th>{{ team.composition.name }}</th>
+				<th composition="{{ team.composition.id }}">{{ team.composition.name }}</th>
 	{% endfor %}
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 	{% for team in teams %}
-				<td style="min-width: 220px;">
+				<td composition="{{ team.composition.id }}" style="min-width: 220px;">
 	{% if not team.getGroupCount() == 0 %}
 	{% set groupmax = team.getGroupCount() - 1 %}
 	{% for i in 0..groupmax %}
-					<p>{{ 'team.group.label'|trans({'%index%': i+1}) }}</p>
+					<p class="group-label" composition="{{ team.composition.id }}" group={{i+1}}>{{ 'team.group.label'|trans({'%index%': i+1}) }}</p>
 
 	{% for assignment in team.getAssignmentsForGroup(i) %}
-					<p>
+					<div class="w3-margin-bottom assignment" composition="{{ team.composition.id }}" group={{i+1}}>
 			    		<div style="display: inline-block; margin-right: 10px;" class="build-image" data-toggle="build-tooltip" title="{{ assignment.build.name }}">
 							<img id="build_img" src="/bundles/pllcore/images/build_img/{{ assignment.build.img }}.png" class="main">
 							<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ assignment.build.imgsub }}.png" class="sub">
 						</div>
 						<input class="form-control" style="max-width: 150px; display: inline-block;" value="{% if not assignment.player is null %}{{ assignment.player.name }}{% endif %}" />
-					</p>
+					</div>
 	{% endfor %}
 	{% endfor %}
 	{% endif %}
@@ -48,9 +48,6 @@
 	</table>
 </div>
 
-<div class="w3-panel w3-section w3-padding w3-blue">
-	<h2>{{ 'team.title.players'|trans }}</h2>
-	{{ builder.getPlayersAsString() }}
-</div>
+<a class="w3-section btn btn-default" href="#" onclick="window.location.reload()" title="">{{ 'team.button.regenerate'|trans }}</a>
 
 {% endblock %}

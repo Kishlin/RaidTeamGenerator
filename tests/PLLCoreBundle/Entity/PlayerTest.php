@@ -10,13 +10,24 @@ use PLL\CoreBundle\Entity\Preference;
 
 class PlayerTest extends TestCase
 {
+	public function setBuildId($build, $id)
+	{
+		$reflector = new \ReflectionProperty('Build', 'id');
+		$reflector->setAccessible(true);
+		$reflector->setValue($build, $id);
+		return $build;
+	}
+
 	public function playerProvider()
 	{
 		$b = new Build();
 		$b->setName("B0");
+		$b = $this->setBuildId($b, 0);
 		$b1 = new Build();
 		$b1->setName("B1");
+		$b1 = $this->setBuildId($b1, 1);
 		$b2 = new Build();
+		$b2 = $this->setBuildId($b2, 2);
 		$b2->setName("B2");
 
 		$player = new Player();

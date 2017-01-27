@@ -45,6 +45,7 @@ class TeamController extends Controller
         if ($validator !== null && $error === null) {
             $builder = $this
                 ->get('pll_core.team.builder')
+                ->setLogger($this->get('logger'))
                 ->setPlayers($validator->getPlayers())
                 ->setCompositions($validator->getCompositions())
             ;
@@ -52,12 +53,20 @@ class TeamController extends Controller
             $error = $builder->build();
         }
 
-    	return $this->render('PLLCoreBundle:Team:home.html.twig', array(
-    		'formplayerscompositions' => $formplayerscompositions->createView(),
-    		'formevents'		      => $formevents		     ->createView(),
-            'builder'                 => $builder,
-            'error'                   => $error,
-    	));
+        if($builder === null) {
+            return $this->render('PLLCoreBundle:Team:home.html.twig', array(
+                'formplayerscompositions' => $formplayerscompositions->createView(),
+                'formevents'              => $formevents             ->createView(),
+                'error'                   => $error,
+            ));
+        } else {
+            return $this->render('PLLCoreBundle:Team:display.html.twig', array(
+                'teams'   => $builder->getTeams(),
+                'builder' => $builder,
+                'errors'   => $error,
+            ));
+        }
+
     }
 	
 }

@@ -25,6 +25,11 @@ class TeamBuilder
 	CONST FLAG_BUILD_UNSTABLE   = 3;
 
 	/**
+	 * @var logger
+	 */
+	private $logger;
+
+	/**
 	 * @var array
 	 */
 	private $teams = array();
@@ -55,16 +60,28 @@ class TeamBuilder
 	}
 
 	/**
+	 * Sets the logger
+	 * 
+	 * @param logger $logger 
+	 */
+	public function setLogger($logger)
+	{
+		$this->logger = $logger;
+
+		return $this;
+	}
+
+	/**
 	 * Sets the players
 	 * 
 	 * @param array $players
 	 */
 	public function setPlayers($players)
 	{
-		if($players instanceof \Doctrine\ORM\PersistentCollection) {
-			$this->players = $players->toArray();
-		} else {
+		if(is_array($players)) {
 			$this->players = $players;
+		} else {
+			$this->players = $players->toArray();
 		}
 
 		return $this;
@@ -77,10 +94,10 @@ class TeamBuilder
 	 */
 	public function setCompositions($compositions)
 	{
-		if($compositions instanceof \Doctrine\ORM\PersistentCollection) {
-			$this->compositions = $compositions->toArray();
-		} else {
+		if(is_array($compositions)) {
 			$this->compositions = $compositions;
+		} else {
+			$this->compositions = $compositions->toArray();
 		}
 
 		return $this;
@@ -88,14 +105,193 @@ class TeamBuilder
 
 	/**
 	 * Starts the builder
-	 * @param  array  $options [description]
-	 * @return [type]          [description]
+	 * 
+	 * @param  array  $options 
+	 * 
+	 * @return string          message
 	 */
 	public function build($options = array())
 	{
 		$this->setup();
 
-		return 'yoyoyo';
+		$this->logger->debug("TeamBuilder setup complete.");
+
+		foreach ($this->teams as $team) {
+			$this->logger->debug($team->toString());
+		}
+
+		$this->logger->debug("Players => " . $this->getPlayersAsString());
+		$this->logger->debug("Critical Players => " . $this->getCriticalPlayersAsString());
+		$this->logger->debug("Builds => " . $this->getBuildsAsString());
+		$this->logger->debug("Impossible Builds => " . $this->getImpossibleBuildsAsString());
+		$this->logger->debug("Critical Builds => " . $this->getCriticalBuildsAsString());
+		$this->logger->debug("Stable Builds => " . $this->getStableBuildsAsString());
+		$this->logger->debug("Unstable Builds => " . $this->getUnstableBuildsAsString());
+
+		foreach ($this->getCriticalPlayers() as $player) {
+			$this->process_player($player);
+		}
+
+		$this->logger->debug("Done with Critical Players !");
+		foreach ($this->teams as $team) {
+			$this->logger->debug($team->toString());
+		}
+
+		foreach ($this->getCriticalBuilds() as $build) {
+			$this->process_build($build);
+		}
+
+		$this->logger->debug("Done with Critical Builds !");
+		foreach ($this->teams as $team) {
+			$this->logger->debug($team->toString());
+		}
+
+		foreach ($this->getStableBuilds() as $build) {
+			$this->process_build($build);
+		}
+
+		$this->logger->debug("Done with Stable Builds !");
+		foreach ($this->teams as $team) {
+			$this->logger->debug($team->toString());
+		}
+
+		foreach ($this->getUnstableBuilds() as $build) {
+			$this->process_build($build);
+		}
+
+		$this->logger->debug("Done with Unstable Builds !");
+		foreach ($this->teams as $team) {
+			$this->logger->debug($team->toString());
+		}
+
+		foreach ($this->teams as $team) {
+			if(!$team->isComplete()) {
+				$team->attemptFilling($this->players, $this->logger);
+			}
+		}
+
+
+		$messages = array();
+
+		foreach ($this->teams as $team) {
+			if(!$team->isComplete()) {
+				$messages[] = 'team.error.incomplete';
+				break;
+			}
+		}
+
+		return $messages;
+	}
+
+	private function tryAssigning(Player $player, $builds)
+	{
+		$assignments_made = false;
+
+		foreach ($builds as $build) {
+			foreach($this->teams as $team) {
+				if(!$team->isAssigned($player) && $team->getSpotsLeft($build) > 0) {
+					$team->assign($player, $build);
+					$assignments_made = true;
+				}
+			}
+		}
+		
+		return $assignments_made;
+	}
+
+	private function process_player(Player $player)
+	{
+		$min_pref = 8;
+
+		do {
+			$builds = $player->getPlayable($min_pref);
+
+			$builds_playable_stable   = array_map('unserialize', 
+				array_intersect(array_map('serialize', $builds), array_map('serialize', $this->getStableBuilds())));
+			$builds_playable_critical = array_map('unserialize', 
+				array_intersect(array_map('serialize', $builds), array_map('serialize', $this->getCriticalBuilds())));
+			$builds_playable_unstable = array_map('unserialize', 
+				array_intersect(array_map('serialize', $builds), array_map('serialize', $this->getUnstableBuilds())));
+
+			if(!$this->tryAssigning($player, $builds_playable_critical)) {
+				$this->tryAssigning($player, $builds_playable_stable);
+				if(!$this->playerDone($player)) {
+					$this->tryAssigning($player, $builds_playable_unstable);
+				}
+			} else {
+				$this->tryAssigning($player, $builds_playable_unstable);
+				if(!$this->playerDone($player)) {
+					$this->tryAssigning($player, $builds_playable_stable);
+				}
+			}
+
+			if($min_pref > 2) {
+				$min_pref -= 2;
+			} else {
+				return false;
+			}
+		} while(!$this->playerDone($player));
+
+		return true;
+	}
+
+	private function getRandomPlayer(Build $build, $min_pref)
+	{
+		$players = array();
+		foreach ($this->players as $player) {
+			if(!$this->playerDone($player) && $player->getPreferenceForBuild($build)->getLevel() >= $min_pref) {
+				$players[] = $player;
+			}
+		}
+
+		$this->logger->debug("Possible players : " . join(', ', array_map(function($value) {return $value->getName();}, $players)));
+
+		if(count($players) > 0) {
+			$player = $players[mt_rand(0, count($players) - 1)];
+			$this->logger->debug("Returning player : " . $player->getName());
+			return $player;
+		} else {
+			$this->logger->debug("Returning null.");
+			return null;
+		}
+	}
+
+	private function process_build(Build $build)
+	{
+		$min_pref = 8;
+		$loops = 0;
+
+		$this->logger->debug("Now processing build : " . $build->getName());
+
+		do {
+			$player = $this->getRandomPlayer($build, $min_pref);
+			if($player !== null) {
+				foreach ($this->teams as $team) {
+					$this->logger->debug("Now looking at team : " . $team->toString());
+					$this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
+					$this->logger->debug(($team->isAssigned($player)) ? "isAssigned returned true" : "isAssigned returned false");
+					if(!$team->isAssigned($player) && $team->getSpotsLeft($build) > 0) {
+						$this->logger->debug("Assigning player " . $player->getName() . " to build " . $build->getName());
+						$team->assign($player, $build);
+						$this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
+					}
+				}
+			}
+
+			if($loops < 3) {
+				$loops++;
+			} else if($min_pref > 2) {
+				$min_pref -= 2;
+				$loops = 0;
+			} else {
+				$this->logger->debug("Could not fully assign : " . $build->getName());
+				return false;
+			}
+		} while(!$this->buildDone($build));
+
+		$this->logger->debug("Build done : " . $build->getName());
+
+		return true;
 	}
 
 	/**
@@ -218,17 +414,14 @@ class TeamBuilder
 	 */
 	private function buildDone(Build $build)
 	{
-		return 
-			array_reduce(
-				array_map(
-					"getTeamSpotsLeft", 
-					$this->teams
-				),
-				function ($result, $current) {
-					return $result + $current;
-				}
-			) === 0
-		;
+		foreach ($this->teams as $team) {
+			$this->logger->debug("Spots left In Build Done : " . $team->getSpotsLeft($build));
+			if($team->getSpotsLeft($build) > 0) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -463,6 +656,16 @@ class TeamBuilder
     public function getStableBuildsAsString()
     {
         return join(', ', array_map(function($value) {return $value->getName();}, $this->getStableBuilds()));
+    }
+
+    /**
+     * Gets the names of impossible_builds.
+     * 
+     * @return string 
+     */
+    public function getImpossibleBuildsAsString()
+    {
+    	return join(', ', array_map(function($value) {return $value->getName();}, $this->getImpossibleBuilds()));
     }
 
     /**

@@ -1,0 +1,56 @@
+{% extends 'PLLCoreBundle:Guild:team.html.twig' %}
+
+{% block teambody %}
+
+{% if builder.getImpossibleBuilds()|length > 0 %}
+<div class="w3-panel w3-section w3-padding w3-red">
+	<p>{{ 'team.error.impossiblebuilds'|trans }}: {{ builder.getImpossibleBuildsAsString() }}</p>
+</div>
+{% endif %}
+
+{% for error in errors %}
+<div class="w3-panel w3-section w3-padding w3-orange"><p>{{ error }}</p></div>
+{% endfor %}
+
+<div class="w3-responsive">
+	<table class="players-table w3-table-all w3-card-4 table-bordered">
+		<thead>
+			<tr class="w3-blue">
+	{% for team in teams %}
+				<th>{{ team.composition.name }}</th>
+	{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+	{% for team in teams %}
+				<td style="min-width: 220px;">
+	{% if not team.getGroupCount() == 0 %}
+	{% set groupmax = team.getGroupCount() - 1 %}
+	{% for i in 0..groupmax %}
+					<p>{{ 'team.group.label'|trans({'%index%': i+1}) }}</p>
+
+	{% for assignment in team.getAssignmentsForGroup(i) %}
+					<p>
+			    		<div style="display: inline-block; margin-right: 10px;" class="build-image" data-toggle="build-tooltip" title="{{ assignment.build.name }}">
+							<img id="build_img" src="/bundles/pllcore/images/build_img/{{ assignment.build.img }}.png" class="main">
+							<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ assignment.build.imgsub }}.png" class="sub">
+						</div>
+						<input class="form-control" style="max-width: 150px; display: inline-block;" value="{% if not assignment.player is null %}{{ assignment.player.name }}{% endif %}" />
+					</p>
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
+				</td>
+	{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+	<h2>{{ 'team.title.players'|trans }}</h2>
+	{{ builder.getPlayersAsString() }}
+</div>
+
+{% endblock %}

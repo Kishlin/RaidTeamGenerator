@@ -246,7 +246,7 @@ class Composition
             ->compositionbuilds
             ->filter(
                 function($e) use($build) {
-                    return $e->getBuild() === $build;
+                    return $e->getBuild()->getId() === $build->getId();
                 }
             )
         ;
@@ -352,6 +352,18 @@ class Composition
             ->compositionbuilds
             ->get($position)
             ->getBuild()
+        ;
+    }
+
+    public function toString()
+    {
+        return 
+            $this->name . ' |' .
+            join(', ', $this->compositionbuilds->map(
+                function($value) {
+                    return $value->getGroupindex() . ': ' .$value->getBuild()->getName();
+                }
+            )->toArray())
         ;
     }
 }

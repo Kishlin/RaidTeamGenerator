@@ -86,6 +86,38 @@ class Team
 	}
 
 	/**
+	 * Returns the number of groups in the composition
+	 * 
+	 * @return integer 
+	 */
+	public function getGroupCount()
+	{
+		return $this->composition->getGroupscount();
+	}
+
+	public function getAssignmentsForGroup($group)
+	{
+		$assignments = array();
+
+		$group = $this->composition->getGroup($group);
+		$keys = $group->getKeys();
+
+		foreach ($keys as $key)
+		{
+			$assignments[] = array(
+				'build'  => $group->get($key)->getBuild(),
+				'player' => $this->getPlayerAssigned($key),
+			);
+		}
+
+		usort($assignments, function($a, $b) {
+			return $a['build']->getId() - $b['build']->getId();
+		});
+
+		return $assignments;
+	}
+
+	/**
 	 * Returns whether the team has a player assigned to every build
 	 * 
 	 * @return boolean 
@@ -103,6 +135,59 @@ class Team
 	}
 
 	/**
+	 * Tries filling the remaining blank spots
+	 *
+	 * @param  array   $players
+	 * 
+	 * @return boolean
+	 */
+	public function attemptFilling($players, $logger)
+	{
+		$logger->debug("Trying to fill : " . $this->toString());
+
+		$lonely_players = $free_spots = array();
+
+		foreach ($players as $player) {
+			if(!$this->isAssigned($player)) {
+				$lonely_players[] = $player;
+			}
+		}
+
+		foreach ($this->assignments as $key => $value) {
+			if($value->getPlayer() === null) {
+				$free_spots[$key] = $value;
+			}
+		}
+
+		foreach ($lonely_players as $player) {
+			foreach ($this->assignments as $key => $value) {
+				if($value->getPlayer() !== null) {
+					$origin = $value;
+					$origin_player = $value->getPlayer();
+					$origin_build = $this->composition->getCompositionbuilds()->get($key)->getBuild();
+					if(in_array($origin_build, $player->getPlayable(1))) {
+						foreach ($free_spots as $key2 => $value2) {
+							$target = $value2;
+							$target_assignment = $value2;
+							$target_build = $this->composition->getCompositionbuilds()->get($key2)->getBuild();
+							if($origin_player->getPreferenceForBuild($target_build)->getLevel() > 0) {
+								$origin->unassign();
+								$this->assign($origin_player, $target_build);
+								$this->assign($player, $origin_build);
+								return $this->attemptFilling($players, $logger);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		$logger->debug($this->toString());
+
+		return $this->isComplete();
+	}
+
+	/**
 	 * Checks whether the player already has an assignment in the team
 	 * 
 	 * @param  Player  $player 
@@ -114,7 +199,11 @@ class Team
 		return
 			count(
 				array_filter($this->assignments, function($e) use($player) {
-					return $e->getPlayer() === $player;
+					if($e->getPlayer() === null) {
+						return false;
+					} else {
+						return $e->getPlayer()->getId() === $player->getId();
+					}
 				})
 			)
 			=== 1
@@ -178,4 +267,42 @@ class Team
 		return $this->assignments[$position]->getPlayer();
 	}
 
+	public function toString()
+	{
+		return $this
+			->composition->toString() . ' <=> ' . 
+			join(', ', array_map(
+				function($value) {
+					$player = $value->getPlayer();
+					if($player !== null) {
+						return $player->getName();
+					} else {
+						return "NULL";
+					}
+				},
+				$this->assignments
+			))
+		;
+	}
+
+
+    /**
+     * Gets the value of composition.
+     *
+     * @return PLL\CoreBundle\Entity\Composition
+     */
+    public function getComposition()
+    {
+        return $this->composition;
+    }
+
+    /**
+     * Gets the value of assignments.
+     *
+     * @return array
+     */
+    public function getAssignments()
+    {
+        return $this->assignments;
+    }
 }

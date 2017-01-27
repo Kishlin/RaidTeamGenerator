@@ -150,7 +150,7 @@ class Player
     public function getPreferenceForBuild(\PLL\CoreBundle\Entity\Build $build)
     {
         foreach($this->preferences as $preference) {
-            if($preference->getBuild() === $build) {
+            if($preference->getBuild()->getId() === $build->getId()) {
                 return $preference;
             }
         }
@@ -169,7 +169,7 @@ class Player
     public function setPreferenceForBuild(\PLL\CoreBundle\Entity\Build $build, $level)
     {
         foreach($this->preferences as $preference) {
-            if($preference->getBuild() === $build) {
+            if($preference->getBuild()->getId() === $build->getId()) {
                 $preference->setLevel($level);
                 return $this;
             }

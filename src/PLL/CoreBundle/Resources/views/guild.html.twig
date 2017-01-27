@@ -8,6 +8,15 @@
     <div class="w3-container">
       <h3 class="w3-padding-64"><b>{{ app.user.username }}</b></h3>
     </div>
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set route_params = route_params|merge(app.request.query.all) %}
+{% if app.request.locale == 'en' %}
+{% set route_params = route_params|merge({'_locale': 'fr'}) %}
+    <a href="{{ path(app.request.attributes.get('_route'), route_params) }}"><img src="{{ asset('bundles/pllcore/images/lang/fr.png') }}" /></a>
+{% else %}
+{% set route_params = route_params|merge({'_locale': 'en'}) %}
+    <a href="{{ path(app.request.attributes.get('_route'), route_params) }}"><img src="{{ asset('bundles/pllcore/images/lang/en.png') }}" /></a>
+{% endif %}
     <a href="{{ path('pll_core_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Home</a> 
     <a href="{{ path('pll_core_team_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Team</a> 
     <a href="{{ path('pll_core_events') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Events</a> 

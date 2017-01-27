@@ -6,6 +6,45 @@
 <div class="w3-panel w3-section w3-padding w3-red">{{ error }}</div>
 {% endif %}
 
+{% if not builder is null %}
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Compositions</h2>
+{{ builder.getCompositionsAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Players</h2>
+{{ builder.getPlayersAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Builds</h2>
+{{ builder.getBuildsAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Stable Builds</h2>
+{{ builder.getStableBuildsAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Unstable Builds</h2>
+{{ builder.getUnstableBuildsAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Critical Builds</h2>
+{{ builder.getCriticalBuildsAsString() }}
+</div>
+
+<div class="w3-panel w3-section w3-padding w3-blue">
+<h2>Critical Players</h2>
+{{ builder.getCriticalPlayersAsString() }}
+</div>
+
+{% endif %}
+
 <h2>{{ 'team.title.form.events'|trans }}</h2>
 <div class="w3-section">
 	{{ form(formevents) }}

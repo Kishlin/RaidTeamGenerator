@@ -55,7 +55,8 @@ class TeamController extends Controller
     	return $this->render('PLLCoreBundle:Team:home.html.twig', array(
     		'formplayerscompositions' => $formplayerscompositions->createView(),
     		'formevents'		      => $formevents		     ->createView(),
-    		'error'			 	      => $error,
+            'builder'                 => $builder,
+            'error'                   => $error,
     	));
     }
 	

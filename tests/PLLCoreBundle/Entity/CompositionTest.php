@@ -21,7 +21,7 @@ class CompositionTest extends TestCase
 	public function getSingleBuildComposition()
 	{
 		$build = new Build();
-		$build->setName("G0B0");
+		$build->setName("B0");
 
 		$cbuild = new CompositionBuild();
 		$cbuild->setBuild($build)->setGroupindex(0);
@@ -38,7 +38,7 @@ class CompositionTest extends TestCase
 
 		for ($j=0; $j < 4; $j++) { 
 			$build = new Build();
-			$build->setName("G0B".$j);
+			$build->setName("B".$j);
 			$cbuild = new CompositionBuild();
 			$cbuild->setBuild($build)->setGroupindex(0);
 			$composition->addCompositionbuild($cbuild);
@@ -53,14 +53,15 @@ class CompositionTest extends TestCase
 	{
 		$composition = new Composition();
 
-		for ($i=0; $i < 2; $i++) { 
-			for ($j=0; $j < 4; $j++) { 
-				$build = new Build();
-				$build->setName("G".$i."B".$j);
-				$cbuild = new CompositionBuild();
-				$cbuild->setBuild($build)->setGroupindex($i);
-				$composition->addCompositionbuild($cbuild);
-			}
+		for ($j=0; $j < 4; $j++) { 
+			$build = new Build();
+			$build->setName("B".$j);
+			$cbuild = new CompositionBuild();
+			$cbuild->setBuild($build)->setGroupindex(0);
+			$cbuild1 = new CompositionBuild();
+			$cbuild1->setBuild($build)->setGroupindex(1);
+			$composition->addCompositionbuild($cbuild);
+			$composition->addCompositionbuild($cbuild1);
 		}
 
 		$composition->setSize(8)->setGroupscount(2);
@@ -109,6 +110,17 @@ class CompositionTest extends TestCase
 	/**
 	 * @dataProvider allCompositionsProvider
 	 */
+	public function testGetAllBuilds($c_empty, $c_unique, $c_single, $c_full)
+	{
+		$this->assertCount(0, $c_empty ->getAllBuilds());
+		$this->assertCount(1, $c_unique->getAllBuilds());
+		$this->assertCount(4, $c_single->getAllBuilds());
+		$this->assertCount(4, $c_full  ->getAllBuilds());
+	}
+
+	/**
+	 * @dataProvider allCompositionsProvider
+	 */
 	public function testGetGroup($c_empty, $c_unique, $c_single, $c_full)
 	{
 		$this->assertCount(0, $c_empty->getGroup(0));
@@ -116,32 +128,32 @@ class CompositionTest extends TestCase
 
 		$this->assertCount(1, 		$c_unique->getGroup(0));
 		$this->assertCount(0, 		$c_unique->getGroup(1));
-		$this->assertEquals("G0B0", $c_unique->getGroup(0)->get(0)->getBuild()->getName());
+		$this->assertEquals("B0", $c_unique->getGroup(0)->get(0)->getBuild()->getName());
 
 		$this->assertCount(4, 		$c_single->getGroup(0));
 		$this->assertCount(0, 		$c_single->getGroup(1));
-		$this->assertEquals("G0B0", $c_single->getGroup(0)->get(0)->getBuild()->getName());
-		$this->assertEquals("G0B1", $c_single->getGroup(0)->get(1)->getBuild()->getName());
-		$this->assertEquals("G0B2", $c_single->getGroup(0)->get(2)->getBuild()->getName());
-		$this->assertEquals("G0B3", $c_single->getGroup(0)->get(3)->getBuild()->getName());
+		$this->assertEquals("B0", $c_single->getGroup(0)->get(0)->getBuild()->getName());
+		$this->assertEquals("B1", $c_single->getGroup(0)->get(1)->getBuild()->getName());
+		$this->assertEquals("B2", $c_single->getGroup(0)->get(2)->getBuild()->getName());
+		$this->assertEquals("B3", $c_single->getGroup(0)->get(3)->getBuild()->getName());
 
 		$this->assertCount(4, 		$c_full->getGroup(0));
 		$this->assertCount(4, 		$c_full->getGroup(1));
-		$this->assertEquals("G0B0", $c_full->getGroup(0)->get(0)->getBuild()->getName());
-		$this->assertEquals("G0B1", $c_full->getGroup(0)->get(1)->getBuild()->getName());
-		$this->assertEquals("G0B2", $c_full->getGroup(0)->get(2)->getBuild()->getName());
-		$this->assertEquals("G0B3", $c_full->getGroup(0)->get(3)->getBuild()->getName());
-		$this->assertEquals("G1B0", $c_full->getGroup(1)->get(4)->getBuild()->getName());
-		$this->assertEquals("G1B1", $c_full->getGroup(1)->get(5)->getBuild()->getName());
-		$this->assertEquals("G1B2", $c_full->getGroup(1)->get(6)->getBuild()->getName());
-		$this->assertEquals("G1B3", $c_full->getGroup(1)->get(7)->getBuild()->getName());
+		$this->assertEquals("B0", $c_full->getGroup(0)->get(0)->getBuild()->getName());
+		$this->assertEquals("B1", $c_full->getGroup(0)->get(2)->getBuild()->getName());
+		$this->assertEquals("B2", $c_full->getGroup(0)->get(4)->getBuild()->getName());
+		$this->assertEquals("B3", $c_full->getGroup(0)->get(6)->getBuild()->getName());
+		$this->assertEquals("B0", $c_full->getGroup(1)->get(1)->getBuild()->getName());
+		$this->assertEquals("B1", $c_full->getGroup(1)->get(3)->getBuild()->getName());
+		$this->assertEquals("B2", $c_full->getGroup(1)->get(5)->getBuild()->getName());
+		$this->assertEquals("B3", $c_full->getGroup(1)->get(7)->getBuild()->getName());
 		$this->assertNull($c_full->getGroup(1)->get(0));
-		$this->assertNull($c_full->getGroup(1)->get(1));
 		$this->assertNull($c_full->getGroup(1)->get(2));
-		$this->assertNull($c_full->getGroup(1)->get(3));
-		$this->assertNull($c_full->getGroup(0)->get(4));
+		$this->assertNull($c_full->getGroup(1)->get(4));
+		$this->assertNull($c_full->getGroup(1)->get(6));
+		$this->assertNull($c_full->getGroup(0)->get(1));
+		$this->assertNull($c_full->getGroup(0)->get(3));
 		$this->assertNull($c_full->getGroup(0)->get(5));
-		$this->assertNull($c_full->getGroup(0)->get(6));
 		$this->assertNull($c_full->getGroup(0)->get(7));
 	}
 
@@ -173,26 +185,26 @@ class CompositionTest extends TestCase
 
 		$this->assertCount(1, $c_unique->getBuildsForGroup(0));
 		$this->assertCount(0, $c_unique->getBuildsForGroup(1));
-		$this->assertEquals("G0B0", $c_unique->getBuildsForGroup(0)[0]->getName());
+		$this->assertEquals("B0", $c_unique->getBuildsForGroup(0)[0]->getName());
 
 		$this->assertCount(4, $c_single->getBuildsForGroup(0));
 		$this->assertCount(0, $c_single->getBuildsForGroup(1));
-		$this->assertEquals("G0B0", $c_single->getBuildsForGroup(0)[0]->getName());
-		$this->assertEquals("G0B1", $c_single->getBuildsForGroup(0)[1]->getName());
-		$this->assertEquals("G0B2", $c_single->getBuildsForGroup(0)[2]->getName());
-		$this->assertEquals("G0B3", $c_single->getBuildsForGroup(0)[3]->getName());
+		$this->assertEquals("B0", $c_single->getBuildsForGroup(0)[0]->getName());
+		$this->assertEquals("B1", $c_single->getBuildsForGroup(0)[1]->getName());
+		$this->assertEquals("B2", $c_single->getBuildsForGroup(0)[2]->getName());
+		$this->assertEquals("B3", $c_single->getBuildsForGroup(0)[3]->getName());
 
 		$this->assertCount(4, $c_full->getBuildsForGroup(0));
 		$this->assertCount(4, $c_full->getBuildsForGroup(1));
 		$this->assertCount(0, $c_full->getBuildsForGroup(2));
-		$this->assertEquals("G0B0", $c_full->getBuildsForGroup(0)[0]->getName());
-		$this->assertEquals("G0B1", $c_full->getBuildsForGroup(0)[1]->getName());
-		$this->assertEquals("G0B2", $c_full->getBuildsForGroup(0)[2]->getName());
-		$this->assertEquals("G0B3", $c_full->getBuildsForGroup(0)[3]->getName());
-		$this->assertEquals("G1B0", $c_full->getBuildsForGroup(1)[4]->getName());
-		$this->assertEquals("G1B1", $c_full->getBuildsForGroup(1)[5]->getName());
-		$this->assertEquals("G1B2", $c_full->getBuildsForGroup(1)[6]->getName());
-		$this->assertEquals("G1B3", $c_full->getBuildsForGroup(1)[7]->getName());
+		$this->assertEquals("B0", $c_full->getBuildsForGroup(0)[0]->getName());
+		$this->assertEquals("B1", $c_full->getBuildsForGroup(0)[2]->getName());
+		$this->assertEquals("B2", $c_full->getBuildsForGroup(0)[4]->getName());
+		$this->assertEquals("B3", $c_full->getBuildsForGroup(0)[6]->getName());
+		$this->assertEquals("B0", $c_full->getBuildsForGroup(1)[1]->getName());
+		$this->assertEquals("B1", $c_full->getBuildsForGroup(1)[3]->getName());
+		$this->assertEquals("B2", $c_full->getBuildsForGroup(1)[5]->getName());
+		$this->assertEquals("B3", $c_full->getBuildsForGroup(1)[7]->getName());
 	}
 
 	/**
@@ -200,21 +212,21 @@ class CompositionTest extends TestCase
 	 */
 	public function testGetBuild($c_empty, $c_unique, $c_single, $c_full)
 	{
-		$this->assertEquals("G0B0", $c_unique->getBuild(0)->getName());
+		$this->assertEquals("B0", $c_unique->getBuild(0)->getName());
 
-		$this->assertEquals("G0B0", $c_single->getBuild(0)->getName());
-		$this->assertEquals("G0B1", $c_single->getBuild(1)->getName());
-		$this->assertEquals("G0B2", $c_single->getBuild(2)->getName());
-		$this->assertEquals("G0B3", $c_single->getBuild(3)->getName());
+		$this->assertEquals("B0", $c_single->getBuild(0)->getName());
+		$this->assertEquals("B1", $c_single->getBuild(1)->getName());
+		$this->assertEquals("B2", $c_single->getBuild(2)->getName());
+		$this->assertEquals("B3", $c_single->getBuild(3)->getName());
 
-		$this->assertEquals("G0B0", $c_full->getBuild(0)->getName());
-		$this->assertEquals("G0B1", $c_full->getBuild(1)->getName());
-		$this->assertEquals("G0B2", $c_full->getBuild(2)->getName());
-		$this->assertEquals("G0B3", $c_full->getBuild(3)->getName());
-		$this->assertEquals("G1B0", $c_full->getBuild(4)->getName());
-		$this->assertEquals("G1B1", $c_full->getBuild(5)->getName());
-		$this->assertEquals("G1B2", $c_full->getBuild(6)->getName());
-		$this->assertEquals("G1B3", $c_full->getBuild(7)->getName());
+		$this->assertEquals("B0", $c_full->getBuild(0)->getName());
+		$this->assertEquals("B1", $c_full->getBuild(2)->getName());
+		$this->assertEquals("B2", $c_full->getBuild(4)->getName());
+		$this->assertEquals("B3", $c_full->getBuild(6)->getName());
+		$this->assertEquals("B0", $c_full->getBuild(1)->getName());
+		$this->assertEquals("B1", $c_full->getBuild(3)->getName());
+		$this->assertEquals("B2", $c_full->getBuild(5)->getName());
+		$this->assertEquals("B3", $c_full->getBuild(7)->getName());
 	}
 
 	/**

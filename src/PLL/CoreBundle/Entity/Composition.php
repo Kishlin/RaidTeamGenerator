@@ -233,6 +233,13 @@ class Composition
         return $this->compositionbuilds;
     }
 
+    /**
+     * Returns every compositionbuild with a specific builc
+     * 
+     * @param  Build $build 
+     * 
+     * @return ArrayCollection        
+     */
     public function getCompositionbuildsWithBuild($build) 
     {
         return $this
@@ -245,6 +252,38 @@ class Composition
         ;
     }
 
+    /**
+     * Returns an array containing once every guild appearing in the composition
+     * 
+     * @return array
+     */
+    public function getAllBuilds()
+    {
+        $builds = array();
+        
+        $this
+            ->compositionbuilds
+            ->forAll(
+                function($k, $e) use(& $builds) {
+                    if(!in_array($e->getBuild(), $builds)) {
+                        return $builds[] = $e->getBuild();
+                    } else {
+                        return $builds;
+                    }
+                }
+            )
+        ;
+        
+        return $builds;
+    }
+
+    /**
+     * Returns the compositionbuilds for a specific group
+     * 
+     * @param  integer         $groupindex 
+     * 
+     * @return ArrayCollection             
+     */
     public function getGroup($groupindex)
     {
         return $this
@@ -255,6 +294,13 @@ class Composition
         ;
     }
 
+    /**
+     * Returns the size of the specific group
+     * 
+     * @param  integer $groupindex 
+     * 
+     * @return integer             
+     */
     public function getGroupSize($groupindex)
     {
         return $this
@@ -266,6 +312,13 @@ class Composition
         ;
     }
 
+    /**
+     * Returns all the builds for a specific group
+     * 
+     * @param  integer $groupindex
+     *  
+     * @return array             
+     */
     public function getBuildsForGroup($groupindex)
     {
         $builds = array();
@@ -282,6 +335,13 @@ class Composition
         return $builds;
     }
 
+    /**
+     * Returns the build for the given position
+     * 
+     * @param  integer $position 
+     * 
+     * @return            
+     */
     public function getBuild($position)
     {   
         if($position >= $this->size) {
@@ -294,6 +354,4 @@ class Composition
             ->getBuild()
         ;
     }
-
-
 }

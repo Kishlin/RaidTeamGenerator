@@ -25,6 +25,11 @@ class Team
 	 */
 	private $assignments;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param Composition $composition
+	 */
 	public function __construct(Composition $composition)
 	{
 		$this->composition = $composition;
@@ -35,6 +40,14 @@ class Team
 		}
 	}
 
+	/**
+	 * Assigns the player to the specified build in the team
+	 * 
+	 * @param  Player $player 
+	 * @param  Build  $build  
+	 * 
+	 * @return Team           this
+	 */
 	public function assign(Player $player, Build $build)
 	{
 		if($this->getSpotsLeft($build) === 0) {
@@ -62,11 +75,21 @@ class Team
 		throw new CouldNotAssignException();
 	}
 
+	/**
+	 * Return the size of the team's composition
+	 * 
+	 * @return integer 
+	 */
 	public function getSize()
 	{
 		return $this->composition->getSize();
 	}
 
+	/**
+	 * Returns whether the team has a player assigned to every build
+	 * 
+	 * @return boolean 
+	 */
 	public function isComplete()
 	{
 		return 
@@ -79,6 +102,13 @@ class Team
 		;
 	}
 
+	/**
+	 * Checks whether the player already has an assignment in the team
+	 * 
+	 * @param  Player  $player 
+	 * 
+	 * @return boolean         
+	 */
 	public function isAssigned(Player $player)
 	{
 		return
@@ -91,6 +121,13 @@ class Team
 		;
 	}
 
+	/**
+	 * Returns the total number of spots for a given build
+	 * 
+	 * @param  Build    $build 
+	 * 
+	 * @return integer        
+	 */
 	public function getSpotsTotal(Build $build)
 	{
 		return
@@ -100,6 +137,13 @@ class Team
 		;
 	}
 
+	/**
+	 * Returns the number of free spots for a given build
+	 * 
+	 * @param  Build    $build 
+	 * 
+	 * @return integer        
+	 */
 	public function getSpotsLeft(Build $build)
 	{
 		$spots = 0;
@@ -118,6 +162,13 @@ class Team
 		return $spots;
 	}
 
+	/**
+	 * Returns the player assigned at a given position
+	 * 
+	 * @param  integer $position
+	 *  
+	 * @return Player           
+	 */
 	public function getPlayerAssigned($position)
 	{
 		if($position >= $this->getSize()) {

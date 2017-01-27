@@ -178,6 +178,13 @@ class Player
         return $this;
     }
 
+    /**
+     * Returns the number of builds the player can play with the given minimal preference
+     * 
+     * @param  integer $min_pref 
+     * 
+     * @return integer           
+     */
     public function getNumberOfPlayableBuilds($min_pref)
     {
         return 
@@ -191,6 +198,13 @@ class Player
         ;
     }
 
+    /**
+     * Returns all the builds the player can play with the given minimal preference
+     * 
+     * @param  integer $min_pref 
+     * 
+     * @return array           
+     */
     public function getPlayable($min_pref)
     {
         $builds = array();

@@ -1,0 +1,24 @@
+{% extends 'PLLCoreBundle:Guild:home.html.twig' %}
+
+{% block homebody %}
+<div class=" w3-section panel panel-info">
+	<div class="panel-heading">
+		<h2>{{ 'home.apikey.title'|trans }}</h2>			
+	</div>	
+	<div class="panel-body">
+{% if apikey is null %}
+	<p>{{ 'home.apikey.message.none'|trans }}</p>
+<form action="{{ path('pll_core_home', {'_locale': app.request.locale}) }}" method="post">
+    <input type="submit" value="{{ 'home.apikey.button.create'|trans }}" class="btn btn-default" />
+    {{ form_rest(form) }}
+</form>
+{% else %}
+    <p>{{ 'home.apikey.description'|trans }}</p>
+    <p class="text-center"><b>{{ apikey.apikey }}</b></p>
+    <a href="{{ path('pll_core_delete_apikey', {'_locale': app.request.locale}) }}">{{ 'home.apikey.link.delete'|trans }}</a>
+{% endif %}
+	</div>
+</div>
+
+
+{% endblock %}

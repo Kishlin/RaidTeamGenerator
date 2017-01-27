@@ -1,8 +1,11 @@
 {% extends 'PLLCoreBundle::guild.html.twig' %}
 
 {% block guildbody %}
-<h1> Hello ! </h1>
-
-
-
+<div class="page-home">
+	<div class="w3-section">
+		<h1 class="guild-page-title">{{ 'home.title.main'|trans }}</h1>
+	</div>
+{% block homebody %}
+{% endblock %}
+</div>
 {% endblock %}

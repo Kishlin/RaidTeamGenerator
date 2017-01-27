@@ -42,6 +42,11 @@ class Guild extends BaseUser
      */
     private $compositions;
 
+    /**
+     * @ORM\OneToOne(targetEntity="PLL\CoreBundle\Entity\ApiKey", inversedBy="guild", cascade={"persist", "remove"})
+     */
+    private $apikey;
+
     public function __construct()
     {
         parent::__construct();
@@ -189,5 +194,29 @@ class Guild extends BaseUser
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set apikey
+     *
+     * @param \PLL\CoreBundle\Entity\ApiKey $apikey
+     *
+     * @return Guild
+     */
+    public function setApikey(\PLL\CoreBundle\Entity\ApiKey $apikey = null)
+    {
+        $this->apikey = $apikey;
+
+        return $this;
+    }
+
+    /**
+     * Get apikey
+     *
+     * @return \PLL\CoreBundle\Entity\ApiKey
+     */
+    public function getApikey()
+    {
+        return $this->apikey;
     }
 }

@@ -1,0 +1,19 @@
+{% extends 'PLLCoreBundle:Guild:home.html.twig' %}
+
+{% block homebody %}
+
+<p>{{ 'home.apikey.delete.alert'|trans }}</p>
+<p>{{ apikey.apikey }}</p>
+
+<form action="{{ path('pll_core_delete_apikey', {'_locale': app.request.locale}) }}" method="post">
+    <a href="{{ path('pll_core_home', {'_locale': app.request.locale}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      {{ 'home.apikey.button.delete.cancel'|trans }}
+    </a>
+
+    <input type="submit" value="{{ 'home.apikey.button.delete.confirm'|trans }}" class="btn btn-danger" />
+    
+    {{ form_rest(form) }}
+</form>
+
+{% endblock %}

@@ -42,11 +42,17 @@ class Guild extends BaseUser
      */
     private $compositions;
 
+    /**
+     * @ORM\OneToOne(targetEntity="PLL\CoreBundle\Entity\ApiKey", inversedBy="guild", cascade={"persist", "remove"})
+     */
+    private $apikey;
+
     public function __construct()
     {
         parent::__construct();
         $this->builds       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->players      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->compositions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -153,5 +159,64 @@ class Guild extends BaseUser
     public function getCompositions()
     {
         return $this->compositions;
+    }
+
+    /**
+     * Add event
+     *
+     * @param \PLL\CoreBundle\Entity\Event $event
+     *
+     * @return Guild
+     */
+    public function addEvent(\PLL\CoreBundle\Entity\Event $event)
+    {
+        $this->events[] = $event;
+        $event->setGuild($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \PLL\CoreBundle\Entity\Event $event
+     */
+    public function removeEvent(\PLL\CoreBundle\Entity\Event $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * Set apikey
+     *
+     * @param \PLL\CoreBundle\Entity\ApiKey $apikey
+     *
+     * @return Guild
+     */
+    public function setApikey(\PLL\CoreBundle\Entity\ApiKey $apikey = null)
+    {
+        $this->apikey = $apikey;
+
+        return $this;
+    }
+
+    /**
+     * Get apikey
+     *
+     * @return \PLL\CoreBundle\Entity\ApiKey
+     */
+    public function getApikey()
+    {
+        return $this->apikey;
     }
 }

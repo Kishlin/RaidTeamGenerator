@@ -129,24 +129,24 @@ build.sub.Torment: Tourment
 build.sub.Vigor: Vigueur
 build.sub.Vulnerability: Vulnérabilité
 build.sub.Weakness: Faiblesse
-build.message.created: Le build a été créé.
-build.message.modified: Le build a été modifié.
-build.message.deleted: Le build a été supprimé.
-build.message.defaultbuildsadded: Les builds par défaut ont été ajoutés.
-composition.message.created: La composition a été créée.
-composition.message.modified: La composition a été modifiée.
-composition.message.deleted: La composition a été supprimée.
-event.message.created: L'événement a été créé.
-event.message.modified: L'événement a été modifié.
-event.message.deleted: L'événement a été supprimé.
-player.message.created: Le joueur a été créé.
-player.message.modified: Le joueur a été modifié.
-player.message.deleted: Le joueur a été supprimé.
-team.error.incomplete: Le builder n'a pas pu assigner un joueur à tous les slots.
-event.error.guild.composition: Une composition n'appartient pas à votre guilde.
-event.error.composition.size: Les compositions ne sont pas toutes de la même taille.
-event.error.composition.none: L'événement n'a aucune composition.
-event.error.player.count: Le nombre de joueurs ne correspond pas aux tailles des compositions.
-event.error.guild.player: Un joueur n'appartient pas à votre guilde.
-event.error.guild.event: L'événement n'appartient pas à votre guilde.
-event.error.player.none: L'événement n'a aucun joueur.
+build.message.created: 'Le build a été créé.'
+build.message.modified: 'Le build a été modifié.'
+build.message.deleted: 'Le build a été supprimé.'
+build.message.defaultbuildsadded: 'Les builds par défaut ont été ajoutés.'
+composition.message.created: 'La composition a été créée.'
+composition.message.modified: 'La composition a été modifiée.'
+composition.message.deleted: 'La composition a été supprimée.'
+event.message.created: 'L''événement a été créé.'
+event.message.modified: 'L''événement a été modifié.'
+event.message.deleted: 'L''événement a été supprimé.'
+player.message.created: 'Le joueur a été créé.'
+player.message.modified: 'Le joueur a été modifié.'
+player.message.deleted: 'Le joueur a été supprimé.'
+team.error.incomplete: 'Le builder n''a pas pu assigner un joueur à tous les slots.'
+event.error.guild.composition: 'Une composition n''appartient pas à votre guilde.'
+event.error.composition.size: 'Les compositions ne sont pas toutes de la même taille.'
+event.error.composition.none: 'L''événement n''a aucune composition.'
+event.error.player.count: 'Le nombre de joueurs ne correspond pas aux tailles des compositions.'
+event.error.guild.player: 'Un joueur n''appartient pas à votre guilde.'
+event.error.guild.event: 'L''événement n''appartient pas à votre guilde.'
+event.error.player.none: 'L''événement n''a aucun joueur.'

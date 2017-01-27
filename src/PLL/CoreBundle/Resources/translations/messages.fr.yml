@@ -150,3 +150,19 @@ event.error.player.count: 'Le nombre de joueurs ne correspond pas aux tailles de
 event.error.guild.player: 'Un joueur n''appartient pas à votre guilde.'
 event.error.guild.event: 'L''événement n''appartient pas à votre guilde.'
 event.error.player.none: 'L''événement n''a aucun joueur.'
+home.title.main: Bienvenu !
+home.apikey.delete.alert: 'Êtes vous sûr de vouloir supprimer votre clé api?'
+home.apikey.button.delete.cancel: Annuler
+home.apikey.button.delete.confirm: Confirmer
+home.title.apikey: 'Clé Api'
+home.apikey.message.none: 'Vous n''avez pas encore de clé api.'
+home.apikey.button.create: 'Créer une clé api'
+home.apikey.description: 'N''importe qui avec cette clé peut accéder aux informations sur vos joueurs, compositions, ...'
+home.apikey.link.delete: 'Supprimer la clé api.'
+home.title.analytics.players: 'Statistiques Joueurs'
+home.headers.analytics.builds: Build
+home.headers.analytics.total: Total
+home.headers.analytics.avg: Moyenne
+home.headers.analytics.max: Maximum
+home.headers.analytics.min: Minimum
+home.title.analytics.compositions: 'Statistiques Compositions'

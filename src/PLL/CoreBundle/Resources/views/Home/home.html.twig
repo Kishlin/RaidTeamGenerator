@@ -1,22 +1,85 @@
 {% extends 'PLLCoreBundle:Guild:home.html.twig' %}
 
 {% block homebody %}
-<div class=" w3-section panel panel-info">
-	<div class="panel-heading">
-		<h2>{{ 'home.apikey.title'|trans }}</h2>			
-	</div>	
-	<div class="panel-body">
-{% if apikey is null %}
-	<p>{{ 'home.apikey.message.none'|trans }}</p>
-<form action="{{ path('pll_core_home', {'_locale': app.request.locale}) }}" method="post">
-    <input type="submit" value="{{ 'home.apikey.button.create'|trans }}" class="btn btn-default" />
-    {{ form_rest(form) }}
-</form>
+
+<div class="w3-section">
+	<h2>{{ 'home.title.apikey'|trans }}</h2>
+
+	<div>
+{% if not apikey is defined or apikey is null %}
+		<p>{{ 'home.apikey.message.none'|trans }}</p>
+	<form action="{{ path('pll_core_home', {'_locale': app.request.locale}) }}" method="post">
+	    <input type="submit" value="{{ 'home.apikey.button.create'|trans }}" class="btn btn-default" />
+	    {{ form_rest(form) }}
+	</form>
 {% else %}
-    <p>{{ 'home.apikey.description'|trans }}</p>
-    <p class="text-center"><b>{{ apikey.apikey }}</b></p>
-    <a href="{{ path('pll_core_delete_apikey', {'_locale': app.request.locale}) }}">{{ 'home.apikey.link.delete'|trans }}</a>
+	    <p>{{ 'home.apikey.description'|trans }}</p>
+	    <p class="text-center"><b>{{ apikey.apikey }}</b></p>
+	    <a href="{{ path('pll_core_delete_apikey', {'_locale': app.request.locale}) }}">{{ 'home.apikey.link.delete'|trans }}</a>
 {% endif %}
+	</div>
+</div>
+
+<div class="w3-section">
+	<h2>{{ 'home.title.analytics.players'|trans }}</h2>
+
+	<div class="table-responsive">
+		<table class="w3-table-all w3-card-4 table-bordered">
+			<tr class="w3-blue">
+				<td>{{ 'home.headers.analytics.builds'|trans }}</td>
+{% for entry in player_analytics %}
+				<td>
+	    			<div class="build-image w3-margin-bottom" data-toggle="build-tooltip" title="{{ entry['build'].name }}">
+						<img id="build_img" src="/bundles/pllcore/images/build_img/{{ entry['build'].img }}.png" class="main">
+						<img id="build_imgsub" src="/bundles/pllcore/images/build_imgsub/{{ entry['build'].imgsub }}.png" class="sub">
+					</div>
+				</td>
+{% endfor %}
+			</tr>
+			<tr>
+				<td>{{ 'home.headers.analytics.total'|trans }}</td>
+{% for entry in player_analytics %}
+				<td>{{ entry['total'] }}</td>
+{% endfor %}
+			</tr>
+			<tr>
+				<td>{{ 'home.headers.analytics.avg'|trans }}</td>
+{% for entry in player_analytics %}
+				<td>{{ entry['avg'] }}</td>
+{% endfor %}
+			</tr>
+			<tr>
+				<td>{{ 'home.headers.analytics.max'|trans }}</td>
+{% for entry in player_analytics %}
+				<td>{{ entry['max'] }}</td>
+{% endfor %}
+			</tr>
+			<tr>
+				<td>{{ 'home.headers.analytics.min'|trans }}</td>
+{% for entry in player_analytics %}
+				<td>{{ entry['min'] }}</td>
+{% endfor %}
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="w3-section">
+	<h2>{{ 'home.title.analytics.compositions'|trans }}</h2>
+
+	<div class="table-responsive">
+		<table class="w3-table-all w3-card-4 table-bordered">
+			<tr class="w3-blue">
+{% for key, value in composition_analytics %}
+				<th>{{ key|trans }}</th>
+{% endfor %}
+			</tr>
+			<tr>
+{% for key, value in composition_analytics %}
+				<td>{{ value }}</td>
+{% endfor %}
+			</tr>
+		</table>
 	</div>
 </div>
 

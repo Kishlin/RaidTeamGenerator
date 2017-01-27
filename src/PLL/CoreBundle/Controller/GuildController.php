@@ -25,7 +25,12 @@ class GuildController extends Controller
         	$em->flush();
         }
 
+        $composition_analytics = $this->get('pll_core.analytics.composition');
+        $player_analytics      = $this->get('pll_core.analytics.player');
+
     	return $this->render('PLLCoreBundle:Home:home.html.twig', array(
+            'composition_analytics' => $composition_analytics->run($guild->getCompositions()),
+            'player_analytics'      => $player_analytics->run($guild->getPlayers(), $guild->getBuilds()),
 			'form'   => $form->createView(),
 			'apikey' => $guild->getApikey(),
     	));

@@ -9,3 +9,7 @@ services:
         class: PLL\CoreBundle\Team\Validator\TeamValidator
     pll_core.team.builder:
         class: PLL\CoreBundle\Team\Builder\TeamBuilder
+    pll_core.analytics.composition:
+        class: PLL\CoreBundle\Analytics\CompositionAnalytics
+    pll_core.analytics.player:
+        class: PLL\CoreBundle\Analytics\PlayerAnalytics

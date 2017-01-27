@@ -159,10 +159,10 @@ home.apikey.message.none: 'Vous n''avez pas encore de clé api.'
 home.apikey.button.create: 'Créer une clé api'
 home.apikey.description: 'N''importe qui avec cette clé peut accéder aux informations sur vos joueurs, compositions, ...'
 home.apikey.link.delete: 'Supprimer la clé api.'
-home.title.analytics.players: 'Statistiques Joueurs'
+home.title.analytics.players: 'Stats Joueurs'
 home.headers.analytics.builds: Build
 home.headers.analytics.total: Total
 home.headers.analytics.avg: Moyenne
 home.headers.analytics.max: Maximum
 home.headers.analytics.min: Minimum
-home.title.analytics.compositions: 'Statistiques Compositions'
+home.title.analytics.compositions: 'Compositions'

@@ -114,54 +114,54 @@ class TeamBuilder
 	{
 		$this->setup();
 
-		$this->logger->debug("TeamBuilder setup complete.");
+		// $this->logger->debug("TeamBuilder setup complete.");
 
 		foreach ($this->teams as $team) {
-			$this->logger->debug($team->toString());
+			// $this->logger->debug($team->toString());
 		}
 
-		$this->logger->debug("Players => " . $this->getPlayersAsString());
-		$this->logger->debug("Critical Players => " . $this->getCriticalPlayersAsString());
-		$this->logger->debug("Builds => " . $this->getBuildsAsString());
-		$this->logger->debug("Impossible Builds => " . $this->getImpossibleBuildsAsString());
-		$this->logger->debug("Critical Builds => " . $this->getCriticalBuildsAsString());
-		$this->logger->debug("Stable Builds => " . $this->getStableBuildsAsString());
-		$this->logger->debug("Unstable Builds => " . $this->getUnstableBuildsAsString());
+		// $this->logger->debug("Players => " . $this->getPlayersAsString());
+		// $this->logger->debug("Critical Players => " . $this->getCriticalPlayersAsString());
+		// $this->logger->debug("Builds => " . $this->getBuildsAsString());
+		// $this->logger->debug("Impossible Builds => " . $this->getImpossibleBuildsAsString());
+		// $this->logger->debug("Critical Builds => " . $this->getCriticalBuildsAsString());
+		// $this->logger->debug("Stable Builds => " . $this->getStableBuildsAsString());
+		// $this->logger->debug("Unstable Builds => " . $this->getUnstableBuildsAsString());
 
 		foreach ($this->getCriticalPlayers() as $player) {
 			$this->process_player($player);
 		}
 
-		$this->logger->debug("Done with Critical Players !");
+		// $this->logger->debug("Done with Critical Players !");
 		foreach ($this->teams as $team) {
-			$this->logger->debug($team->toString());
+			// $this->logger->debug($team->toString());
 		}
 
 		foreach ($this->getCriticalBuilds() as $build) {
 			$this->process_build($build);
 		}
 
-		$this->logger->debug("Done with Critical Builds !");
+		// $this->logger->debug("Done with Critical Builds !");
 		foreach ($this->teams as $team) {
-			$this->logger->debug($team->toString());
+			// $this->logger->debug($team->toString());
 		}
 
 		foreach ($this->getStableBuilds() as $build) {
 			$this->process_build($build);
 		}
 
-		$this->logger->debug("Done with Stable Builds !");
+		// $this->logger->debug("Done with Stable Builds !");
 		foreach ($this->teams as $team) {
-			$this->logger->debug($team->toString());
+			// $this->logger->debug($team->toString());
 		}
 
 		foreach ($this->getUnstableBuilds() as $build) {
 			$this->process_build($build);
 		}
 
-		$this->logger->debug("Done with Unstable Builds !");
+		// $this->logger->debug("Done with Unstable Builds !");
 		foreach ($this->teams as $team) {
-			$this->logger->debug($team->toString());
+			// $this->logger->debug($team->toString());
 		}
 
 		foreach ($this->teams as $team) {
@@ -244,14 +244,14 @@ class TeamBuilder
 			}
 		}
 
-		$this->logger->debug("Possible players : " . join(', ', array_map(function($value) {return $value->getName();}, $players)));
+		// $this->logger->debug("Possible players : " . join(', ', array_map(function($value) {return $value->getName();}, $players)));
 
 		if(count($players) > 0) {
 			$player = $players[mt_rand(0, count($players) - 1)];
-			$this->logger->debug("Returning player : " . $player->getName());
+			// $this->logger->debug("Returning player : " . $player->getName());
 			return $player;
 		} else {
-			$this->logger->debug("Returning null.");
+			// $this->logger->debug("Returning null.");
 			return null;
 		}
 	}
@@ -261,19 +261,19 @@ class TeamBuilder
 		$min_pref = 8;
 		$loops = 0;
 
-		$this->logger->debug("Now processing build : " . $build->getName());
+		// $this->logger->debug("Now processing build : " . $build->getName());
 
 		do {
 			$player = $this->getRandomPlayer($build, $min_pref);
 			if($player !== null) {
 				foreach ($this->teams as $team) {
-					$this->logger->debug("Now looking at team : " . $team->toString());
-					$this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
-					$this->logger->debug(($team->isAssigned($player)) ? "isAssigned returned true" : "isAssigned returned false");
+					// $this->logger->debug("Now looking at team : " . $team->toString());
+					// $this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
+					// $this->logger->debug(($team->isAssigned($player)) ? "isAssigned returned true" : "isAssigned returned false");
 					if(!$team->isAssigned($player) && $team->getSpotsLeft($build) > 0) {
-						$this->logger->debug("Assigning player " . $player->getName() . " to build " . $build->getName());
+						// $this->logger->debug("Assigning player " . $player->getName() . " to build " . $build->getName());
 						$team->assign($player, $build);
-						$this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
+						// $this->logger->debug("Spots left : " . $team->getSpotsLeft($build));
 					}
 				}
 			}
@@ -284,12 +284,12 @@ class TeamBuilder
 				$min_pref -= 2;
 				$loops = 0;
 			} else {
-				$this->logger->debug("Could not fully assign : " . $build->getName());
+				// $this->logger->debug("Could not fully assign : " . $build->getName());
 				return false;
 			}
 		} while(!$this->buildDone($build));
 
-		$this->logger->debug("Build done : " . $build->getName());
+		// $this->logger->debug("Build done : " . $build->getName());
 
 		return true;
 	}
@@ -415,7 +415,7 @@ class TeamBuilder
 	private function buildDone(Build $build)
 	{
 		foreach ($this->teams as $team) {
-			$this->logger->debug("Spots left In Build Done : " . $team->getSpotsLeft($build));
+			// $this->logger->debug("Spots left In Build Done : " . $team->getSpotsLeft($build));
 			if($team->getSpotsLeft($build) > 0) {
 				return false;
 			}

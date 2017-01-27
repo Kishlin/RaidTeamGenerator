@@ -129,24 +129,25 @@ build.sub.Torment: Torment
 build.sub.Vigor: Vigor
 build.sub.Vulnerability: Vulnerability
 build.sub.Weakness: Weakness
-build.message.created: 'The build has been created.'
-build.message.modified: 'The build has been modified.'
-build.message.deleted: 'The build has been deleted.'
-build.message.defaultbuildsadded: 'The default builds has been added.'
-composition.message.created: 'The composition has been created.'
-composition.message.modified: 'The composition has been modified.'
-composition.message.deleted: 'The composition has been deleted.'
-event.message.created: 'The event has been created.'
-event.message.modified: 'The event has been modified.'
-event.message.deleted: 'The event has been deleted.'
-player.message.created: 'The player has been created.'
-player.message.modified: 'The player has been modified.'
-player.message.deleted: 'The player has been deleted.'
-team.error.incomplete: 'The builder could not assign a player to some spots.'
-event.error.guild.composition: 'A composition does not belong to your guild.'
-event.error.composition.size: 'The compositions are not all of the same size.'
-event.error.composition.none: 'The event does not have any composition.'
-event.error.player.count: 'The number of selected players does not match the compositions sizes.'
-event.error.guild.player: 'A player does not belong to your guild.'
-event.error.guild.event: 'The event does not belong to your guild.'
-event.error.player.none: 'The event does not have any player.'
+build.message.created: The build has been created.
+build.message.modified: The build has been modified.
+build.message.deleted: The build has been deleted.
+build.message.defaultbuildsadded: The default builds has been added.
+composition.message.created: The composition has been created.
+composition.message.modified: The composition has been modified.
+composition.message.deleted: The composition has been deleted.
+event.message.created: The event has been created.
+event.message.modified: The event has been modified.
+event.message.deleted: The event has been deleted.
+player.message.created: The player has been created.
+player.message.modified: The player has been modified.
+player.message.deleted: The player has been deleted.
+team.error.incomplete: The builder could not assign a player to some spots.
+event.error.guild.composition: A composition does not belong to your guild.
+event.error.composition.size: The compositions are not all of the same size.
+event.error.composition.none: The event does not have any composition.
+event.error.player.count: The number of selected players does not match the compositions sizes.
+event.error.guild.player: A player does not belong to your guild.
+event.error.guild.event: The event does not belong to your guild.
+event.error.player.none: The event does not have any player.
+

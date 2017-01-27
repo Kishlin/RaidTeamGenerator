@@ -29,7 +29,7 @@ class BuildType extends AbstractType
 
         $full_array = array();
         foreach ($options as $option) {
-            $full_array['build.main.'.$option] = $option;
+            $full_array['build.sub.'.$option] = $option;
         }
         return $full_array;
     }

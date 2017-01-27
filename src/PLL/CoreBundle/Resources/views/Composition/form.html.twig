@@ -51,7 +51,7 @@
 {% set groupmax = composition.groupscount - 1 %}
 {% for i in 0..groupmax %}
 		<div class="container-group" id="container-group-{{ i }}">
-		    <label class="control-label required">{{ 'composition.group'|trans({'%index%': i+1}) }}</label>
+		    <label class="control-label required">{{ 'composition.group'|trans }} {{i+1}}</label>
 		    <div class="row">
 			    <div class="col-md-7 group-bouttons">
 				    <div class="row">

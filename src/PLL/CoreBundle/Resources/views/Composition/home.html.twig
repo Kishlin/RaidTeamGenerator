@@ -3,11 +3,11 @@
 {% block compositionbody %}
 
 {% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage }}</div>
+    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage|trans }}</div>
 {% endfor %}
 
 <div class="w3-section">
-	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">composition.button.new</a>
+	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">{{ 'composition.button.new'|trans }}</a>
 </div>
 
 <div class="w3-section w3-responsive">
@@ -45,12 +45,12 @@
 {% endfor %}
 	</table>
 {% else %}
-  	<div class="w3-panel w3-padding w3-blue">{{ 'composition.message.none' }}</div>
+  	<div class="w3-panel w3-padding w3-blue">{{ 'composition.message.none'|trans }}</div>
 {% endif %}
 </div>
 
 <div class="w3-section">
-	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">composition.button.new</a>
+	<a class="btn btn-primary" href="{{ path('pll_core_compositions_new') }}">{{ 'composition.button.new'|trans }}</a>
 </div>
 
 {% endblock %}

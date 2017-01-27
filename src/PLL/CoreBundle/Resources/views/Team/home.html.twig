@@ -3,7 +3,7 @@
 {% block teambody %}
 
 {% if error %}
-<div class="w3-panel w3-section w3-padding w3-red">{{ error }}</div>
+<div class="w3-panel w3-section w3-padding w3-red">{{ error|trans }}</div>
 {% endif %}
 
 <h2>{{ 'team.title.form.events'|trans }}</h2>

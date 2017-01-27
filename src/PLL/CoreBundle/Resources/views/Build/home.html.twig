@@ -3,11 +3,11 @@
 {% block buildbody %}
 
 {% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage }}</div>
+    <div class="w3-panel w3-section w3-padding w3-green">{{ flashMessage|trans }}</div>
 {% endfor %}
 
 <div class="w3-section">
-	<a class="btn btn-primary" href="{{ path('pll_core_builds_new') }}">build.button.new</a>
+	<a class="btn btn-primary" href="{{ path('pll_core_builds_new') }}">{{ 'build.button.new'|trans }}</a>
 </div>
 
 <div class="w3-section w3-responsive">
@@ -32,15 +32,15 @@
 {% endfor %}
 	</table>
 {% else %}
-  	<div class="w3-panel w3-padding w3-blue">{{ 'build.messages.none' }}</div>
+  	<div class="w3-panel w3-padding w3-blue">{{ 'build.messages.none'|trans }}</div>
 {% endif %}
 </div>
 
 <div class="w3-section">
-	<a class="btn btn-primary" href="{{ path('pll_core_builds_new') }}">build.button.new</a>
+	<a class="btn btn-primary" href="{{ path('pll_core_builds_new') }}">{{ 'build.button.new'|trans }}</a>
 </div>
 
 <div class="w3-section">
-	<a class="btn btn-primary" href="{{ path('pll_core_builds_add_default') }}">build.button.adddefault</a>
+	<a class="btn btn-primary" href="{{ path('pll_core_builds_add_default') }}">{{ 'build.button.adddefault'|trans }}</a>
 </div>
 {% endblock %}

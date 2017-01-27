@@ -17,13 +17,13 @@
 {% set route_params = route_params|merge({'_locale': 'en'}) %}
     <a href="{{ path(app.request.attributes.get('_route'), route_params) }}"><img src="{{ asset('bundles/pllcore/images/lang/en.png') }}" /></a>
 {% endif %}
-    <a href="{{ path('pll_core_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Home</a> 
-    <a href="{{ path('pll_core_team_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Team</a> 
-    <a href="{{ path('pll_core_events') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Events</a> 
-    <a href="{{ path('pll_core_players') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Players</a> 
-    <a href="{{ path('pll_core_compositions')  }}" onclick="w3_close()" class="w3-padding w3-hover-white">Compositions</a> 
-    <a href="{{ path('pll_core_builds') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Builds</a>
-    <a href="{{ path('fos_user_security_logout') }}" onclick="w3_close()" class="w3-padding w3-hover-white">Logout</a>
+    <a href="{{ path('pll_core_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Home'|trans }}</a> 
+    <a href="{{ path('pll_core_team_home') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Team'|trans }}</a> 
+    <a href="{{ path('pll_core_events') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Events'|trans }}</a> 
+    <a href="{{ path('pll_core_players') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Players'|trans }}</a> 
+    <a href="{{ path('pll_core_compositions')  }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Compositions'|trans }}</a> 
+    <a href="{{ path('pll_core_builds') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Builds'|trans }}</a>
+    <a href="{{ path('fos_user_security_logout') }}" onclick="w3_close()" class="w3-padding w3-hover-white">{{ 'menu.Logout'|trans }}</a>
   </nav>
 
   <!-- Top menu on small screens -->

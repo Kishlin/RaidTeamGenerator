@@ -1,0 +1,152 @@
+build.adddefault.alert: 'Cette action ajoutera tous les builds suivants à votre guilde.'
+build.button.adddefault.cancel: Annuler
+build.button.adddefault.confirm: Confirmer
+build.delete.alert: 'Êtes vous sûr de vouloir supprimer ce build?'
+build.delete.error.used`: 'Ce build est utilisé dans une de vos compositions, vous ne pouvez pas le supprimer.'
+build.button.delete.cancel: Annuler
+build.button.delete.confirm: Confirmer
+build.title.preview: Prévisualisation
+build.tableheader.name: Nom
+build.tableheader.preview: Prévisualisation
+build.tableheader.actions: Actions
+build.button.edit: Modifier
+build.button.delete: Supprimer
+composition.delete.alert: 'Êtes vous sûr de vouloir supprimer cette composition?'
+composition.button.delete.cancel: Annuler
+composition.button.delete.confirm: Confirmer
+player.label.preferences: Préférences
+player.add.submit: Valider
+composition.group: Groupe
+composition.button.cleargroup: 'Vider le groupe'
+composition.group.add: 'Ajouter un groupe'
+composition.add.submit: Valider
+composition.group.remove: 'Retirer le groupe'
+composition.tableheader.name: Nom
+composition.tableheader.boss: Boss
+composition.tableheader.preview: Prévisualisation
+composition.tableheader.size: Joueurs
+composition.tableheader.actions: Actions
+composition.button.edit: Modifier
+composition.button.delete: Supprimer
+event.delete.alert: 'Êtes vous sûr de vouloir supprimer cet event?'
+event.button.delete.cancel: Annuler
+event.button.delete.confirm: Confirmer
+event.title.upcoming: 'Evénements à venir'
+event.tableheader.name: Nom
+event.tableheader.date: Date
+event.tableheader.compositions: Compositions
+event.tableheader.players: Joueurs
+event.tableheader.actions: Actions
+event.button.edit: Modifier
+event.button.delete: Supprimer
+event.title.passed: 'Evénements passés'
+build.title.main: Builds
+composition.title.main: Compositions
+event.title.main: Evénements
+player.title.main: Joueurs
+team.title.main: Equipes
+landing.link.register: Inscription
+landing.link.login: Connexion
+player.delete.alert: 'Êtes vous sûr de vouloir supprimer ce joueur?'
+player.button.delete.cancel: Annuler
+player.button.delete.confirm: Confirmer
+player.tableheader.name: Nom
+player.tableheader.actions: Actions
+player.button.edit: Modifier
+player.button.delete: Supprimer
+team.error.impossiblebuilds: 'Vous n''avez pas assez de joueurs pour les builds suivants'
+team.group.label: 'Groupe %index%'
+team.button.regenerate: Recommencer
+team.title.form.events: 'Séléctionnant un événement'
+team.title.form.playerscompositions: 'Séléctionnant les compositions et joueurs'
+menu.Home: Accueil
+menu.Team: Equipe
+menu.Events: Evénements
+menu.Players: Joueurs
+menu.Compositions: Compositions
+menu.Builds: Builds
+menu.Logout: Déconnexion
+build.button.new: 'Nouveau build'
+build.button.adddefault: 'Ajouter les builds par défaut'
+composition.button.new: 'Nouvelle composition'
+event.button.new: 'Nouvel Evénement'
+player.button.new: 'Nouveau Joueur'
+build.messages.none: 'Votre guilde n''a pas encore de builds.'
+composition.message.none: 'Votre guilde n''a pas encore de composition.'
+event.messages.none.upcoming: 'Votre guilde n''a pas d''événement à venir.'
+event.messages.none.passed: 'Votre guilde n''a pas d''événement passé.'
+player.message.none: 'Votre guilde n''a pas encore de joueur.'
+boss.valegardian: 'Gardien de la Vallée'
+boss.gorseval: Gorseval
+boss.sabetha: Sabetha
+boss.slothasor: Paressor
+boss.camp: 'Sauver les prisonniers'
+boss.matthias: Matthias
+boss.escort: 'Assaut sur la Forteresse'
+boss.keepconstruct: 'Titan du Fort'
+boss.xera: Xéra
+build.main.Berserker: Berserker
+build.main.Chronomancer: Chronomancien
+build.main.Daredevil: Fracasseur
+build.main.Dragonhunter: Draconnier
+build.main.Druid: Druide
+build.main.Elementalist: Elémentaliste
+build.main.Engineer: Ingénieur
+build.main.Guardian: Gardien
+build.main.Herald: Héraut
+build.main.Mesmer: Envoûteur
+build.main.Necromancer: Nécromant
+build.main.Ranger: Rôdeur
+build.main.Reaper: Faucheur
+build.main.Revenant: Revenant
+build.main.Scrapper: Mécatronicien
+build.main.Tempest: Cataclyste
+build.main.Thief: Voleur
+build.main.Warrior: Guerrier
+build.sub.None: Aucune
+build.sub.Aegis: Egide
+build.sub.Bleeding: Saignement
+build.sub.Blind: Aveuglement
+build.sub.Burning: Brûlure
+build.sub.Chilled: Givré
+build.sub.Confusion: Confusion
+build.sub.Crippled: Infirmité
+build.sub.Fear: Peur
+build.sub.Fury: Fureur
+build.sub.Immobile: Immobilisation
+build.sub.Might: Pouvoir
+build.sub.Poison: Empoisonnement
+build.sub.Protection: Protection
+build.sub.Quickness: Célérité
+build.sub.Regeneration: Régénération
+build.sub.Resistance: Résistance
+build.sub.Retaliation: Représaille
+build.sub.Slow: Lenteur
+build.sub.Stability: Stabilité
+build.sub.Swiftness: Rapidité
+build.sub.Taunt: Incitation
+build.sub.Torment: Tourment
+build.sub.Vigor: Vigueur
+build.sub.Vulnerability: Vulnérabilité
+build.sub.Weakness: Faiblesse
+build.message.created: Le build a été créé.
+build.message.modified: Le build a été modifié.
+build.message.deleted: Le build a été supprimé.
+build.message.defaultbuildsadded: Les builds par défaut ont été ajoutés.
+composition.message.created: La composition a été créée.
+composition.message.modified: La composition a été modifiée.
+composition.message.deleted: La composition a été supprimée.
+event.message.created: L'événement a été créé.
+event.message.modified: L'événement a été modifié.
+event.message.deleted: L'événement a été supprimé.
+player.message.created: Le joueur a été créé.
+player.message.modified: Le joueur a été modifié.
+player.message.deleted: Le joueur a été supprimé.
+team.error.incomplete: Le builder n'a pas pu assigner un joueur à tous les slots.
+event.error.guild.composition: Une composition n'appartient pas à votre guilde.
+event.error.composition.size: Les compositions ne sont pas toutes de la même taille.
+event.error.composition.none: L'événement n'a aucune composition.
+event.error.player.count: Le nombre de joueurs ne correspond pas aux tailles des compositions.
+event.error.guild.player: Un joueur n'appartient pas à votre guilde.
+event.error.guild.event: L'événement n'appartient pas à votre guilde.
+event.error.player.none: L'événement n'a aucun joueur.

@@ -39,12 +39,16 @@ class TeamValidator
 		$this->event = $event;
 		$this->players = $event->getPlayers();
 		$this->compositions = $event->getCompositions();
+
+		return $this;
 	}
 
 	public function setupWithPlayersAndCompositions($players, $compositions) 
 	{
 		$this->players = $players;
 		$this->compositions = $compositions;
+
+		return $this;
 	}
 
 	public function validate(Guild $guild)

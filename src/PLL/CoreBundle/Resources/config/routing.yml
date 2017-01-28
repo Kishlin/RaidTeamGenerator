@@ -1,6 +1,42 @@
+pll_api_builder_cp:
+    path:     /api/{apikey}/build/{compositions}/{players}
+    defaults: { _controller: PLLCoreBundle:Api:buildCP, _locale: en }
+    requirements:
+        apikey: \w+
+
+pll_api_builder_e:
+    path:     /api/{apikey}/build/{id}
+    defaults: { _controller: PLLCoreBundle:Api:buildE, _locale: en }
+    requirements:
+        apikey: \w+
+        event: \d+
+
+pll_api_events:
+    path:     /api/{apikey}/events
+    defaults: { _controller: PLLCoreBundle:Api:event, _locale: en }
+    requirements:
+        apikey: \w+
+
+pll_api_players:
+    path:     /api/{apikey}/players
+    defaults: { _controller: PLLCoreBundle:Api:player, _locale: en }
+    requirements:
+        apikey: \w+
+
+pll_api_compositions:
+    path:     /api/{apikey}/compositions
+    defaults: { _controller: PLLCoreBundle:Api:composition, _locale: en }
+    requirements:
+        apikey: \w+
+
+pll_api_builds:
+    path:     /api/{apikey}/builds
+    defaults: { _controller: PLLCoreBundle:Api:build, _locale: en }
+    requirements:
+        apikey: \w+
+
 pll_core_welcome:
     path:     /
-    defaults:
     defaults: { _controller: PLLCoreBundle:Default:welcome, _locale: en }
 
 pll_core_landing:

@@ -116,9 +116,9 @@ class TeamBuilder
 
 		// $this->logger->debug("TeamBuilder setup complete.");
 
-		foreach ($this->teams as $team) {
+		//foreach ($this->teams as $team) {
 			// $this->logger->debug($team->toString());
-		}
+		//}
 
 		// $this->logger->debug("Players => " . $this->getPlayersAsString());
 		// $this->logger->debug("Critical Players => " . $this->getCriticalPlayersAsString());
@@ -133,36 +133,36 @@ class TeamBuilder
 		}
 
 		// $this->logger->debug("Done with Critical Players !");
-		foreach ($this->teams as $team) {
+		//foreach ($this->teams as $team) {
 			// $this->logger->debug($team->toString());
-		}
+		//}
 
 		foreach ($this->getCriticalBuilds() as $build) {
 			$this->process_build($build);
 		}
 
 		// $this->logger->debug("Done with Critical Builds !");
-		foreach ($this->teams as $team) {
+		//foreach ($this->teams as $team) {
 			// $this->logger->debug($team->toString());
-		}
+		//}
 
 		foreach ($this->getStableBuilds() as $build) {
 			$this->process_build($build);
 		}
 
 		// $this->logger->debug("Done with Stable Builds !");
-		foreach ($this->teams as $team) {
+		//foreach ($this->teams as $team) {
 			// $this->logger->debug($team->toString());
-		}
+		//}
 
 		foreach ($this->getUnstableBuilds() as $build) {
 			$this->process_build($build);
 		}
 
 		// $this->logger->debug("Done with Unstable Builds !");
-		foreach ($this->teams as $team) {
+		//foreach ($this->teams as $team) {
 			// $this->logger->debug($team->toString());
-		}
+		//}
 
 		foreach ($this->teams as $team) {
 			if(!$team->isComplete()) {
@@ -170,14 +170,17 @@ class TeamBuilder
 			}
 		}
 
-
 		$messages = array();
 
 		foreach ($this->teams as $team) {
 			if(!$team->isComplete()) {
-				$messages[] = 'team.error.incomplete';
+				$messages['error'] = 'team.error.incomplete';
 				break;
 			}
+		}
+
+		if($this->getImpossibleBuildsAsString() !== "") {
+			$messages['impossible'] = $this->getImpossibleBuildsAsString();
 		}
 
 		return $messages;

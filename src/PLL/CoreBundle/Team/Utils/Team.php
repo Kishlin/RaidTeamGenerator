@@ -117,6 +117,41 @@ class Team
 		return $assignments;
 	}
 
+	public function toArray()
+	{
+		$array = array();
+		$array['composition'] = $this->composition->getId();
+
+		$array_groups = array();
+		for ($i=0; $i < $this->getGroupCount(); $i++) { 
+			$group = $this->composition->getGroup($i);
+			$keys = $group->getKeys();
+
+			$assignments = array();
+			foreach ($keys as $key)
+			{
+				$player_id = null;
+				if($this->getPlayerAssigned($key) !== null) {
+					$player_id = $this->getPlayerAssigned($key)->getId();
+				}
+
+				$assignments[$key] = array(
+					'build'  => $group->get($key)->getBuild()->getId(),
+					'player' => $player_id
+				);
+			}
+			
+			$array_group = array(
+				'group' 	  => $i,
+				'assignments' => $assignments,
+			);
+			$array_groups[$i] = $array_group;
+		}
+
+		$array['groups'] = $array_groups;
+		return $array;
+	}
+
 	/**
 	 * Returns whether the team has a player assigned to every build
 	 * 

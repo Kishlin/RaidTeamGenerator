@@ -1,0 +1,179 @@
+<?php
+
+namespace PLL\CoreBundle\Controller;
+
+use PLL\CoreBundle\Entity\ApiKey;
+use PLL\CoreBundle\Entity\Event;
+use PLL\UserBundle\Entity\Guild;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+class ApiController extends Controller
+{
+	private function returnApikeyErrorResponse()
+	{
+		return new JsonResponse(array('error' => 'apikey'));
+	}
+
+    public function buildAction($apikey)
+    {
+    	$ret = $this->getDoctrine()->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+    	if(count($ret) !== 1) {
+    		return $this->returnApikeyErrorResponse();
+    	} else {
+    		$builds = array();
+    		$guild = $ret[0]->getGuild();
+    		foreach ($guild->getBuilds() as $build) {
+    			$builds[$build->getId()] = array(
+    				'id'     => $build->getId(),
+    				'name'   => $build->getName(),
+    				'img'    => $build->getImg(),
+    				'imgsub' => $build->getImgsub(),
+    			);
+    		}
+    		return new JsonResponse($builds);
+    	}
+    }
+
+    public function playerAction($apikey)
+    {
+    	$ret = $this->getDoctrine()->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+    	if(count($ret) !== 1) {
+    		return $this->returnApikeyErrorResponse();
+    	} else {
+    		$players = array();
+    		$guild = $ret[0]->getGuild();
+    		foreach ($guild->getPlayers() as $player) {
+    			$preferences = array();
+    			foreach ($player->getPreferences() as $pref) {
+    				$preferences[$pref->getBuild()->getId()] = array(
+    					'build' => $pref->getBuild()->getId(),
+    					'level' => $pref->getLevel(),
+    				);
+    			}
+
+    			$players[$player->getId()] = array(
+    				'id'     	  => $player->getId(),
+    				'name'   	  => $player->getName(),
+    				'preferences' => $preferences,
+    			);
+    		}
+    		return new JsonResponse($players);
+    	}
+    }
+
+    public function compositionAction($apikey)
+    {
+    	$ret = $this->getDoctrine()->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+    	if(count($ret) !== 1) {
+    		return $this->returnApikeyErrorResponse();
+    	} else {
+    		$compositions = array();
+    		$guild = $ret[0]->getGuild();
+    		foreach ($guild->getCompositions() as $composition) {
+    			$builds = array();
+    			foreach ($composition->getCompositionbuilds() as $cb) {
+    				$builds[$cb->getId()] = array(
+    					'build' => $cb->getBuild()->getId(),
+    					'group' => $cb->getGroupindex(),
+    				);
+    			}
+
+    			$compositions[$composition->getId()] = array(
+    				'id'     	  => $composition->getId(),
+    				'name'   	  => $composition->getName(),
+    				'size'		  => $composition->getSize(),
+    				'boss'		  => $composition->getBoss(),
+    				'groupscount' => $composition->getGroupscount(),
+    				'builds' 	  => $builds,
+    			);
+    		}
+    		return new JsonResponse($compositions);
+    	}
+    }
+
+    public function eventAction($apikey)
+    {
+    	$ret = $this->getDoctrine()->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+    	if(count($ret) !== 1) {
+    		return $this->returnApikeyErrorResponse();
+    	} else {
+    		$events = array();
+    		$guild = $ret[0]->getGuild();
+    		foreach ($guild->getEvents() as $event) {
+    			$players = array();
+    			foreach ($event->getPlayers() as $p) {
+    				$players[] = $p->getId();
+    			}
+    			$compositions = array();
+    			foreach ($event->getCompositions() as $c) {
+    				$compositions[] = $c->getId();
+    			}
+
+    			$events[$event->getId()] = array(
+    				'id'     	   => $event->getId(),
+    				'name'   	   => $event->getName(),
+    				'date'		   => $event->getDate(),
+    				'time'		   => $event->getTime(),
+    				'players' 	   => join(', ', $players),
+    				'compositions' => join(', ', $compositions),
+    			);
+    		}
+    		return new JsonResponse($events);
+    	}
+    }
+
+    public function buildCPAction($apikey, $compositions, $players)
+    {
+		$validator = $builder = null;
+    }
+
+	/**
+	 * @ParamConverter("event", options={"mapping": {"id": "id"}})
+	 */
+    public function buildEAction($apikey, Event $event)
+    {	
+    	$ret = $this->getDoctrine()->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+    	if(count($ret) !== 1) {
+    		return $this->returnApikeyErrorResponse();
+    	}
+
+    	$guild = $ret[0]->getGuild();
+
+    	$validator = $this->get('pll_core.team.validator');
+
+    	$message = $validator
+    		->setupWithEvent($event)
+    		->validate($guild)
+    	;
+
+    	if($message !== null) {
+    		return new JsonResponse(array('error' => 'validator', 'message' => $message));
+    	}
+
+    	$builder = $this->get('pll_core.team.builder');
+
+        $messages = $builder
+            ->setLogger($this->get('logger'))
+            ->setPlayers($validator->getPlayers())
+            ->setCompositions($validator->getCompositions())
+            ->build()
+        ;
+
+        $teams = array();
+        foreach ($builder->getTeams() as $team) {
+        	$teams[$team->getComposition()->getId()] = $team->toArray();
+        }
+
+        $response = array('messages' => $messages, 'teams' => $teams);
+
+		return new JsonResponse($response);
+    }
+}

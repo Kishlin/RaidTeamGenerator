@@ -10,4 +10,40 @@ namespace PLL\CoreBundle\Repository;
  */
 class ApiKeyRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getGuildWithKey($apikey)
+	{
+		$query = $this
+			->createQueryBuilder("a")
+			->where("a.apikey = ?1")
+			->leftJoin("a.guild", "g")
+			->addSelect("g")
+			->setParameter(1, $apikey)
+		;
+
+		return $query
+			->getQuery()
+			->getResult()
+		;
+	}
+
+
+	public function getCompositionsFull($guild_id) 
+	{
+		$query = $this
+			->createQueryBuilder("c")
+			->where("c.guild = ?1")
+			->leftJoin("c.compositionbuilds", "cb")
+			->addSelect("cb")
+			->leftJoin("cb.build", "b")
+			->addSelect("b")
+			->setParameter(1, $guild_id)
+			->orderBy("c.name", "ASC")
+			->addOrderBy("b.name", "ASC")
+		;
+
+		return $query
+			->getQuery()
+			->getResult()
+		;
+	}
 }

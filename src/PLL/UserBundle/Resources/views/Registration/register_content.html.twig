@@ -5,6 +5,12 @@
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
     <div>
-        <input class="btn btn-default" type="submit" value="{{ 'registration.submit'|trans }}" />
+
+        <a href="{{ path('pll_core_players', {'_locale': app.request.locale}) }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          {{ 'register.backtohomepage'|trans }}
+        </a>
+
+        <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
 {{ form_end(form) }}

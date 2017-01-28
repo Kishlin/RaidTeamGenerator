@@ -24,8 +24,11 @@
             <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
         </div>
 
-        <div class="form-group">
-            <input class="btn btn-default" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-        </div>
+        <a href="{{ path('pll_core_players', {'_locale': app.request.locale}) }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          {{ 'register.backtohomepage'|trans }}
+        </a>
+
+        <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </div>
 </form>

@@ -1,0 +1,9 @@
+register.title: Account
+user.profile.edit: 'Edit profile'
+user.profile.password: 'Edit password'
+user.title.confirmation: Confirmation
+user.title.welcome: Welcome
+user.title.register: Register
+register.helptext: 'You should let your guild master handle this.'
+user.title.login: Login
+register.backtohomepage: 'Back to homepage'

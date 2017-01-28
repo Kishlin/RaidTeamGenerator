@@ -31,7 +31,7 @@ composition.button.delete: Supprimer
 event.delete.alert: 'Êtes vous sûr de vouloir supprimer cet event?'
 event.button.delete.cancel: Annuler
 event.button.delete.confirm: Confirmer
-event.title.upcoming: 'Evénements à venir'
+event.title.upcoming: 'Sorties à venir'
 event.tableheader.name: Nom
 event.tableheader.date: Date
 event.tableheader.compositions: Compositions
@@ -39,10 +39,10 @@ event.tableheader.players: Joueurs
 event.tableheader.actions: Actions
 event.button.edit: Modifier
 event.button.delete: Supprimer
-event.title.passed: 'Evénements passés'
+event.title.passed: 'Sorties passés'
 build.title.main: Builds
 composition.title.main: Compositions
-event.title.main: Evénements
+event.title.main: Sorties
 player.title.main: Joueurs
 team.title.main: Equipes
 landing.link.register: Inscription
@@ -57,11 +57,11 @@ player.button.delete: Supprimer
 team.error.impossiblebuilds: 'Vous n''avez pas assez de joueurs pour les builds suivants'
 team.group.label: 'Groupe %index%'
 team.button.regenerate: Recommencer
-team.title.form.events: 'Séléctionnant un événement'
+team.title.form.events: 'Séléctionnant une sortie'
 team.title.form.playerscompositions: 'Séléctionnant les compositions et joueurs'
 menu.Home: Accueil
 menu.Team: Equipe
-menu.Events: Evénements
+menu.Events: Sorties
 menu.Players: Joueurs
 menu.Compositions: Compositions
 menu.Builds: Builds
@@ -69,12 +69,12 @@ menu.Logout: Déconnexion
 build.button.new: 'Nouveau build'
 build.button.adddefault: 'Ajouter les builds par défaut'
 composition.button.new: 'Nouvelle composition'
-event.button.new: 'Nouvel Evénement'
+event.button.new: 'Nouvelle Sortie'
 player.button.new: 'Nouveau Joueur'
 build.messages.none: 'Votre guilde n''a pas encore de builds.'
 composition.message.none: 'Votre guilde n''a pas encore de composition.'
-event.messages.none.upcoming: 'Votre guilde n''a pas d''événement à venir.'
-event.messages.none.passed: 'Votre guilde n''a pas d''événement passé.'
+event.messages.none.upcoming: 'Votre guilde n''a pas de sortie à venir.'
+event.messages.none.passed: 'Votre guilde n''a pas de sortie passée.'
 player.message.none: 'Votre guilde n''a pas encore de joueur.'
 boss.valegardian: 'Gardien de la Vallée'
 boss.gorseval: Gorseval
@@ -136,20 +136,20 @@ build.message.defaultbuildsadded: 'Les builds par défaut ont été ajoutés.'
 composition.message.created: 'La composition a été créée.'
 composition.message.modified: 'La composition a été modifiée.'
 composition.message.deleted: 'La composition a été supprimée.'
-event.message.created: 'L''événement a été créé.'
-event.message.modified: 'L''événement a été modifié.'
-event.message.deleted: 'L''événement a été supprimé.'
+event.message.created: 'La sortie a été créée.'
+event.message.modified: 'La sortie a été modifiée.'
+event.message.deleted: 'La sortie a été supprimée.'
 player.message.created: 'Le joueur a été créé.'
 player.message.modified: 'Le joueur a été modifié.'
 player.message.deleted: 'Le joueur a été supprimé.'
 team.error.incomplete: 'Le builder n''a pas pu assigner un joueur à tous les slots.'
 event.error.guild.composition: 'Une composition n''appartient pas à votre guilde.'
 event.error.composition.size: 'Les compositions ne sont pas toutes de la même taille.'
-event.error.composition.none: 'L''événement n''a aucune composition.'
+event.error.composition.none: 'La sortie n''a aucune composition.'
 event.error.player.count: 'Le nombre de joueurs ne correspond pas aux tailles des compositions.'
 event.error.guild.player: 'Un joueur n''appartient pas à votre guilde.'
-event.error.guild.event: 'L''événement n''appartient pas à votre guilde.'
-event.error.player.none: 'L''événement n''a aucun joueur.'
+event.error.guild.event: 'La sortie n''appartient pas à votre guilde.'
+event.error.player.none: 'La sortie n''a aucun joueur.'
 home.title.main: 'Bienvenu !'
 home.apikey.delete.alert: 'Êtes vous sûr de vouloir supprimer votre clé api?'
 home.apikey.button.delete.cancel: Annuler
@@ -181,7 +181,7 @@ event.label.players: Joueurs
 event.button.save: Valider
 player.label.name: Nom
 player.button.submit: Valider
-team.label.events: Evénements
+team.label.events: Sorties
 team.button.build: Générer
 team.label.compositions: Compositions
 team.label.players: Joueurs
@@ -192,9 +192,9 @@ landing.about.subtitle: Principales fonctionnalités du site
 landing.about.easy.title: Simple
 landing.about.easy.desc: Fatigué de passer des heures à décider qui joue quoi avant de faire des raids? Générez une équipe rapidement n'importe où, n'importe quand.
 landing.about.infos.title: Edward Snowden
-landing.about.infos.desc: Enregistrez vos builds, joueurs, et compositions, et même des événements. Accédez à des informations sur la polyvalence de chacun.
+landing.about.infos.desc: Enregistrez vos builds, joueurs, et compositions, et même des sorties. Accédez à des informations sur la polyvalence de chacun.
 landing.about.users.title: Backoffice
-landing.about.users.desc: Toute personne possédant les identifiants de votre guilde peut se connecter ici et éditer les compositions, les joueurs, les builds, et les événements.
+landing.about.users.desc: Toute personne possédant les identifiants de votre guilde peut se connecter ici et éditer les compositions, les joueurs, les builds, et les sorties.
 landing.about.desktop.title: Logiciel
 landing.about.desktop.desc: Avec l'application, tous les guildeux peuvent générer une équipe avec les joueurs et compositions que vous avez créées.
 landing.blink.title: D'un claquement de doigt
@@ -209,8 +209,8 @@ landing.backoffice.players.title: Joueurs
 landing.backoffice.players.desc: Enregistrez vos joueurs et leurs préférences pour vos différents builds. Plus la préférence est élevée, plus le joueur a de chance d'être assigné à ce build.
 landing.backoffice.compositions.title: Compositions
 landing.backoffice.compositions.desc: Créez autant de compositions que vous le souhaitez pour chaque boss présent dans le jeu. Il n'y a pas de restriction sur la taille, alors n'hésitez pas à faire des compositions pour low men.
-landing.backoffice.events.title: Evénements
-landing.backoffice.events.desc: Vous pouvez créer des événements pour une date et une heure. Ajoutez ou supprimez librement des joueurs et compositions. Enfin, générez l'équipe en un clic.
+landing.backoffice.events.title: Sorties
+landing.backoffice.events.desc: Vous pouvez créer des sorties pour une date et une heure. Ajoutez ou supprimez librement des joueurs et compositions. Enfin, générez l'équipe en un clic.
 landing.insights.guilds: Guildes
 landing.insights.players: Joueurs 
 landing.insights.compositions: Compositions

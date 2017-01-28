@@ -185,3 +185,50 @@ team.label.events: Evénements
 team.button.build: Générer
 team.label.compositions: Compositions
 team.label.players: Joueurs
+landing.title.big: Les raids rendus terriblement simples
+landing.title.small: Arrêtez de perdre du temps sur des problèmes qui ne le méritent pas.
+landing.about.title: À propos du Raid Team Generator
+landing.about.subtitle: Principales fonctionnalités du site
+landing.about.easy.title: Simple
+landing.about.easy.desc: Fatigué de passer des heures à décider qui joue quoi avant de faire des raids? Générez une équipe rapidement n'importe où, n'importe quand.
+landing.about.infos.title: Edward Snowden
+landing.about.infos.desc: Enregistrez vos builds, joueurs, et compositions, et même des événements. Accédez à des informations sur la polyvalence de chacun.
+landing.about.users.title: Backoffice
+landing.about.users.desc: Toute personne possédant les identifiants de votre guilde peut se connecter ici et éditer les compositions, les joueurs, les builds, et les événements.
+landing.about.desktop.title: Logiciel
+landing.about.desktop.desc: Avec l'application, tous les guildeux peuvent générer une équipe avec les joueurs et compositions que vous avez créées.
+landing.blink.title: D'un claquement de doigt
+landing.blink.lone: Vous et votre guilde n'êtes qu'à quelques clics de ne plus jamais perdre votre temps.
+landing.blink.ltwo: Créez vos builds, joueurs, compositions, et vous êtes fin prêt.
+landing.blink.button: Inscription
+landing.backoffice.title: Votre Backoffice
+landing.backoffice.subtitle: Que configurer et pourquoi
+landing.backoffice.builds.title: Builds
+landing.backoffice.builds.desc: Définissez aussi précisément que vous le souhaitez les builds que votre guilde utilise. D'humeur paresseuse? Pas de soucis, ajoutez les builds par défaut pour ne pas avoir à vous en soucier.
+landing.backoffice.players.title: Joueurs
+landing.backoffice.players.desc: Enregistrez vos joueurs et leurs préférences pour vos différents builds. Plus la préférence est élevée, plus le joueur a de chance d'être assigné à ce build.
+landing.backoffice.compositions.title: Compositions
+landing.backoffice.compositions.desc: Créez autant de compositions que vous le souhaitez pour chaque boss présent dans le jeu. Il n'y a pas de restriction sur la taille, alors n'hésitez pas à faire des compositions pour low men.
+landing.backoffice.events.title: Evénements
+landing.backoffice.events.desc: Vous pouvez créer des événements pour une date et une heure. Ajoutez ou supprimez librement des joueurs et compositions. Enfin, générez l'équipe en un clic.
+landing.insights.guilds: Guildes
+landing.insights.players: Joueurs 
+landing.insights.compositions: Compositions
+landing.insights.downloads: Téléchargements
+landing.share.title: TU ES IMPORTANT
+landing.share.subtitle: Partagez mon travail et répandez l'amour
+landing.share.links: Liens des topics
+landing.share.reddit: Reddit
+landing.share.forum.en: Forum officiel Anglais
+landing.share.forum.fr: Forum officiel Français
+landing.share.sources: Pourquoi si curieux?
+landing.share.github.software: Appli de bureau sur Github
+landing.share.github.web: Appli web sur Github
+landing.contact.title: CONTACT
+landing.contact.subtitle: Rentrons en contact. Envoie moi un message.
+landing.close: Fermer
+landing.about: A PROPOS 
+landing.backoffice: BACKOFFICE
+landing.you: TOI
+landing.contact: CONTACT
+landing.totop: Haut de la page

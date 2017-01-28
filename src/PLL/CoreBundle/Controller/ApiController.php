@@ -12,10 +12,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends Controller
 {
-	private function returnApikeyErrorResponse()
-	{
-		return new JsonResponse(array('error' => 'apikey'));
-	}
+    private function returnErrorResponse($message)
+    {
+        return new JsonResponse(array('error' => $message));
+    }
+
+    private function returnApikeyErrorResponse()
+    {
+        return $this->returnErrorResponse('apikey');
+    }
 
     public function buildAction($apikey)
     {
@@ -131,7 +136,48 @@ class ApiController extends Controller
 
     public function buildCPAction($apikey, $compositions, $players)
     {
-		$validator = $builder = null;
+		$validator = $builder = $guild = null;
+        $comps = $ps = array();
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $ret = $em->getRepository('PLLCoreBundle:Apikey')->getGuildWithKey($apikey);
+
+        if(count($ret) !== 1) {
+            return $this->returnApikeyErrorResponse();
+        }
+
+        $guild = $ret[0]->getGuild();
+
+        $players_repo = $em->getRepository("PLLCoreBundle:Player");
+        $compositions_repo = $em->getRepository("PLLCoreBundle:Composition");
+
+        foreach (explode('-', $compositions) as $id) {
+            $c = $compositions_repo->find((int)$id);
+            if($c === null) {
+                return $this->returnErrorResponse("404.comp");
+            } else {
+                $comps[] = $c;
+            }
+        }
+
+        foreach (explode('-', $players) as $id) {
+            $p = $players_repo->find((int)$id);
+            if($p === null) {
+                return $this->returnErrorResponse("404.player");
+            } else {
+                $ps[] = $p;
+            }
+        }
+
+        $validator = $this->get('pll_core.team.validator');
+
+        $message = $validator
+            ->setupWithPlayersAndCompositions($ps, $comps)
+            ->validate($guild)
+        ;
+
+        return $this->getBuilderResponse($validator, $message);
     }
 
 	/**
@@ -154,11 +200,16 @@ class ApiController extends Controller
     		->validate($guild)
     	;
 
-    	if($message !== null) {
-    		return new JsonResponse(array('error' => 'validator', 'message' => $message));
-    	}
+    	return $this->getBuilderResponse($validator, $message);
+    }
 
-    	$builder = $this->get('pll_core.team.builder');
+    private function getBuilderResponse($validator, $message)
+    {
+        if($message !== null) {
+            return new JsonResponse(array('error' => 'validator', 'message' => $message));
+        }
+
+        $builder = $this->get('pll_core.team.builder');
 
         $messages = $builder
             ->setLogger($this->get('logger'))
@@ -169,11 +220,11 @@ class ApiController extends Controller
 
         $teams = array();
         foreach ($builder->getTeams() as $team) {
-        	$teams[$team->getComposition()->getId()] = $team->toArray();
+            $teams[$team->getComposition()->getId()] = $team->toArray();
         }
 
         $response = array('messages' => $messages, 'teams' => $teams);
 
-		return new JsonResponse($response);
+        return new JsonResponse($response);
     }
 }

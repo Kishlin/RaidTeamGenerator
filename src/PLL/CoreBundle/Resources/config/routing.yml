@@ -3,6 +3,8 @@ pll_api_builder_cp:
     defaults: { _controller: PLLCoreBundle:Api:buildCP, _locale: en }
     requirements:
         apikey: \w+
+        compositions: (\d+-)*\d+
+        players: (\d+-)*\d+
 
 pll_api_builder_e:
     path:     /api/{apikey}/build/{id}

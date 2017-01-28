@@ -31,7 +31,24 @@ class DefaultController extends Controller
     		return $this->redirectToRoute('pll_core_home');
 		}
 
-    	return $this->render('PLLCoreBundle::landing.html.twig');
+		$em = $this->getDoctrine()->getManager();
+
+    	return $this->render('PLLCoreBundle::landing.html.twig', array(
+    		'count_guilds' 		 => $this->getEntityCount($em, 'PLLUserBundle:Guild'),
+    		'count_players' 	 => $this->getEntityCount($em, 'PLLCoreBundle:Player'),
+    		'count_compositions' => $this->getEntityCount($em, 'PLLCoreBundle:Composition'),
+    	));
+	}
+
+	private function getEntityCount($em, $entity)
+	{
+		return $em
+			->createQueryBuilder()
+			->select('count(a.id)')
+			->from($entity, 'a')
+			->getQuery()
+			->getSingleScalarResult()
+		;
 	}
 	
 }

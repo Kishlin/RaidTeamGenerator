@@ -11,6 +11,11 @@ class GuildController extends Controller
 {
 	public function homeAction(Request $request)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$guild = $this->getUser();
         $form = $this->get('form.factory')->create();
 
@@ -38,6 +43,11 @@ class GuildController extends Controller
 
 	public function deleteAction(Request $request, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$guild = $this->getUser();
         $form = $this->get('form.factory')->create();
 

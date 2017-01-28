@@ -26,6 +26,11 @@ class DefaultController extends Controller
 
     public function landingAction()
 	{
+    	$securityContext = $this->container->get('security.authorization_checker');
+		if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+    		return $this->redirectToRoute('pll_core_home');
+		}
+
     	return $this->render('PLLCoreBundle::landing.html.twig');
 	}
 	

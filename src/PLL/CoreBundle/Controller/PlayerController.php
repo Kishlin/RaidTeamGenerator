@@ -18,6 +18,11 @@ class PlayerController extends Controller
 {
     public function playersAction()
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $guild_id = $this->getUser()->getId();
         $repo_p   = $this  ->getDoctrine()->getRepository('PLLCoreBundle:Player');
         $players  = $repo_p->getPlayersForGuild($guild_id);
@@ -32,6 +37,11 @@ class PlayerController extends Controller
 
     public function newplayerAction(Request $request, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$player = new Player();
 
         $builds = $this->getUser()->getBuilds();
@@ -70,6 +80,11 @@ class PlayerController extends Controller
      */
     public function editplayerAction(Request $request, Player $player, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $player->getGuild()) {
             throw new NotFoundHttpException('This player does not exist!');
         }
@@ -105,6 +120,11 @@ class PlayerController extends Controller
 	 */
     public function deleteplayerAction(Request $request, Player $player, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $player->getGuild()) {
             throw new NotFoundHttpException('This player does not exist!');
         }

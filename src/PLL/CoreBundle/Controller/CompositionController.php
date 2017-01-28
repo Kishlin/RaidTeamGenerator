@@ -19,6 +19,11 @@ class CompositionController extends Controller
 {
     public function compositionsAction()
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $repo = $this->getDoctrine()->getRepository('PLLCoreBundle:Composition');
     	$compositions = $repo->getCompositionsFull($this->getUser()->getId());
 
@@ -29,6 +34,11 @@ class CompositionController extends Controller
 
     public function newcompositionAction(Request $request, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $builds = $this->getUser()->getBuilds();
         $composition = new Composition();
 
@@ -60,6 +70,11 @@ class CompositionController extends Controller
 	 */
     public function editcompositionAction(Request $request, Composition $composition, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $composition->getGuild()) {
             throw new NotFoundHttpException('This composition does not exist!');
         }
@@ -94,6 +109,11 @@ class CompositionController extends Controller
 	 */
     public function deletecompositionAction(Request $request, Composition $composition, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $composition->getGuild()) {
             throw new NotFoundHttpException('This composition does not exist!');
         }
@@ -119,6 +139,11 @@ class CompositionController extends Controller
 
     private function handleForm(Request $request, Composition $composition, $builds) 
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $size        = 0;
         $group_index = 0;
         $nb_groups   = $request->request->get('group-index', 0);

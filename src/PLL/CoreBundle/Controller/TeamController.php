@@ -15,6 +15,11 @@ class TeamController extends Controller
 {
 	public function teamAction(Request $request)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+
     	$error = $validator = $builder = null;
 
     	$formplayerscompositions = $this->get('form.factory')->create(TeamPlayersCompositionsType::class, array(), array(

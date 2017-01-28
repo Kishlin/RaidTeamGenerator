@@ -17,6 +17,11 @@ class EventController extends Controller
 {
     public function eventsAction()
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $repo = $this->getDoctrine()->getRepository('PLLCoreBundle:Event');
     	$events = $repo->getEventsFull($this->getUser()->getId());
         $upcoming = $passed = array();
@@ -40,6 +45,11 @@ class EventController extends Controller
 
     public function neweventAction(Request $request, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$event = new Event();
         $event->setDate(new \DateTime());
     	$form = $this->get('form.factory')->create(EventType::class, $event, array(
@@ -68,6 +78,11 @@ class EventController extends Controller
 	 */
     public function editeventAction(Request $request, Event $event, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $event->getGuild()) {
             throw new NotFoundHttpException('This event does not exist!');
         }
@@ -96,6 +111,11 @@ class EventController extends Controller
 	 */
     public function deleteeventAction(Request $request, Event $event, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $event->getGuild()) {
             throw new NotFoundHttpException('This event does not exist!');
         }

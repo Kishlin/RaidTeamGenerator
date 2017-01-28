@@ -17,6 +17,11 @@ class BuildController extends Controller
 {
     public function buildAction()
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$builds = $this->getUser()->getBuilds();
 
     	return $this->render('PLLCoreBundle:Build:home.html.twig', array(
@@ -26,6 +31,11 @@ class BuildController extends Controller
 
     public function newbuildAction(Request $request, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
     	$build = new Build();
     	$form = $this->get('form.factory')->create(BuildType::class, $build);
 
@@ -58,6 +68,11 @@ class BuildController extends Controller
 	 */
     public function editbuildAction(Request $request, Build $build, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $build->getGuild()) {
             throw new NotFoundHttpException('This build does not exist!');
         }
@@ -84,6 +99,11 @@ class BuildController extends Controller
 	 */
     public function deletebuildAction(Request $request, Build $build, $_locale)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         if($this->getUser() !== $build->getGuild()) {
             throw new NotFoundHttpException('This build does not exist!');
         }
@@ -112,6 +132,11 @@ class BuildController extends Controller
 
     public function adddefaultAction(Request $request, $_locale) 
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('pll_core_landing');
+        }
+        
         $form = $this->get('form.factory')->create();
         $defaultbuilds = $this->get('pll_core.defaultbuilds')->getDefaultBuilds();
 

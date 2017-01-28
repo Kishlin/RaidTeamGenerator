@@ -13,8 +13,14 @@ class PlayerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('save', SubmitType::class)
+            ->add('name', TextType::class, array(
+                'label'              => 'player.label.name',
+                'translation_domain' => 'messages',
+            ))
+            ->add('save', SubmitType::class, array(
+                'label'              => 'player.button.submit',
+                'translation_domain' => 'messages',
+            ))
         ;
     }
 

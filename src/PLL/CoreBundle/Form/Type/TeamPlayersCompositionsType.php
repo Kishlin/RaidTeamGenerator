@@ -20,7 +20,7 @@ class TeamPlayersCompositionsType extends AbstractType
 
         $builder
             ->add('compositions', EntityType::class, array(
-                'label'              => 'team.form.compositions',
+                'label'              => 'team.label.compositions',
                 'translation_domain' => 'messages',
                 'class'        => 'PLLCoreBundle:Composition',
                 'choice_label' => 'name',
@@ -31,7 +31,7 @@ class TeamPlayersCompositionsType extends AbstractType
                 }
             ))
             ->add('players',      EntityType::class, array(
-                'label'              => 'team.form.players',
+                'label'              => 'team.label.players',
                 'translation_domain' => 'messages',
                 'class'         => 'PLLCoreBundle:Player',
                 'choice_label'  => 'name',

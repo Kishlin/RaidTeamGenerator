@@ -22,18 +22,27 @@ class EventType extends AbstractType
         $guild_id = $options['guild_id'];
 
         $builder
-            ->add('name',      TextType::class)
+            ->add('name',      TextType::class, array(
+                'label'              => 'event.label.name',
+                'translation_domain' => 'messages',
+            ))
             ->add('date',      DateType::class, array(
+                'label'              => 'event.label.date',
+                'translation_domain' => 'messages',
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'date')
             ))
             ->add('time',      TimeType::class, array(
+                'label'              => 'event.label.time',
+                'translation_domain' => 'messages',
                 'widget' => 'single_text',
                 'input' => 'string',
                 'attr' => array('class' => 'time')
             ))
             ->add('compositions', EntityType::class, array(
+                'label'              => 'event.label.compositions',
+                'translation_domain' => 'messages',
                 'class'        => 'PLLCoreBundle:Composition',
                 'choice_label' => 'name',
                 'multiple'     => true,
@@ -43,6 +52,8 @@ class EventType extends AbstractType
                 }
             ))
             ->add('players', EntityType::class, array(
+                'label'              => 'event.label.players',
+                'translation_domain' => 'messages',
                 'class'         => 'PLLCoreBundle:Player',
                 'choice_label'  => 'name',
                 'multiple'      => true,
@@ -51,7 +62,10 @@ class EventType extends AbstractType
                     return $repository->getPlayersForGuildQuery($guild_id);
                 }
             ))
-            ->add('save',      SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'label'              => 'event.button.save',
+                'translation_domain' => 'messages',
+            ))
         ;
     }
 

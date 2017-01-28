@@ -37,15 +37,25 @@ class BuildType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',      TextType::class)
+            ->add('name',      TextType::class, array(
+                'label'              => 'build.label.name',
+                'translation_domain' => 'messages',
+            ))
             ->add('img',       ChoiceType::class, array(
+                'label'              => 'build.label.img',
+                'translation_domain' => 'messages',
                 'choices' => $this->getImgChoices(),
                 'choice_translation_domain' => 'messages'
             ))
             ->add('imgsub',    ChoiceType::class, array(
+                'label'              => 'build.label.imgsub',
+                'translation_domain' => 'messages',
                 'choices' => $this->getSubChoices()
             ))
-            ->add('save',      SubmitType::class)
+            ->add('save',      SubmitType::class, array(
+                'label'              => 'build.button.submit',
+                'translation_domain' => 'messages',
+            ))
         ;
     }
 

@@ -151,18 +151,38 @@ event.error.guild.player: 'A player does not belong to your guild.'
 event.error.guild.event: 'The event does not belong to your guild.'
 event.error.player.none: 'The event does not have any player.'
 home.title.main: Welcome!
-home.apikey.delete.alert: Are you sure you want to delete your api key?
+home.apikey.delete.alert: 'Are you sure you want to delete your api key?'
 home.apikey.button.delete.cancel: Cancel
 home.apikey.button.delete.confirm: Confirm
-home.title.apikey: Api Key
-home.apikey.message.none: You do not have an api key yet.
-home.apikey.button.create: Create an api key
-home.apikey.description: This key is used by the software to download the details of your guild.
-home.apikey.link.delete: Delete the api key.
-home.title.analytics.players: Players Analytics
+home.title.apikey: 'Api Key'
+home.apikey.message.none: 'You do not have an api key yet.'
+home.apikey.button.create: 'Create an api key'
+home.apikey.description: 'Anyone with this key can access insights about your players, compositions, ...'
+home.apikey.link.delete: 'Delete the api key.'
+home.title.analytics.players: 'Player Analytics'
 home.headers.analytics.builds: Build
 home.headers.analytics.total: Total
 home.headers.analytics.avg: Average
 home.headers.analytics.max: Maximum
 home.headers.analytics.min: Minimum
-home.title.analytics.compositions: Compositions Analytics
+home.title.analytics.compositions: 'Compositions'
+build.label.name: Name
+build.label.img: Profession
+build.label.imgsub: Icon
+build.button.submit: Submit
+composition.label.name: Name
+composition.label.boss: Boss
+composition.button.submit: Submit
+event.label.name: Name
+event.label.date: Date
+event.label.time: Time
+event.label.compositions: Compositions 
+event.label.players: Players
+event.button.save: Submit
+player.label.name: Name
+player.button.submit: Submit
+team.label.events: Events
+team.button.build: Build
+team.label.compositions: Compositions
+team.label.players: Players
+team.button.build: Build

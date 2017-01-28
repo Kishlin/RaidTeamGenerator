@@ -19,7 +19,7 @@ class TeamEventsType extends AbstractType
 
         $builder
             ->add('event',      EntityType::class, array(
-                'label'              => 'team.form.events',
+                'label'              => 'team.label.events',
                 'translation_domain' => 'messages',
                 'class'         => 'PLLCoreBundle:Event',
                 'choice_label'  => 'name',

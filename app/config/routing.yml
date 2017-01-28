@@ -3,8 +3,8 @@ pll_core:
     prefix:   /
 
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    prefix:   /{_locale}
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix:   /{_locale}/register
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

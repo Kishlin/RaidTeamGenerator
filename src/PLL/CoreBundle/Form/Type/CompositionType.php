@@ -13,7 +13,7 @@ class CompositionType extends AbstractType
 {
     private function getBossChoices()
     {
-        $options = array("valegardian", "gorseval", "sabetha", "slothasor", "camp", "matthias", "escort", "keepconstruct", "xera");
+        $options = array("valegardian", "gorseval", "sabetha", "slothasor", "camp", "matthias", "escort", "keepconstruct", "xera", "cairn", "mursaat", "samarog", "deimos");
 
         $full_array = array();
         foreach ($options as $option) {

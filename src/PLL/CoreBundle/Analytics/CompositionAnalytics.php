@@ -13,7 +13,7 @@ class CompositionAnalytics
 
 	public function run($compositions)
 	{
-                $boss = array("valegardian", "gorseval", "sabetha", "slothasor", "camp", "matthias", "escort", "keepconstruct", "xera");
+                $boss = array("valegardian", "gorseval", "sabetha", "slothasor", "camp", "matthias", "escort", "keepconstruct", "xera", "cairn", "mursaat", "samarog", "deimos");
 
                 $counts = array();
                 foreach ($boss as $b) {

@@ -33,7 +33,7 @@ class DefaultBuilds
         $builds[] = $this->factory->createBuild("Healing Druid", "Druid", "Regeneration");
         $builds[] = $this->factory->createBuild("Condi Druid", "Druid", "Burning");
         $builds[] = $this->factory->createBuild("Condi Ranger", "Ranger", "Burning");
-        $builds[] = $this->factory->createBuild("Condi Scrapper", "Scrapper", "Burning");
+        $builds[] = $this->factory->createBuild("Condi Engineer", "Engineer", "Burning");
         $builds[] = $this->factory->createBuild("Condi Reaper", "Reaper", "Bleeding");
         $builds[] = $this->factory->createBuild("Herald", "Herald", "None");
 

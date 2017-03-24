@@ -8,8 +8,12 @@
 </div>
 {% endif %}
 
-{% for error in errors %}
-<div class="w3-panel w3-section w3-padding w3-orange"><p>{{ error|trans }}</p></div>
+{% for tag, error in errors %}
+{% if tag != 'impossible' %}
+<div class="w3-panel w3-section w3-padding w3-orange">
+	<p>{{ error|trans }}</p>
+{% endif %}
+</div>
 {% endfor %}
 
 <div class="w3-responsive">

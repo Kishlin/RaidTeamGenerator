@@ -27,7 +27,7 @@ class TeamBuilder
 	/**
 	 * @var logger
 	 */
-	private $logger;
+	private $logger = null;
 
 	/**
 	 * @var array

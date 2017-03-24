@@ -178,7 +178,7 @@ class Team
 	 */
 	public function attemptFilling($players, $logger)
 	{
-		$logger->debug("Trying to fill : " . $this->toString());
+		// $logger->debug("Trying to fill : " . $this->toString());
 
 		$lonely_players = $free_spots = array();
 
@@ -217,7 +217,7 @@ class Team
 			}
 		}
 
-		$logger->debug($this->toString());
+		// $logger->debug($this->toString());
 
 		return $this->isComplete();
 	}

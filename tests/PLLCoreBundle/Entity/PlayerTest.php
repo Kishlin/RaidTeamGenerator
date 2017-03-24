@@ -12,7 +12,7 @@ class PlayerTest extends TestCase
 {
 	public function setBuildId($build, $id)
 	{
-		$reflector = new \ReflectionProperty('Build', 'id');
+		$reflector = new \ReflectionProperty('PLL\CoreBundle\Entity\Build', 'id');
 		$reflector->setAccessible(true);
 		$reflector->setValue($build, $id);
 		return $build;

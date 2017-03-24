@@ -129,6 +129,14 @@ class TeamBuilderTest extends TestCase
 		$b_unstable_0	  ->setName("U0");
 		$b_unstable_1	  ->setName("U1");
 		$b_impossible     ->setName("I0");
+		$b_critical_0     = $this->setBuildId($b_critical_0, 0);
+		$b_critical_1     = $this->setBuildId($b_critical_1, 1);
+		$b_critical_stable= $this->setBuildId($b_critical_stable, 2);
+		$b_stable_0  	  = $this->setBuildId($b_stable_0, 3);
+		$b_stable_1  	  = $this->setBuildId($b_stable_1, 4);
+		$b_unstable_0	  = $this->setBuildId($b_unstable_0, 5);
+		$b_unstable_1	  = $this->setBuildId($b_unstable_1, 6);
+		$b_impossible     = $this->setBuildId($b_impossible, 7);
 
 		$p_critical_0 = new Player();
 		$p_critical_0->setName("PC0");
@@ -230,7 +238,7 @@ class TeamBuilderTest extends TestCase
 		);
 		$builds 	  = array(
 			'C0'  => $b_critical_0,
-			'C1'  =>  $b_critical_1,
+			'C1'  => $b_critical_1,
 			'CS0' => $b_critical_stable,
 			'S0'  => $b_stable_0,
 			'S1'  => $b_stable_1,
@@ -284,5 +292,13 @@ class TeamBuilderTest extends TestCase
 		;
 
 		return array(array($builder, $compositions, $players, $builds));
+	}
+
+	public function setBuildId($build, $id)
+	{
+		$reflector = new \ReflectionProperty('PLL\CoreBundle\Entity\Build', 'id');
+		$reflector->setAccessible(true);
+		$reflector->setValue($build, $id);
+		return $build;
 	}
 }

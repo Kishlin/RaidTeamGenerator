@@ -18,6 +18,22 @@ use PLL\CoreBundle\Team\Utils\Team;
 
 class TeamTest extends TestCase
 {
+	public function setBuildId($build, $id)
+	{
+		$reflector = new \ReflectionProperty('PLL\CoreBundle\Entity\Build', 'id');
+		$reflector->setAccessible(true);
+		$reflector->setValue($build, $id);
+		return $build;
+	}
+
+	public function setPlayerId($player, $id)
+	{
+		$reflector = new \ReflectionProperty('PLL\CoreBundle\Entity\Player', 'id');
+		$reflector->setAccessible(true);
+		$reflector->setValue($player, $id);
+		return $player;
+	}
+
 	public function mainProvider()
 	{
 		$composition = new Composition();
@@ -25,21 +41,28 @@ class TeamTest extends TestCase
 
 		$p1 = new Player();
 		$p1->setName("P0");
+		$p1 = $this->setPlayerId($p1, 0);
 		$p2 = new Player();
 		$p2->setName("P1");
+		$p2 = $this->setPlayerId($p2, 1);
 		$p3 = new Player();
 		$p3->setName("P2");
+		$p3 = $this->setPlayerId($p3, 2);
 		$p4 = new Player();
 		$p4->setName("P0");
+		$p4 = $this->setPlayerId($p4, 3);
 
 		$players = array($p1, $p2, $p3, $p4);
 
 		$b_double = new Build();
 		$b_double->setName("BDouble");
+		$b_double = $this->setBuildId($b_double, 0);
 		$b_single = new Build();
 		$b_single->setName("BSingle");
+		$b_single = $this->setBuildId($b_single, 1);
 		$b_none = new Build();
 		$b_none->setName("BNone");
+		$b_none = $this->setBuildId($b_none, 2);
 
 		$cb_1 = new CompositionBuild();
 		$cb_1->setBuild($b_double);
